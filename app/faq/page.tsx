@@ -313,7 +313,6 @@ export default function FAQPage() {
             {language === "ar" ? "الكل" : "All"}
           </button>
           {faqCategories.map((category) => {
-            const colors = getColorClasses(category.color);
             return (
               <button
                 key={category.titleEn}
