@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors from deprecated options in eslint-config-next
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: true,
   },
   images: {
     remotePatterns: [
@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+    unoptimized: false,
   },
 };
 
