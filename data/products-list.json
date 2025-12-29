@@ -567,7 +567,7 @@
         "en": "Digital Air Fryer 5.8 Quart",
         "ar": "قلاية هوائية رقمية 5.8 كوارت"
       },
-      "image": "https://images.unsplash.com/photo-1558346547-4439467ba2c6?w=400",
+      "image": "https://images.unsplash.com/photo-1510048126839-229279473365?w=400",
       "price": 129.99,
       "originalPrice": 179.99,
       "rating": 4.8,
@@ -749,6 +749,22 @@
       "rating": 4.9,
       "reviews": 987,
       "category": "fashion",
+      "inStock": true,
+      "badge": { "en": "Luxury", "ar": "فاخر" }
+    },
+    {
+      "id": 51,
+      "slug": "milk-and-honey-3",
+      "name": {
+        "en": "milk and honey 3",
+        "ar": "كتاب للأطفال الحليب والعسل 3"
+      },
+      "image": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400",
+      "price": 99,
+      "originalPrice": 129.99,
+      "rating": 4,
+      "reviews": 98,
+      "category": "books",
       "inStock": true,
       "badge": { "en": "Luxury", "ar": "فاخر" }
     }
