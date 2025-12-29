@@ -149,12 +149,12 @@ export function Footer() {
             {features.map((feature, index) => (
               <div key={index} className="flex items-center gap-4">
                 <div className="shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/20 flex items-center justify-center">
-                  <feature.icon className="h-6 w-6 text-orange-500" />
+                  <feature.icon className="h-6 w-6 text-orange-500" aria-hidden="true" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm">
+                  <h3 className="font-semibold text-sm">
                     {feature.title[language]}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-muted-foreground">
                     {feature.description[language]}
                   </p>
@@ -181,9 +181,9 @@ export function Footer() {
 
             {/* Newsletter */}
             <div className="mb-6">
-              <h4 className="font-semibold mb-2">
+              <h3 className="font-semibold mb-2">
                 {t.subscribeNewsletter[language]}
-              </h4>
+              </h3>
               <div className="flex gap-2">
                 <Input
                   type="email"
@@ -216,7 +216,7 @@ export function Footer() {
           {/* Footer Links */}
           {Object.values(footerLinks).map((section, index) => (
             <div key={index}>
-              <h4 className="font-semibold mb-4">{section.title[language]}</h4>
+              <h3 className="font-semibold mb-4">{section.title[language]}</h3>
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>

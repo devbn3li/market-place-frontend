@@ -15,6 +15,8 @@ const t = {
   featuredProducts: { en: "Featured Products", ar: "منتجات مميزة" },
   shopNow: { en: "Shop Now", ar: "تسوق الآن" },
   viewAll: { en: "View All", ar: "عرض الكل" },
+  viewAllCategories: { en: "View All Categories", ar: "عرض كل الفئات" },
+  viewAllProducts: { en: "View All Products", ar: "عرض كل المنتجات" },
   unbeatablePrices: { en: "Unbeatable Prices", ar: "أسعار لا تُقاوم" },
   heroTitle: { en: "Shop Smart, Live Better", ar: "تسوق بذكاء، عش أفضل" },
   heroDescription: { en: "Discover millions of products at unbeatable prices with fast delivery to your door.", ar: "اكتشف ملايين المنتجات بأسعار لا تُقاوم مع توصيل سريع لباب منزلك." },
@@ -123,6 +125,7 @@ export default function Home() {
                 height={500}
                 className="rounded-2xl shadow-2xl"
                 priority
+                fetchPriority="high"
               />
             </div>
           </div>
@@ -140,7 +143,7 @@ export default function Home() {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl md:text-3xl font-bold">{t.shopByCategory[language]}</h2>
           <Link href="/categories" className="text-orange-500 hover:underline flex items-center gap-1">
-            {t.viewAll[language]} <ArrowRight className={`h-4 w-4 ${language === "ar" ? "rotate-180" : ""}`} />
+            {t.viewAllCategories[language]} <ArrowRight className={`h-4 w-4 ${language === "ar" ? "rotate-180" : ""}`} aria-hidden="true" />
           </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
@@ -209,7 +212,7 @@ export default function Home() {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl md:text-3xl font-bold">{t.featuredProducts[language]}</h2>
           <Link href="/products" className="text-orange-500 hover:underline flex items-center gap-1">
-            {t.viewAll[language]} <ArrowRight className={`h-4 w-4 ${language === "ar" ? "rotate-180" : ""}`} />
+            {t.viewAllProducts[language]} <ArrowRight className={`h-4 w-4 ${language === "ar" ? "rotate-180" : ""}`} aria-hidden="true" />
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
@@ -232,7 +235,7 @@ export default function Home() {
                 {/* Wishlist Button */}
                 <button
                   onClick={(e) => handleWishlistToggle(e, product)}
-                  aria-label={isInWishlist(product.id) 
+                  aria-label={isInWishlist(product.id)
                     ? (language === "ar" ? `إزالة ${product.name.ar} من قائمة الرغبات` : `Remove ${product.name.en} from wishlist`)
                     : (language === "ar" ? `إضافة ${product.name.ar} إلى قائمة الرغبات` : `Add ${product.name.en} to wishlist`)}
                   className={`absolute top-2 ${language === "ar" ? "left-2" : "right-2"} p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)

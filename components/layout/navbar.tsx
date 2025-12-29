@@ -44,17 +44,17 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" dir={language === "ar" ? "rtl" : "ltr"}>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Main Navbar */}
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="flex items-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-linear-to-r from-orange-500 via-yellow-500 to-orange-600 bg-clip-text text-transparent">
                 {language === "ar" ? "اما" : "Ama"}
               </span>
-              <span className="text-2xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-linear-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
                 {language === "ar" ? "نون" : "noon"}
               </span>
             </div>
@@ -113,8 +113,13 @@ export function Navbar() {
             </Button>
 
             {/* Wishlist */}
-            <Link href="/wishlist">
-              <Button variant="ghost" size="icon" className="relative">
+            <Link href="/wishlist" aria-label={language === "ar" ? "قائمة الرغبات" : "Wishlist"}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative"
+                aria-hidden="true"
+              >
                 <Heart className="h-5 w-5" />
                 {wishlistItems.length > 0 && (
                   <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-[10px] font-bold text-white flex items-center justify-center">
@@ -125,8 +130,13 @@ export function Navbar() {
             </Link>
 
             {/* Cart */}
-            <Link href="/cart">
-              <Button variant="ghost" size="icon" className="relative">
+            <Link href="/cart" aria-label={language === "ar" ? "سلة التسوق" : "Shopping cart"}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative"
+                aria-hidden="true"
+              >
                 <ShoppingCart className="h-5 w-5" />
                 {totalItems > 0 && (
                   <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-orange-500 text-[10px] font-bold text-white flex items-center justify-center">
@@ -142,6 +152,8 @@ export function Navbar() {
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
+                  aria-label={language === "ar" ? "قائمة المستخدم" : "User menu"}
+                  aria-expanded={showUserMenu}
                 >
                   <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white text-sm font-bold">
                     {user.firstName.charAt(0).toUpperCase()}
@@ -149,7 +161,7 @@ export function Navbar() {
                   <span className="text-sm font-medium hidden md:block">
                     {user.firstName}
                   </span>
-                  <ChevronDown className={`h-4 w-4 transition-transform ${showUserMenu ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`h-4 w-4 transition-transform ${showUserMenu ? "rotate-180" : ""}`} aria-hidden="true" />
                 </button>
 
                 {/* Dropdown Menu */}
