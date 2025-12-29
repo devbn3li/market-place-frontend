@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useLanguageStore, useCartStore, useWishlistStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +14,7 @@ import { getProductById, getRelatedProducts, toProduct, toProducts } from "@/lib
 
 export default function ProductPage() {
   const params = useParams();
+  const router = useRouter();
   const { language } = useLanguageStore();
   const { addToCart } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
@@ -78,7 +79,7 @@ export default function ProductPage() {
 
   const handleBuyNow = () => {
     handleAddToCart();
-    window.location.href = "/cart";
+    router.push("/cart");
   };
 
   const discount = product.originalPrice > product.price
@@ -364,16 +365,18 @@ export default function ProductPage() {
                 variant="outline"
                 className="h-14"
                 onClick={() => {
+                  if (typeof window === "undefined") return;
+                  const url = window.location.href;
                   if (navigator.share) {
                     navigator.share({
                       title: product.name[language],
                       text: language === "ar"
                         ? `شاهد هذا المنتج: ${product.name.ar}`
                         : `Check out this product: ${product.name.en}`,
-                      url: window.location.href,
+                      url,
                     }).catch(() => { });
                   } else {
-                    navigator.clipboard.writeText(window.location.href);
+                    navigator.clipboard.writeText(url);
                     toast.success(
                       language === "ar" ? "تم نسخ الرابط" : "Link copied to clipboard"
                     );
