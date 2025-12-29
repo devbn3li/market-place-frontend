@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { ArrowRight, Sparkles, TrendingUp, Percent, Zap, Heart } from "lucide-react";
 import { useLanguageStore, useWishlistStore } from "@/stores";
 import { toast } from "sonner";
@@ -91,9 +92,9 @@ export default function Home() {
               </div>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 {t.heroTitle[language]}{" "}
-                <span className="text-yellow-200">{t.unbeatablePrices[language]}</span>
+                <span className="text-yellow-100">{t.unbeatablePrices[language]}</span>
               </h1>
-              <p className="text-lg text-white/90 max-w-lg">
+              <p className="text-lg text-white max-w-lg">
                 {t.heroDescription[language]}
               </p>
               <div className="flex flex-wrap gap-4">
@@ -117,10 +118,11 @@ export default function Home() {
             <div className="hidden lg:block">
               <Image
                 src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=600&h=500&fit=crop"
-                alt="Shopping"
+                alt={language === "ar" ? "عميل سعيد يتسوق عبر الإنترنت" : "Happy customer shopping online"}
                 width={600}
                 height={500}
                 className="rounded-2xl shadow-2xl"
+                priority
               />
             </div>
           </div>
@@ -168,33 +170,33 @@ export default function Home() {
         <div className="grid md:grid-cols-3 gap-4">
           <div className="bg-linear-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
-              <Zap className="h-5 w-5" />
+              <Zap className="h-5 w-5" aria-hidden="true" />
               <span className="text-sm font-medium">{t.flashSale[language]}</span>
             </div>
             <h3 className="text-xl font-bold mb-2">{t.electronicsDeal[language]}</h3>
-            <p className="text-sm text-white/80 mb-4">{t.saveUpTo50[language]}</p>
+            <p className="text-sm text-white mb-4">{t.saveUpTo50[language]}</p>
             <Button size="sm" className="bg-white text-blue-600 hover:bg-white/90">
               {t.shopNow[language]}
             </Button>
           </div>
           <div className="bg-linear-to-r from-pink-500 to-rose-600 rounded-2xl p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="h-5 w-5" />
+              <TrendingUp className="h-5 w-5" aria-hidden="true" />
               <span className="text-sm font-medium">{t.trending[language]}</span>
             </div>
             <h3 className="text-xl font-bold mb-2">{t.fashionWeek[language]}</h3>
-            <p className="text-sm text-white/80 mb-4">{t.newArrivalsDropped[language]}</p>
+            <p className="text-sm text-white mb-4">{t.newArrivalsDropped[language]}</p>
             <Button size="sm" className="bg-white text-pink-600 hover:bg-white/90">
               {t.discover[language]}
             </Button>
           </div>
           <div className="bg-linear-to-r from-green-500 to-emerald-600 rounded-2xl p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
-              <Percent className="h-5 w-5" />
+              <Percent className="h-5 w-5" aria-hidden="true" />
               <span className="text-sm font-medium">{t.specialOffer[language]}</span>
             </div>
             <h3 className="text-xl font-bold mb-2">{t.freeShippingTitle[language]}</h3>
-            <p className="text-sm text-white/80 mb-4">{t.onOrdersOver50[language]}</p>
+            <p className="text-sm text-white mb-4">{t.onOrdersOver50[language]}</p>
             <Button size="sm" className="bg-white text-green-600 hover:bg-white/90">
               {t.learnMore[language]}
             </Button>
@@ -230,12 +232,15 @@ export default function Home() {
                 {/* Wishlist Button */}
                 <button
                   onClick={(e) => handleWishlistToggle(e, product)}
+                  aria-label={isInWishlist(product.id) 
+                    ? (language === "ar" ? `إزالة ${product.name.ar} من قائمة الرغبات` : `Remove ${product.name.en} from wishlist`)
+                    : (language === "ar" ? `إضافة ${product.name.ar} إلى قائمة الرغبات` : `Add ${product.name.en} to wishlist`)}
                   className={`absolute top-2 ${language === "ar" ? "left-2" : "right-2"} p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)
                     ? "bg-red-500 text-white"
                     : "bg-white/90 hover:bg-red-500 hover:text-white text-gray-600"
                     }`}
                 >
-                  <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
+                  <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} aria-hidden="true" />
                 </button>
               </div>
               <div className="p-4">
@@ -269,10 +274,10 @@ export default function Home() {
             {t.newsletterDescription[language]}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-            <input
+            <Input
               type="email"
               placeholder={t.enterYourEmail[language]}
-              className="flex-1 px-4 py-2 rounded-lg border bg-background"
+              className="flex-1"
             />
             <Button className="bg-orange-500 hover:bg-orange-600">{t.subscribe[language]}</Button>
           </div>
