@@ -1,9 +1,16 @@
-# Robots.txt for Amanoon E-commerce Demo Site
-# This is a demonstration/portfolio project - not a real e-commerce store
-
+# *
 User-agent: *
 Allow: /
 
-# Site Information
-# This website is a demo/portfolio project showcasing e-commerce development skills.
-# No real transactions occur and no actual payment information is collected.
+# *
+User-agent: *
+Disallow: /seller-center
+Disallow: /fulfillment
+Disallow: /api
+
+# Host
+Host: https://amanoon.vercel.app
+
+# Sitemaps
+Sitemap: https://amanoon.vercel.app/sitemap.xml
+Sitemap: https://amanoon.vercel.app/server-sitemap.xml
