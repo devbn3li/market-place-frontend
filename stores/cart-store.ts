@@ -11,6 +11,11 @@ export interface CartItem {
   category?: { en: string; ar: string };
 }
 
+export interface AppliedCoupon {
+  code: string;
+  discount: number; // percentage (e.g., 10 for 10%)
+}
+
 interface CartStore {
   items: CartItem[];
   addToCart: (item: Omit<CartItem, "quantity">) => void;
@@ -19,14 +24,28 @@ interface CartStore {
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
+  // Coupon
+  appliedCoupon: AppliedCoupon | null;
+  applyCoupon: (code: string) => boolean;
+  removeCoupon: () => void;
+  getDiscount: () => number;
 }
+
+// Valid coupon codes
+const validCoupons: Record<string, number> = {
+  amanoon10: 10,
+  amanoon20: 20,
+  save15: 15,
+  welcome5: 5,
+};
 
 export const useCartStore = create<CartStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       items: [],
       totalItems: 0,
       totalPrice: 0,
+      appliedCoupon: null,
 
       addToCart: (item) => {
         set((state) => {
@@ -95,7 +114,28 @@ export const useCartStore = create<CartStore>()(
       },
 
       clearCart: () => {
-        set({ items: [], totalItems: 0, totalPrice: 0 });
+        set({ items: [], totalItems: 0, totalPrice: 0, appliedCoupon: null });
+      },
+
+      applyCoupon: (code: string) => {
+        const discount = validCoupons[code.toLowerCase()];
+        if (discount) {
+          set({ appliedCoupon: { code: code.toLowerCase(), discount } });
+          return true;
+        }
+        return false;
+      },
+
+      removeCoupon: () => {
+        set({ appliedCoupon: null });
+      },
+
+      getDiscount: () => {
+        const state = get();
+        if (state.appliedCoupon) {
+          return state.totalPrice * (state.appliedCoupon.discount / 100);
+        }
+        return 0;
       },
     }),
     {

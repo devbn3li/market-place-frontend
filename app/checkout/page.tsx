@@ -28,7 +28,7 @@ import { toast } from "sonner";
 
 export default function CheckoutPage() {
   const { language } = useLanguageStore();
-  const { items, totalPrice, clearCart } = useCartStore();
+  const { items, totalPrice, clearCart, appliedCoupon, getDiscount } = useCartStore();
   const { user, isAuthenticated } = useAuthStore();
   const { addOrder } = useOrdersStore();
   const router = useRouter();
@@ -77,7 +77,8 @@ export default function CheckoutPage() {
 
   const shipping = totalPrice > 50 ? 0 : 9.99;
   const tax = totalPrice * 0.05;
-  const finalTotal = totalPrice + shipping + tax;
+  const discount = getDiscount();
+  const finalTotal = totalPrice + shipping + tax - discount;
 
   const handleShippingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
@@ -707,6 +708,15 @@ export default function CheckoutPage() {
                   </span>
                   <span>${tax.toFixed(2)}</span>
                 </div>
+                {appliedCoupon && (
+                  <div className="flex justify-between text-green-600">
+                    <span className="flex items-center gap-1">
+                      <span>{language === "ar" ? "الخصم" : "Discount"}</span>
+                      <span className="text-xs bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded uppercase">{appliedCoupon.code}</span>
+                    </span>
+                    <span>-${discount.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="border-t pt-3 flex justify-between font-bold text-lg">
                   <span>{language === "ar" ? "الإجمالي" : "Total"}</span>
                   <span className="text-orange-500">${finalTotal.toFixed(2)}</span>

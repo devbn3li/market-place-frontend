@@ -15,23 +15,32 @@ import {
   Truck,
   Shield,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function CartPage() {
   const { language } = useLanguageStore();
-  const { items, removeFromCart, updateQuantity, clearCart, totalPrice } = useCartStore();
+  const { items, removeFromCart, updateQuantity, clearCart, totalPrice, appliedCoupon, applyCoupon, removeCoupon, getDiscount } = useCartStore();
   const [promoCode, setPromoCode] = useState("");
-  const [promoApplied, setPromoApplied] = useState(false);
 
   const shipping = totalPrice > 50 ? 0 : 9.99;
-  const discount = promoApplied ? totalPrice * 0.1 : 0;
+  const discount = getDiscount();
   const finalTotal = totalPrice + shipping - discount;
 
-  const applyPromo = () => {
-    if (promoCode.toLowerCase() === "amanoon10") {
-      setPromoApplied(true);
+  const handleApplyPromo = () => {
+    if (applyCoupon(promoCode)) {
+      toast.success(language === "ar" ? "تم تطبيق الكوبون بنجاح" : "Coupon applied successfully");
+      setPromoCode("");
+    } else {
+      toast.error(language === "ar" ? "كود الخصم غير صالح" : "Invalid promo code");
     }
+  };
+
+  const handleRemoveCoupon = () => {
+    removeCoupon();
+    toast.success(language === "ar" ? "تم إزالة الكوبون" : "Coupon removed");
   };
 
   if (items.length === 0) {
@@ -198,40 +207,40 @@ export default function CartPage() {
                 <label className="text-sm text-muted-foreground mb-2 block">
                   {language === "ar" ? "كود الخصم" : "Promo Code"}
                 </label>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder={language === "ar" ? "أدخل الكود" : "Enter code"}
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
-                    disabled={promoApplied}
-                  />
-                  <Button
-                    variant="outline"
-                    onClick={applyPromo}
-                    disabled={promoApplied || !promoCode}
-                  >
-                    {promoApplied
-                      ? language === "ar"
-                        ? "تم"
-                        : "Applied"
-                      : language === "ar"
-                        ? "تطبيق"
-                        : "Apply"}
-                  </Button>
-                </div>
-                {promoApplied && (
-                  <p className="text-green-500 text-xs mt-1 flex items-center gap-1">
-                    <Tag className="h-3 w-3" />
+                {appliedCoupon ? (
+                  <div className="flex items-center justify-between bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-3">
+                    <div className="flex items-center gap-2">
+                      <Tag className="h-4 w-4 text-green-600" />
+                      <span className="font-medium text-green-700 dark:text-green-400 uppercase">{appliedCoupon.code}</span>
+                      <span className="text-green-600 text-sm">(-{appliedCoupon.discount}%)</span>
+                    </div>
+                    <button onClick={handleRemoveCoupon} className="text-red-500 hover:text-red-600">
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder={language === "ar" ? "أدخل الكود" : "Enter code"}
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                    />
+                    <Button
+                      variant="outline"
+                      onClick={handleApplyPromo}
+                      disabled={!promoCode}
+                    >
+                      {language === "ar" ? "تطبيق" : "Apply"}
+                    </Button>
+                  </div>
+                )}
+                {!appliedCoupon && (
+                  <p className="text-xs text-muted-foreground mt-1">
                     {language === "ar"
-                      ? "تم تطبيق خصم 10%"
-                      : "10% discount applied"}
+                      ? 'جرب: AMANOON10, AMANOON20, SAVE15'
+                      : 'Try: AMANOON10, AMANOON20, SAVE15'}
                   </p>
                 )}
-                <p className="text-xs text-muted-foreground mt-1">
-                  {language === "ar"
-                    ? 'جرب: AMANOON10'
-                    : 'Try: AMANOON10'}
-                </p>
               </div>
 
               {/* Price Breakdown */}
@@ -256,9 +265,12 @@ export default function CartPage() {
                     )}
                   </span>
                 </div>
-                {promoApplied && (
+                {appliedCoupon && (
                   <div className="flex justify-between text-green-500">
-                    <span>{language === "ar" ? "الخصم" : "Discount"}</span>
+                    <span className="flex items-center gap-1">
+                      {language === "ar" ? "الخصم" : "Discount"}
+                      <span className="text-xs bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded uppercase">{appliedCoupon.code}</span>
+                    </span>
                     <span>-${discount.toFixed(2)}</span>
                   </div>
                 )}
