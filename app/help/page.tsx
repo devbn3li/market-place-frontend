@@ -231,7 +231,7 @@ export default function HelpPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className=" text-white py-20">
+      <div className="py-20">
         <div className="container mx-auto px-4 text-center">
           <HelpCircle className="h-16 w-16 mx-auto mb-4 opacity-90" />
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -255,7 +255,7 @@ export default function HelpPage() {
               }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 rtl:pl-4 rtl:pr-12 py-6 text-lg bg-white text-black rounded-full shadow-lg"
+              className="pl-12 rtl:pl-4 rtl:pr-12 py-6 text-lg rounded-full shadow-lg"
             />
           </div>
         </div>

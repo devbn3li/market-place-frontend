@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
 import { useCart } from "@/context/cart-context";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,6 @@ import {
   Shield,
   ChevronRight,
 } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 
 export default function CartPage() {
@@ -270,10 +270,12 @@ export default function CartPage() {
               </div>
 
               {/* Checkout Button */}
-              <Button className="w-full mt-6 bg-orange-500 hover:bg-orange-600 py-6">
-                {language === "ar" ? "إتمام الشراء" : "Proceed to Checkout"}
-                <ChevronRight className="h-4 w-4 mr-2 rtl:rotate-180" />
-              </Button>
+              <Link href="/checkout">
+                <Button className="w-full mt-6 bg-orange-500 hover:bg-orange-600 py-6">
+                  {language === "ar" ? "إتمام الشراء" : "Proceed to Checkout"}
+                  <ChevronRight className="h-4 w-4 mr-2 rtl:rotate-180" />
+                </Button>
+              </Link>
 
               {/* Trust Badges */}
               <div className="mt-6 space-y-3">

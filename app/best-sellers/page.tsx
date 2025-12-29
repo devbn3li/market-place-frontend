@@ -20,165 +20,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-
-const bestSellers = [
-  {
-    id: 1,
-    name: { en: "Apple AirPods Pro 2nd Gen", ar: "سماعات أبل إيربودز برو الجيل الثاني" },
-    image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=400",
-    price: 249.99,
-    originalPrice: 279.99,
-    rating: 4.9,
-    reviews: 12543,
-    soldCount: 45000,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    rank: 1,
-    badge: { en: "#1 Best Seller", ar: "الأكثر مبيعاً #1" },
-  },
-  {
-    id: 2,
-    name: { en: "Samsung Galaxy S24 Ultra", ar: "سامسونج جالاكسي S24 ألترا" },
-    image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400",
-    price: 1199.99,
-    originalPrice: 1299.99,
-    rating: 4.8,
-    reviews: 8932,
-    soldCount: 38000,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    rank: 2,
-    badge: { en: "Top Rated", ar: "الأعلى تقييماً" },
-  },
-  {
-    id: 3,
-    name: { en: "Nike Air Jordan 1 Retro High", ar: "نايك اير جوردن 1 ريترو هاي" },
-    image: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400",
-    price: 180.00,
-    originalPrice: 200.00,
-    rating: 4.9,
-    reviews: 15678,
-    soldCount: 52000,
-    category: { en: "Fashion", ar: "أزياء" },
-    rank: 3,
-    badge: { en: "Fan Favorite", ar: "المفضل" },
-  },
-  {
-    id: 4,
-    name: { en: "Sony PlayStation 5 Console", ar: "سوني بلايستيشن 5" },
-    image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400",
-    price: 499.99,
-    originalPrice: 549.99,
-    rating: 4.9,
-    reviews: 23456,
-    soldCount: 67000,
-    category: { en: "Gaming", ar: "ألعاب" },
-    rank: 4,
-    badge: { en: "Most Popular", ar: "الأكثر شعبية" },
-  },
-  {
-    id: 5,
-    name: { en: "Dyson Airwrap Complete", ar: "دايسون إيرراب كومبليت" },
-    image: "https://images.unsplash.com/photo-1522338242042-2d1c40e10e15?w=400",
-    price: 599.99,
-    originalPrice: 649.99,
-    rating: 4.7,
-    reviews: 9876,
-    soldCount: 28000,
-    category: { en: "Beauty", ar: "جمال" },
-    rank: 5,
-    badge: { en: "Trending", ar: "رائج" },
-  },
-  {
-    id: 6,
-    name: { en: "Apple Watch Series 9", ar: "ساعة أبل الإصدار 9" },
-    image: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400",
-    price: 399.99,
-    originalPrice: 449.99,
-    rating: 4.8,
-    reviews: 11234,
-    soldCount: 41000,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    rank: 6,
-    badge: { en: "Editor's Choice", ar: "اختيار المحررين" },
-  },
-  {
-    id: 7,
-    name: { en: "Lego Star Wars Millennium Falcon", ar: "ليغو ستار وورز ميلينيوم فالكون" },
-    image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400",
-    price: 849.99,
-    originalPrice: 899.99,
-    rating: 4.9,
-    reviews: 5678,
-    soldCount: 15000,
-    category: { en: "Toys", ar: "ألعاب أطفال" },
-    rank: 7,
-    badge: { en: "Collector's Item", ar: "للمقتنيين" },
-  },
-  {
-    id: 8,
-    name: { en: "Instant Pot Duo 7-in-1", ar: "إنستانت بوت ديو 7 في 1" },
-    image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=400",
-    price: 89.99,
-    originalPrice: 119.99,
-    rating: 4.7,
-    reviews: 34567,
-    soldCount: 89000,
-    category: { en: "Home", ar: "منزل" },
-    rank: 8,
-    badge: { en: "Kitchen Essential", ar: "أساسي للمطبخ" },
-  },
-  {
-    id: 9,
-    name: { en: "Nintendo Switch OLED", ar: "نينتندو سويتش OLED" },
-    image: "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=400",
-    price: 349.99,
-    originalPrice: 379.99,
-    rating: 4.8,
-    reviews: 19876,
-    soldCount: 56000,
-    category: { en: "Gaming", ar: "ألعاب" },
-    rank: 9,
-    badge: { en: "Best for Gaming", ar: "الأفضل للألعاب" },
-  },
-  {
-    id: 10,
-    name: { en: "The North Face Nuptse Jacket", ar: "جاكيت ذا نورث فيس نوبتسي" },
-    image: "https://images.unsplash.com/photo-1544923246-77307dd628b7?w=400",
-    price: 320.00,
-    originalPrice: 380.00,
-    rating: 4.8,
-    reviews: 7654,
-    soldCount: 23000,
-    category: { en: "Fashion", ar: "أزياء" },
-    rank: 10,
-    badge: { en: "Winter Essential", ar: "أساسي للشتاء" },
-  },
-  {
-    id: 11,
-    name: { en: "Kindle Paperwhite 11th Gen", ar: "كيندل بيبر وايت الجيل 11" },
-    image: "https://images.unsplash.com/photo-1592434134753-a70baf7979d5?w=400",
-    price: 139.99,
-    originalPrice: 159.99,
-    rating: 4.7,
-    reviews: 28765,
-    soldCount: 72000,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    rank: 11,
-    badge: { en: "Book Lover's Pick", ar: "خيار محبي الكتب" },
-  },
-  {
-    id: 12,
-    name: { en: "Yeti Rambler 30oz Tumbler", ar: "كوب يتي رامبلر 30 أونصة" },
-    image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400",
-    price: 38.00,
-    originalPrice: 45.00,
-    rating: 4.9,
-    reviews: 45678,
-    soldCount: 120000,
-    category: { en: "Home", ar: "منزل" },
-    rank: 12,
-    badge: { en: "Customer Favorite", ar: "المفضل للعملاء" },
-  },
-];
+import { bestSellerProducts, Product } from "@/lib/products";
 
 const categories = [
   { id: "all", name: { en: "All", ar: "الكل" } },
@@ -188,6 +30,8 @@ const categories = [
   { id: "gaming", name: { en: "Gaming", ar: "ألعاب" } },
   { id: "beauty", name: { en: "Beauty", ar: "جمال" } },
   { id: "toys", name: { en: "Toys", ar: "ألعاب أطفال" } },
+  { id: "sports", name: { en: "Sports", ar: "رياضة" } },
+  { id: "grocery", name: { en: "Grocery", ar: "بقالة" } },
 ];
 
 export default function BestSellersPage() {
@@ -197,7 +41,7 @@ export default function BestSellersPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("best-selling");
 
-  const handleAddToCart = (product: typeof bestSellers[0], e: React.MouseEvent) => {
+  const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart({
@@ -216,7 +60,7 @@ export default function BestSellersPage() {
     );
   };
 
-  const filteredProducts = bestSellers.filter((product) => {
+  const filteredProducts = bestSellerProducts.filter((product) => {
     if (selectedCategory === "all") return true;
     return product.category.en.toLowerCase() === selectedCategory;
   });
@@ -224,7 +68,7 @@ export default function BestSellersPage() {
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case "best-selling":
-        return a.rank - b.rank;
+        return (a.rank || 0) - (b.rank || 0);
       case "most-reviewed":
         return b.reviews - a.reviews;
       case "price-low":
@@ -295,7 +139,7 @@ export default function BestSellersPage() {
       {/* Top 3 Banner */}
       <div className="container mx-auto px-4 -mt-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {bestSellers.slice(0, 3).map((product, index) => (
+          {bestSellerProducts.slice(0, 3).map((product, index) => (
             <Link
               key={product.id}
               href={`/product/${product.id}`}
@@ -317,7 +161,7 @@ export default function BestSellersPage() {
                 <div>
                   <h3 className="font-bold line-clamp-2">{product.name[language]}</h3>
                   <p className="text-sm opacity-90">
-                    {product.soldCount.toLocaleString()}{" "}
+                    {(product.soldCount || 0).toLocaleString()}{" "}
                     {language === "ar" ? "تم بيعه" : "sold"}
                   </p>
                   <p className="text-lg font-bold mt-1">${product.price.toFixed(2)}</p>
@@ -426,17 +270,17 @@ export default function BestSellersPage() {
                   {/* Rank Badge */}
                   <span
                     className={`absolute top-2 left-2 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 ${getRankBg(
-                      product.rank
+                      product.rank || 0
                     )}`}
                   >
-                    {product.rank <= 3 && getRankIcon(product.rank)}
+                    {(product.rank || 0) <= 3 && getRankIcon(product.rank || 0)}
                     #{product.rank}
                   </span>
                   {/* Sold Count */}
                   <span className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
                     <Flame className="h-3 w-3" />
-                    {product.soldCount >= 1000
-                      ? `${(product.soldCount / 1000).toFixed(0)}K`
+                    {(product.soldCount || 0) >= 1000
+                      ? `${((product.soldCount || 0) / 1000).toFixed(0)}K`
                       : product.soldCount}
                   </span>
                   {/* Wishlist */}
@@ -490,10 +334,10 @@ export default function BestSellersPage() {
                   />
                   <span
                     className={`absolute top-2 left-2 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 ${getRankBg(
-                      product.rank
+                      product.rank || 0
                     )}`}
                   >
-                    {product.rank <= 3 && getRankIcon(product.rank)}
+                    {(product.rank || 0) <= 3 && getRankIcon(product.rank || 0)}
                     #{product.rank}
                   </span>
                 </div>
@@ -505,7 +349,7 @@ export default function BestSellersPage() {
                       </span>
                       <span className="text-xs bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400 px-2 py-1 rounded-full flex items-center gap-1">
                         <Flame className="h-3 w-3" />
-                        {product.soldCount.toLocaleString()}{" "}
+                        {(product.soldCount || 0).toLocaleString()}{" "}
                         {language === "ar" ? "تم بيعه" : "sold"}
                       </span>
                     </div>
@@ -520,9 +364,11 @@ export default function BestSellersPage() {
                         {language === "ar" ? "تقييم" : "reviews"})
                       </span>
                     </div>
-                    <span className="inline-block text-xs bg-muted px-2 py-1 rounded">
-                      {product.badge[language]}
-                    </span>
+                    {product.badge && (
+                      <span className="inline-block text-xs bg-muted px-2 py-1 rounded">
+                        {product.badge[language]}
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center justify-between mt-4">
                     <div className="flex items-center gap-3">

@@ -33,7 +33,7 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" dir={language === "ar" ? "rtl" : "ltr"}>
+    <header className="sticky top-0 z-500 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Top Bar */}
       <div className="bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm">
