@@ -367,11 +367,11 @@ export default function ProductPage() {
                   if (navigator.share) {
                     navigator.share({
                       title: product.name[language],
-                      text: language === "ar" 
-                        ? `شاهد هذا المنتج: ${product.name.ar}` 
+                      text: language === "ar"
+                        ? `شاهد هذا المنتج: ${product.name.ar}`
                         : `Check out this product: ${product.name.en}`,
                       url: window.location.href,
-                    }).catch(() => {});
+                    }).catch(() => { });
                   } else {
                     navigator.clipboard.writeText(window.location.href);
                     toast.success(
