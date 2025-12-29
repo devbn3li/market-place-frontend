@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown } from "lucide-react";
+import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown, Heart } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useLanguageStore, useCartStore, useAuthStore } from "@/stores";
+import { useLanguageStore, useCartStore, useAuthStore, useWishlistStore } from "@/stores";
 
 const t = {
   home: { en: "Home", ar: "الرئيسية" },
@@ -34,6 +34,7 @@ export function Navbar() {
   const { language, toggleLanguage } = useLanguageStore();
   const { theme, setTheme } = useTheme();
   const totalItems = useCartStore((state) => state.totalItems);
+  const wishlistItems = useWishlistStore((state) => state.items);
   const { user, isAuthenticated, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -110,6 +111,18 @@ export function Navbar() {
               <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
+
+            {/* Wishlist */}
+            <Link href="/wishlist">
+              <Button variant="ghost" size="icon" className="relative">
+                <Heart className="h-5 w-5" />
+                {wishlistItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-[10px] font-bold text-white flex items-center justify-center">
+                    {wishlistItems.length > 99 ? "99+" : wishlistItems.length}
+                  </span>
+                )}
+              </Button>
+            </Link>
 
             {/* Cart */}
             <Link href="/cart">

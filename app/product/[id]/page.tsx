@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useLanguageStore, useCartStore } from "@/stores";
+import { useLanguageStore, useCartStore, useWishlistStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Star, Heart, ShoppingCart, Truck, Shield, RotateCcw, Minus,
@@ -19,9 +19,9 @@ export default function ProductPage() {
   const params = useParams();
   const { language } = useLanguageStore();
   const { addToCart } = useCartStore();
+  const { toggleWishlist, isInWishlist } = useWishlistStore();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [isZooming, setIsZooming] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const imageRef = useRef<HTMLDivElement>(null);
@@ -153,11 +153,35 @@ export default function ProductPage() {
                   </span>
                 )}
                 <button
-                  onClick={() => setIsWishlisted(!isWishlisted)}
-                  className="absolute bottom-4 right-4 p-3 bg-white/90 dark:bg-gray-800/90 rounded-full hover:scale-110 transition-transform z-10"
+                  onClick={() => {
+                    toggleWishlist({
+                      id: product.id,
+                      name: product.name,
+                      image: product.image,
+                      price: product.price,
+                      originalPrice: product.originalPrice,
+                      category: product.category,
+                      rating: product.rating,
+                      reviews: product.reviews,
+                    });
+                    const inWishlist = isInWishlist(product.id);
+                    toast.success(
+                      inWishlist
+                        ? language === "ar"
+                          ? "تم إزالة المنتج من قائمة الرغبات"
+                          : "Removed from wishlist"
+                        : language === "ar"
+                          ? "تمت إضافة المنتج لقائمة الرغبات"
+                          : "Added to wishlist"
+                    );
+                  }}
+                  className={`absolute bottom-4 right-4 p-3 rounded-full hover:scale-110 transition-transform z-10 ${isInWishlist(product.id)
+                      ? "bg-red-500 text-white"
+                      : "bg-white/90 dark:bg-gray-800/90"
+                    }`}
                 >
                   <Heart
-                    className={`h-5 w-5 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`}
+                    className={`h-5 w-5 ${isInWishlist(product.id) ? "fill-current" : ""}`}
                   />
                 </button>
                 {/* Zoom Lens Indicator */}

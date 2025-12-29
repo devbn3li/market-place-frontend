@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguageStore, useCartStore } from "@/stores";
+import { useLanguageStore, useCartStore, useWishlistStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Star,
@@ -189,6 +189,7 @@ const categories = [
 export default function NewArrivalsPage() {
   const { language } = useLanguageStore();
   const { addToCart } = useCartStore();
+  const { toggleWishlist, isInWishlist } = useWishlistStore();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("newest");
@@ -209,6 +210,31 @@ export default function NewArrivalsPage() {
       {
         description: product.name[language],
       }
+    );
+  };
+
+  const handleWishlistToggle = (product: typeof newArrivals[0], e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      category: product.category,
+      rating: product.rating,
+      reviews: product.reviews,
+    });
+    const inWishlist = isInWishlist(product.id);
+    toast.success(
+      inWishlist
+        ? language === "ar"
+          ? "تم إزالة المنتج من قائمة الرغبات"
+          : "Removed from wishlist"
+        : language === "ar"
+          ? "تمت إضافة المنتج لقائمة الرغبات"
+          : "Added to wishlist"
     );
   };
 
@@ -370,8 +396,14 @@ export default function NewArrivalsPage() {
                         : `${product.daysAgo} days ago`}
                   </span>
                   {/* Wishlist */}
-                  <button className="absolute bottom-2 right-2 p-2 bg-white/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
-                    <Heart className="h-4 w-4" />
+                  <button
+                    onClick={(e) => handleWishlistToggle(product, e)}
+                    className={`absolute bottom-2 right-2 p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)
+                        ? "bg-red-500 text-white opacity-100"
+                        : "bg-white/90 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100"
+                      }`}
+                  >
+                    <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
                   </button>
                 </div>
                 <div className="p-4">
@@ -464,8 +496,13 @@ export default function NewArrivalsPage() {
                       )}
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="icon">
-                        <Heart className="h-4 w-4" />
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={(e) => handleWishlistToggle(product, e)}
+                        className={isInWishlist(product.id) ? "bg-red-500 text-white border-red-500 hover:bg-red-600" : ""}
+                      >
+                        <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
                       </Button>
                       <Button
                         className="bg-orange-500 hover:bg-orange-600"

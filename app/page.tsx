@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, TrendingUp, Percent, Zap } from "lucide-react";
-import { useLanguageStore } from "@/stores";
+import { ArrowRight, Sparkles, TrendingUp, Percent, Zap, Heart } from "lucide-react";
+import { useLanguageStore, useWishlistStore } from "@/stores";
+import { toast } from "sonner";
 
 const t = {
   electronics: { en: "Electronics", ar: "إلكترونيات" },
@@ -99,6 +100,32 @@ const featuredProducts = [
 
 export default function Home() {
   const { language } = useLanguageStore();
+  const { toggleWishlist, isInWishlist } = useWishlistStore();
+
+  const handleWishlistToggle = (e: React.MouseEvent, product: typeof featuredProducts[0]) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      rating: product.rating,
+      reviews: product.reviews,
+    });
+    const inWishlist = isInWishlist(product.id);
+    toast.success(
+      inWishlist
+        ? language === "ar"
+          ? `تم إزالة ${product.name.ar} من قائمة الرغبات`
+          : `${product.name.en} removed from wishlist`
+        : language === "ar"
+          ? `تمت إضافة ${product.name.ar} إلى قائمة الرغبات`
+          : `${product.name.en} added to wishlist`
+    );
+  };
+
   return (
     <div className="min-h-screen" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Hero Section */}
@@ -242,6 +269,16 @@ export default function Home() {
                 <div className={`absolute top-2 ${language === "ar" ? "right-2" : "left-2"} bg-red-500 text-white text-xs font-bold px-2 py-1 rounded`}>
                   -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                 </div>
+                {/* Wishlist Button */}
+                <button
+                  onClick={(e) => handleWishlistToggle(e, product)}
+                  className={`absolute top-2 ${language === "ar" ? "left-2" : "right-2"} p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)
+                      ? "bg-red-500 text-white"
+                      : "bg-white/90 hover:bg-red-500 hover:text-white text-gray-600"
+                    }`}
+                >
+                  <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
+                </button>
               </div>
               <div className="p-4">
                 <h3 className="font-medium text-sm mb-2 line-clamp-2 group-hover:text-orange-500 transition-colors">
