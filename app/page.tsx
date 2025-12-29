@@ -106,7 +106,7 @@ export default function Home() {
         </div>
         {/* Wave decoration */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 100" className="w-full h-16 fill-background">
+          <svg viewBox="0 0 1440 100" preserveAspectRatio="none" className="w-full h-16 fill-background block">
             <path d="M0,64L80,58.7C160,53,320,43,480,48C640,53,800,75,960,80C1120,85,1280,75,1360,69.3L1440,64L1440,100L1360,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z" />
           </svg>
         </div>
