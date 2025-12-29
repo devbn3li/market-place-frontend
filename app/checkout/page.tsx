@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/context/language-context";
 import { useCart } from "@/context/cart-context";
+import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -17,18 +18,25 @@ import {
   CheckCircle,
   Shield,
   ArrowLeft,
+  Plus,
+  Star,
+  Home,
+  Briefcase,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function CheckoutPage() {
   const { language } = useLanguage();
   const { items, totalPrice, clearCart } = useCart();
+  const { user, isAuthenticated } = useAuth();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment, 3: Confirmation
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+  const [useNewAddress, setUseNewAddress] = useState(false);
 
   const [shippingInfo, setShippingInfo] = useState({
     firstName: "",
@@ -47,6 +55,25 @@ export default function CheckoutPage() {
     expiryDate: "",
     cvv: "",
   });
+
+  // Load user data and select default address
+  useEffect(() => {
+    if (user) {
+      // Pre-fill email from user
+      setShippingInfo(prev => ({ ...prev, email: user.email }));
+
+      // Select default address if exists
+      const defaultAddress = user.addresses?.find(addr => addr.isDefault);
+      if (defaultAddress) {
+        setSelectedAddressId(defaultAddress.id);
+      } else if (user.addresses?.length > 0) {
+        setSelectedAddressId(user.addresses[0].id);
+      }
+    }
+  }, [user]);
+
+  // Get selected address
+  const selectedAddress = user?.addresses?.find(addr => addr.id === selectedAddressId);
 
   const shipping = totalPrice > 50 ? 0 : 9.99;
   const tax = totalPrice * 0.05;
@@ -82,6 +109,12 @@ export default function CheckoutPage() {
   };
 
   const validateShipping = () => {
+    // If using saved address, it's already valid
+    if (selectedAddressId && !useNewAddress && selectedAddress) {
+      return true;
+    }
+
+    // Validate new address form
     const required = ["firstName", "lastName", "email", "phone", "address", "city", "country"];
     for (const field of required) {
       if (!shippingInfo[field as keyof typeof shippingInfo]) {
@@ -167,13 +200,13 @@ export default function CheckoutPage() {
               #AMN-{Date.now().toString().slice(-8)}
             </p>
           </div>
-          <div className="space-y-3">
-            <Link href="/">
+          <div className="flex flex-col gap-4">
+            <Link href="/" className="w-full">
               <Button className="w-full bg-orange-500 hover:bg-orange-600">
                 {language === "ar" ? "العودة للرئيسية" : "Back to Home"}
               </Button>
             </Link>
-            <Link href="/categories">
+            <Link href="/categories" className="w-full">
               <Button variant="outline" className="w-full">
                 {language === "ar" ? "متابعة التسوق" : "Continue Shopping"}
               </Button>
@@ -255,121 +288,210 @@ export default function CheckoutPage() {
                   </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "الاسم الأول *" : "First Name *"}
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                {/* Saved Addresses Section */}
+                {isAuthenticated && user?.addresses && user.addresses.length > 0 && !useNewAddress && (
+                  <div className="mb-6">
+                    <h3 className="text-sm font-medium mb-3">
+                      {language === "ar" ? "اختر من عناوينك المحفوظة" : "Choose from your saved addresses"}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                      {user.addresses.map((addr) => {
+                        const isSelected = selectedAddressId === addr.id;
+                        return (
+                          <button
+                            key={addr.id}
+                            type="button"
+                            onClick={() => setSelectedAddressId(addr.id)}
+                            className={`p-4 rounded-xl border-2 text-left rtl:text-right transition-all ${isSelected
+                              ? "border-orange-500 bg-orange-50 dark:bg-orange-500/10"
+                              : "border-border hover:border-orange-300"
+                              }`}
+                          >
+                            <div className="flex items-center gap-2 mb-2">
+                              {addr.label === "Home" ? (
+                                <Home className="h-4 w-4 text-muted-foreground" />
+                              ) : addr.label === "Work" ? (
+                                <Briefcase className="h-4 w-4 text-muted-foreground" />
+                              ) : (
+                                <MapPin className="h-4 w-4 text-muted-foreground" />
+                              )}
+                              <span className="font-medium text-sm">
+                                {addr.label === "Home"
+                                  ? (language === "ar" ? "المنزل" : "Home")
+                                  : addr.label === "Work"
+                                    ? (language === "ar" ? "العمل" : "Work")
+                                    : (language === "ar" ? "آخر" : "Other")
+                                }
+                              </span>
+                              {addr.isDefault && (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 text-xs rounded-full ml-auto rtl:mr-auto rtl:ml-0">
+                                  <Star className="h-3 w-3 fill-current" />
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm font-medium">{addr.firstName} {addr.lastName}</p>
+                            <p className="text-xs text-muted-foreground truncate">{addr.address}</p>
+                            <p className="text-xs text-muted-foreground">{addr.city}, {addr.country}</p>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Use New Address Button */}
+                    <button
+                      type="button"
+                      onClick={() => setUseNewAddress(true)}
+                      className="flex items-center gap-2 text-orange-500 hover:text-orange-600 text-sm font-medium"
+                    >
+                      <Plus className="h-4 w-4" />
+                      {language === "ar" ? "استخدام عنوان جديد" : "Use a new address"}
+                    </button>
+
+                    {/* Selected Address Summary */}
+                    {selectedAddress && (
+                      <div className="mt-4 p-4 bg-muted/50 rounded-lg">
+                        <h4 className="text-sm font-medium mb-2">
+                          {language === "ar" ? "سيتم الشحن إلى:" : "Shipping to:"}
+                        </h4>
+                        <p className="text-sm">{selectedAddress.firstName} {selectedAddress.lastName}</p>
+                        <p className="text-sm text-muted-foreground">{selectedAddress.address}</p>
+                        <p className="text-sm text-muted-foreground">{selectedAddress.city}, {selectedAddress.country} {selectedAddress.postalCode}</p>
+                        <p className="text-sm text-muted-foreground">{selectedAddress.phone}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Back to Saved Addresses Button */}
+                {useNewAddress && isAuthenticated && user?.addresses && user.addresses.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setUseNewAddress(false)}
+                    className="flex items-center gap-2 text-orange-500 hover:text-orange-600 text-sm font-medium mb-4"
+                  >
+                    <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
+                    {language === "ar" ? "العودة للعناوين المحفوظة" : "Back to saved addresses"}
+                  </button>
+                )}
+
+                {/* New Address Form - Show if no saved addresses OR useNewAddress is true */}
+                {(!isAuthenticated || !user?.addresses?.length || useNewAddress) && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "الاسم الأول *" : "First Name *"}
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          name="firstName"
+                          value={shippingInfo.firstName}
+                          onChange={handleShippingChange}
+                          className="pl-10 rtl:pr-10 rtl:pl-3"
+                          placeholder={language === "ar" ? "محمد" : "John"}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "اسم العائلة *" : "Last Name *"}
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          name="lastName"
+                          value={shippingInfo.lastName}
+                          onChange={handleShippingChange}
+                          className="pl-10 rtl:pr-10 rtl:pl-3"
+                          placeholder={language === "ar" ? "أحمد" : "Doe"}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "البريد الإلكتروني *" : "Email *"}
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          name="email"
+                          type="email"
+                          value={shippingInfo.email}
+                          onChange={handleShippingChange}
+                          className="pl-10 rtl:pr-10 rtl:pl-3"
+                          placeholder="email@example.com"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "رقم الهاتف *" : "Phone *"}
+                      </label>
+                      <div className="relative">
+                        <Phone className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          name="phone"
+                          value={shippingInfo.phone}
+                          onChange={handleShippingChange}
+                          className="pl-10 rtl:pr-10 rtl:pl-3"
+                          placeholder="+1 234 567 890"
+                        />
+                      </div>
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "العنوان *" : "Address *"}
+                      </label>
+                      <div className="relative">
+                        <MapPin className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          name="address"
+                          value={shippingInfo.address}
+                          onChange={handleShippingChange}
+                          className="pl-10 rtl:pr-10 rtl:pl-3"
+                          placeholder={language === "ar" ? "شارع الملك فهد، رقم 123" : "123 Main Street"}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "المدينة *" : "City *"}
+                      </label>
+                      <div className="relative">
+                        <Building className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          name="city"
+                          value={shippingInfo.city}
+                          onChange={handleShippingChange}
+                          className="pl-10 rtl:pr-10 rtl:pl-3"
+                          placeholder={language === "ar" ? "الرياض" : "New York"}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "البلد *" : "Country *"}
+                      </label>
                       <Input
-                        name="firstName"
-                        value={shippingInfo.firstName}
+                        name="country"
+                        value={shippingInfo.country}
                         onChange={handleShippingChange}
-                        className="pl-10 rtl:pr-10 rtl:pl-3"
-                        placeholder={language === "ar" ? "محمد" : "John"}
+                        placeholder={language === "ar" ? "السعودية" : "United States"}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        {language === "ar" ? "الرمز البريدي" : "Postal Code"}
+                      </label>
+                      <Input
+                        name="postalCode"
+                        value={shippingInfo.postalCode}
+                        onChange={handleShippingChange}
+                        placeholder="12345"
                       />
                     </div>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "اسم العائلة *" : "Last Name *"}
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        name="lastName"
-                        value={shippingInfo.lastName}
-                        onChange={handleShippingChange}
-                        className="pl-10 rtl:pr-10 rtl:pl-3"
-                        placeholder={language === "ar" ? "أحمد" : "Doe"}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "البريد الإلكتروني *" : "Email *"}
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        name="email"
-                        type="email"
-                        value={shippingInfo.email}
-                        onChange={handleShippingChange}
-                        className="pl-10 rtl:pr-10 rtl:pl-3"
-                        placeholder="email@example.com"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "رقم الهاتف *" : "Phone *"}
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        name="phone"
-                        value={shippingInfo.phone}
-                        onChange={handleShippingChange}
-                        className="pl-10 rtl:pr-10 rtl:pl-3"
-                        placeholder="+1 234 567 890"
-                      />
-                    </div>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "العنوان *" : "Address *"}
-                    </label>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        name="address"
-                        value={shippingInfo.address}
-                        onChange={handleShippingChange}
-                        className="pl-10 rtl:pr-10 rtl:pl-3"
-                        placeholder={language === "ar" ? "شارع الملك فهد، رقم 123" : "123 Main Street"}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "المدينة *" : "City *"}
-                    </label>
-                    <div className="relative">
-                      <Building className="absolute left-3 rtl:right-3 rtl:left-auto top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        name="city"
-                        value={shippingInfo.city}
-                        onChange={handleShippingChange}
-                        className="pl-10 rtl:pr-10 rtl:pl-3"
-                        placeholder={language === "ar" ? "الرياض" : "New York"}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "البلد *" : "Country *"}
-                    </label>
-                    <Input
-                      name="country"
-                      value={shippingInfo.country}
-                      onChange={handleShippingChange}
-                      placeholder={language === "ar" ? "السعودية" : "United States"}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {language === "ar" ? "الرمز البريدي" : "Postal Code"}
-                    </label>
-                    <Input
-                      name="postalCode"
-                      value={shippingInfo.postalCode}
-                      onChange={handleShippingChange}
-                      placeholder="12345"
-                    />
-                  </div>
-                </div>
+                )}
               </div>
             )}
 

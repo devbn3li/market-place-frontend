@@ -2,6 +2,19 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+export interface Address {
+  id: string;
+  label: string; // e.g., "Home", "Work"
+  firstName: string;
+  lastName: string;
+  phone: string;
+  address: string;
+  city: string;
+  country: string;
+  postalCode: string;
+  isDefault: boolean;
+}
+
 export interface User {
   id: string;
   firstName: string;
@@ -9,6 +22,7 @@ export interface User {
   email: string;
   phone: string;
   createdAt: string;
+  addresses: Address[];
 }
 
 interface StoredUser extends User {
@@ -28,6 +42,10 @@ interface AuthContextType {
   }) => Promise<{ success: boolean; message: string }>;
   logout: () => void;
   isAuthenticated: boolean;
+  addAddress: (address: Omit<Address, "id">) => void;
+  updateAddress: (id: string, address: Partial<Address>) => void;
+  deleteAddress: (id: string) => void;
+  setDefaultAddress: (id: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -101,6 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       phone: userData.phone,
       password: userData.password,
       createdAt: new Date().toISOString(),
+      addresses: [],
     };
 
     // Save to users list
@@ -115,6 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email: newUser.email,
       phone: newUser.phone,
       createdAt: newUser.createdAt,
+      addresses: newUser.addresses,
     };
     setUser(userWithoutPassword);
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(userWithoutPassword));
@@ -151,6 +171,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email: foundUser.email,
       phone: foundUser.phone,
       createdAt: foundUser.createdAt,
+      addresses: foundUser.addresses || [],
     };
     setUser(userWithoutPassword);
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(userWithoutPassword));
@@ -167,6 +188,91 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem(CURRENT_USER_KEY);
   };
 
+  // Update user in localStorage and state
+  const updateUserData = (updatedUser: User) => {
+    setUser(updatedUser);
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser));
+
+    // Also update in users list
+    const users = getStoredUsers();
+    const userIndex = users.findIndex(u => u.id === updatedUser.id);
+    if (userIndex !== -1) {
+      users[userIndex] = { ...users[userIndex], ...updatedUser };
+      saveUsers(users);
+    }
+  };
+
+  // Add new address
+  const addAddress = (addressData: Omit<Address, "id">) => {
+    if (!user) return;
+
+    const newAddress: Address = {
+      ...addressData,
+      id: crypto.randomUUID(),
+    };
+
+    // If this is the first address or marked as default, set it as default
+    const addresses = user.addresses || [];
+    if (addresses.length === 0 || addressData.isDefault) {
+      addresses.forEach(addr => addr.isDefault = false);
+      newAddress.isDefault = true;
+    }
+
+    const updatedUser = {
+      ...user,
+      addresses: [...addresses, newAddress],
+    };
+
+    updateUserData(updatedUser);
+  };
+
+  // Update existing address
+  const updateAddress = (id: string, addressData: Partial<Address>) => {
+    if (!user) return;
+
+    const addresses = user.addresses.map(addr => {
+      if (addr.id === id) {
+        return { ...addr, ...addressData };
+      }
+      // If setting new default, remove default from others
+      if (addressData.isDefault && addr.id !== id) {
+        return { ...addr, isDefault: false };
+      }
+      return addr;
+    });
+
+    const updatedUser = { ...user, addresses };
+    updateUserData(updatedUser);
+  };
+
+  // Delete address
+  const deleteAddress = (id: string) => {
+    if (!user) return;
+
+    const addresses = user.addresses.filter(addr => addr.id !== id);
+
+    // If deleted address was default, set first remaining as default
+    if (addresses.length > 0 && !addresses.some(addr => addr.isDefault)) {
+      addresses[0].isDefault = true;
+    }
+
+    const updatedUser = { ...user, addresses };
+    updateUserData(updatedUser);
+  };
+
+  // Set address as default
+  const setDefaultAddress = (id: string) => {
+    if (!user) return;
+
+    const addresses = user.addresses.map(addr => ({
+      ...addr,
+      isDefault: addr.id === id,
+    }));
+
+    const updatedUser = { ...user, addresses };
+    updateUserData(updatedUser);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -176,6 +282,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         register,
         logout,
         isAuthenticated: !!user,
+        addAddress,
+        updateAddress,
+        deleteAddress,
+        setDefaultAddress,
       }}
     >
       {children}
