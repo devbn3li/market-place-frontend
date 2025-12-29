@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLanguage, translations as t } from "@/context/language-context";
+import { useCart } from "@/context/cart-context";
 
 const navLinks = [
   { href: "/", label: t.home },
@@ -20,6 +21,7 @@ const navLinks = [
 export function Navbar() {
   const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
+  const { totalItems } = useCart();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleLanguage = () => {
@@ -104,12 +106,16 @@ export function Navbar() {
             </Button>
 
             {/* Cart */}
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-orange-500 text-[10px] font-bold text-white flex items-center justify-center">
-                3
-              </span>
-            </Button>
+            <Link href="/cart">
+              <Button variant="ghost" size="icon" className="relative">
+                <ShoppingCart className="h-5 w-5" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-orange-500 text-[10px] font-bold text-white flex items-center justify-center">
+                    {totalItems > 99 ? "99+" : totalItems}
+                  </span>
+                )}
+              </Button>
+            </Link>
 
             {/* Login Button */}
             <Link href="/login">

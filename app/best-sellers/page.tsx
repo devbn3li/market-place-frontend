@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
+import { useCart } from "@/context/cart-context";
 import { Button } from "@/components/ui/button";
 import {
   Star,
@@ -18,6 +19,7 @@ import {
   Crown,
 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const bestSellers = [
   {
@@ -190,9 +192,29 @@ const categories = [
 
 export default function BestSellersPage() {
   const { language } = useLanguage();
+  const { addToCart } = useCart();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("best-selling");
+
+  const handleAddToCart = (product: typeof bestSellers[0], e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      category: product.category,
+    });
+    toast.success(
+      language === "ar" ? "تمت الإضافة للسلة" : "Added to cart",
+      {
+        description: product.name[language],
+      }
+    );
+  };
 
   const filteredProducts = bestSellers.filter((product) => {
     if (selectedCategory === "all") return true;
@@ -318,8 +340,8 @@ export default function BestSellersPage() {
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${selectedCategory === cat.id
-                      ? "bg-orange-500 text-white"
-                      : "bg-muted hover:bg-muted/80"
+                    ? "bg-orange-500 text-white"
+                    : "bg-muted hover:bg-muted/80"
                     }`}
                 >
                   {cat.name[language]}
@@ -517,7 +539,10 @@ export default function BestSellersPage() {
                       <Button variant="outline" size="icon">
                         <Heart className="h-4 w-4" />
                       </Button>
-                      <Button className="bg-orange-500 hover:bg-orange-600">
+                      <Button
+                        className="bg-orange-500 hover:bg-orange-600"
+                        onClick={(e) => handleAddToCart(product, e)}
+                      >
                         <ShoppingCart className="h-4 w-4 mr-2" />
                         {language === "ar" ? "أضف للسلة" : "Add to Cart"}
                       </Button>
