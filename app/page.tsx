@@ -166,7 +166,7 @@ export default function Home() {
       {/* Promotional Banners */}
       <section className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-3 gap-4">
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
+          <div className="bg-linear-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
               <Zap className="h-5 w-5" />
               <span className="text-sm font-medium">{t.flashSale[language]}</span>
@@ -177,7 +177,7 @@ export default function Home() {
               {t.shopNow[language]}
             </Button>
           </div>
-          <div className="bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl p-6 text-white">
+          <div className="bg-linear-to-r from-pink-500 to-rose-600 rounded-2xl p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="h-5 w-5" />
               <span className="text-sm font-medium">{t.trending[language]}</span>
@@ -188,7 +188,7 @@ export default function Home() {
               {t.discover[language]}
             </Button>
           </div>
-          <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-6 text-white">
+          <div className="bg-linear-to-r from-green-500 to-emerald-600 rounded-2xl p-6 text-white">
             <div className="flex items-center gap-2 mb-2">
               <Percent className="h-5 w-5" />
               <span className="text-sm font-medium">{t.specialOffer[language]}</span>
@@ -272,7 +272,7 @@ export default function Home() {
             <input
               type="email"
               placeholder={t.enterYourEmail[language]}
-              className="flex-1 px-4 py-3 rounded-lg border bg-background"
+              className="flex-1 px-4 py-2 rounded-lg border bg-background"
             />
             <Button className="bg-orange-500 hover:bg-orange-600">{t.subscribe[language]}</Button>
           </div>
