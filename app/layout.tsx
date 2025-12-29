@@ -71,9 +71,9 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
-    title: "Amanoon - E-commerce Demo",
-    description: "Portfolio demo project showcasing e-commerce development",
-  },
+  title: "Amanoon - E-commerce Demo",
+  description: "Portfolio demo project showcasing e-commerce development",
+},
   manifest: "/manifest.json",
   other: {
     "demo-site": "true",
