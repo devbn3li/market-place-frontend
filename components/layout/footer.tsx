@@ -16,7 +16,59 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useLanguage, translations as t } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
+
+const t = {
+  company: { en: "Company", ar: "الشركة" },
+  aboutUs: { en: "About Us", ar: "من نحن" },
+  careers: { en: "Careers", ar: "الوظائف" },
+  press: { en: "Press", ar: "الصحافة" },
+  blog: { en: "Blog", ar: "المدونة" },
+  customerService: { en: "Customer Service", ar: "خدمة العملاء" },
+  help: { en: "Help Center", ar: "مركز المساعدة" },
+  contactUs: { en: "Contact Us", ar: "اتصل بنا" },
+  faq: { en: "FAQ", ar: "الأسئلة الشائعة" },
+  shipping: { en: "Shipping Info", ar: "معلومات الشحن" },
+  legal: { en: "Legal", ar: "قانوني" },
+  privacy: { en: "Privacy Policy", ar: "سياسة الخصوصية" },
+  terms: { en: "Terms of Service", ar: "شروط الخدمة" },
+  cookies: { en: "Cookies Policy", ar: "سياسة ملفات تعريف الارتباط" },
+  newsletter: { en: "Newsletter", ar: "النشرة الإخبارية" },
+  subscribe: { en: "Subscribe", ar: "اشترك" },
+  emailPlaceholder: { en: "Enter your email", ar: "أدخل بريدك الإلكتروني" },
+  newsletterDesc: { en: "Subscribe to our newsletter for exclusive deals and updates!", ar: "اشترك في نشرتنا للحصول على عروض حصرية وتحديثات!" },
+  allRightsReserved: { en: "All rights reserved", ar: "جميع الحقوق محفوظة" },
+  followUs: { en: "Follow Us", ar: "تابعنا" },
+  freeShipping: { en: "Free Shipping", ar: "شحن مجاني" },
+  freeShippingDesc: { en: "On orders over $50", ar: "للطلبات فوق 50$" },
+  securePayment: { en: "Secure Payment", ar: "دفع آمن" },
+  securePaymentDesc: { en: "100% secure payment", ar: "دفع آمن 100%" },
+  support: { en: "24/7 Support", ar: "دعم على مدار الساعة" },
+  supportDesc: { en: "We're here to help", ar: "نحن هنا للمساعدة" },
+  returns: { en: "Easy Returns", ar: "إرجاع سهل" },
+  returnsDesc: { en: "30-day return policy", ar: "سياسة إرجاع 30 يوم" },
+  helpSupport: { en: "Help & Support", ar: "المساعدة والدعم" },
+  helpCenter: { en: "Help Center", ar: "مركز المساعدة" },
+  shippingInfo: { en: "Shipping Info", ar: "معلومات الشحن" },
+  termsOfService: { en: "Terms of Service", ar: "شروط الخدمة" },
+  privacyPolicy: { en: "Privacy Policy", ar: "سياسة الخصوصية" },
+  cookiePolicy: { en: "Cookies Policy", ar: "سياسة ملفات تعريف الارتباط" },
+  sellOnAmanoon: { en: "Sell on Amanoon", ar: "البيع على أمانون" },
+  startSelling: { en: "Start Selling", ar: "ابدأ البيع" },
+  sellerCenter: { en: "Seller Center", ar: "مركز البائع" },
+  fulfillment: { en: "Fulfillment", ar: "التوصيل" },
+  freeShippingTitle: { en: "Free Shipping", ar: "شحن مجاني" },
+  onOrdersOver50: { en: "On orders over $50", ar: "للطلبات فوق 50$" },
+  secureCheckout: { en: "100% Secure Checkout", ar: "دفع آمن 100%" },
+  support247: { en: "24/7 Support", ar: "دعم على مدار الساعة" },
+  dedicatedSupport: { en: "We're here to help", ar: "نحن هنا للمساعدة" },
+  easyReturns: { en: "Easy Returns", ar: "إرجاع سهل" },
+  returnPolicy: { en: "30-day return policy", ar: "سياسة إرجاع 30 يوم" },
+  footerDescription: { en: "Your one-stop shop for everything you need. Quality products, great prices, fast delivery.", ar: "متجرك الشامل لكل ما تحتاجه. منتجات عالية الجودة، أسعار رائعة، توصيل سريع." },
+  subscribeNewsletter: { en: "Subscribe to Newsletter", ar: "اشترك في النشرة الإخبارية" },
+  enterYourEmail: { en: "Enter your email", ar: "أدخل بريدك الإلكتروني" },
+  address: { en: "123 Market Street, Tech City", ar: "123 شارع السوق، مدينة التقنية" },
+};
 
 const footerLinks = {
   company: {
@@ -86,7 +138,7 @@ const socialLinks = [
 ];
 
 export function Footer() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   return (
     <footer className="bg-muted/50 border-t">
       {/* Features Section */}

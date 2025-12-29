@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Newspaper,
@@ -141,7 +141,7 @@ const companyStats = [
 ];
 
 export default function PressPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

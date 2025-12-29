@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
-import { useCart } from "@/context/cart-context";
+import { useLanguageStore, useCartStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Star,
@@ -188,8 +187,8 @@ const categories = [
 ];
 
 export default function NewArrivalsPage() {
-  const { language } = useLanguage();
-  const { addToCart } = useCart();
+  const { language } = useLanguageStore();
+  const { addToCart } = useCartStore();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("newest");

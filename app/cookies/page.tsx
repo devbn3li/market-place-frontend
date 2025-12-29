@@ -1,12 +1,12 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Cookie, Settings, BarChart3, Target, Shield, ToggleLeft, HelpCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function CookiesPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   const [preferences, setPreferences] = useState({
     essential: true,
     analytics: true,
@@ -166,14 +166,14 @@ export default function CookiesPage() {
                     onClick={() => handleToggle(cookie.key)}
                     disabled={cookie.required}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${preferences[cookie.key as keyof typeof preferences]
-                        ? "bg-purple-500"
-                        : "bg-gray-300 dark:bg-gray-600"
+                      ? "bg-purple-500"
+                      : "bg-gray-300 dark:bg-gray-600"
                       } ${cookie.required ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
                   >
                     <span
                       className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${preferences[cookie.key as keyof typeof preferences]
-                          ? "translate-x-6"
-                          : "translate-x-1"
+                        ? "translate-x-6"
+                        : "translate-x-1"
                         }`}
                     />
                   </button>

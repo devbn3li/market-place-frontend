@@ -7,13 +7,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
-import { useLanguage, translations as t } from "@/context/language-context";
-import { useAuth } from "@/context/auth-context";
+import { useLanguageStore, useAuthStore } from "@/stores";
 import { toast } from "sonner";
 
+const t = {
+  welcomeBack: { en: "Welcome Back", ar: "مرحباً بعودتك" },
+  signInToContinue: { en: "Sign in to continue shopping", ar: "سجل الدخول لمتابعة التسوق" },
+  emailAddress: { en: "Email Address", ar: "البريد الإلكتروني" },
+  enterYourEmailPlaceholder: { en: "Enter your email", ar: "أدخل بريدك الإلكتروني" },
+  password: { en: "Password", ar: "كلمة المرور" },
+  enterYourPasswordPlaceholder: { en: "Enter your password", ar: "أدخل كلمة المرور" },
+  enterYourPassword: { en: "Enter your password", ar: "أدخل كلمة المرور" },
+  forgotPassword: { en: "Forgot password?", ar: "نسيت كلمة المرور؟" },
+  signIn: { en: "Sign In", ar: "تسجيل الدخول" },
+  noAccount: { en: "Don't have an account?", ar: "ليس لديك حساب؟" },
+  createAccount: { en: "Create Account", ar: "إنشاء حساب" },
+  orContinueWith: { en: "Or continue with", ar: "أو تابع مع" },
+  rememberMe: { en: "Remember me", ar: "تذكرني" },
+  dontHaveAccount: { en: "Don't have an account?", ar: "ليس لديك حساب؟" },
+  signUpForFree: { en: "Sign up for free", ar: "سجل مجاناً" },
+};
+
 export default function LoginPage() {
-  const { language } = useLanguage();
-  const { login } = useAuth();
+  const { language } = useLanguageStore();
+  const { login } = useAuthStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({

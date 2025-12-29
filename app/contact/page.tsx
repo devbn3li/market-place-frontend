@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +18,7 @@ import {
 import { toast } from "sonner";
 
 export default function ContactPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({

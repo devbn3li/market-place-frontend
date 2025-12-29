@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Clock,
@@ -189,7 +189,7 @@ const categoryDeals = [
 ];
 
 export default function DealsPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   const [timeLeft, setTimeLeft] = useState({
     hours: 5,
     minutes: 32,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -217,7 +217,7 @@ const popularArticles = [
 ];
 
 export default function HelpPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 

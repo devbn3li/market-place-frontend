@@ -1,9 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
-import { useCart } from "@/context/cart-context";
-import { useAuth } from "@/context/auth-context";
-import { useOrders } from "@/context/orders-context";
+import { useLanguageStore, useCartStore, useAuthStore, useOrdersStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -30,10 +27,10 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function CheckoutPage() {
-  const { language } = useLanguage();
-  const { items, totalPrice, clearCart } = useCart();
-  const { user, isAuthenticated } = useAuth();
-  const { addOrder } = useOrders();
+  const { language } = useLanguageStore();
+  const { items, totalPrice, clearCart } = useCartStore();
+  const { user, isAuthenticated } = useAuthStore();
+  const { addOrder } = useOrdersStore();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment, 3: Confirmation

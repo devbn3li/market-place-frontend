@@ -7,13 +7,40 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Lock, User, ArrowRight, Phone, Loader2 } from "lucide-react";
-import { useLanguage, translations as t } from "@/context/language-context";
-import { useAuth } from "@/context/auth-context";
+import { useLanguageStore, useAuthStore } from "@/stores";
 import { toast } from "sonner";
 
+const t = {
+  createAccount: { en: "Create Account", ar: "إنشاء حساب" },
+  joinMillions: { en: "Join millions of happy shoppers", ar: "انضم لملايين المتسوقين السعداء" },
+  firstName: { en: "First Name", ar: "الاسم الأول" },
+  lastName: { en: "Last Name", ar: "اسم العائلة" },
+  emailAddress: { en: "Email Address", ar: "البريد الإلكتروني" },
+  phoneNumber: { en: "Phone Number", ar: "رقم الهاتف" },
+  password: { en: "Password", ar: "كلمة المرور" },
+  confirmPassword: { en: "Confirm Password", ar: "تأكيد كلمة المرور" },
+  register: { en: "Create Account", ar: "إنشاء حساب" },
+  haveAccount: { en: "Already have an account?", ar: "لديك حساب بالفعل؟" },
+  signIn: { en: "Sign In", ar: "تسجيل الدخول" },
+  firstNamePlaceholder: { en: "Enter first name", ar: "أدخل الاسم الأول" },
+  lastNamePlaceholder: { en: "Enter last name", ar: "أدخل اسم العائلة" },
+  emailPlaceholder: { en: "Enter your email", ar: "أدخل بريدك الإلكتروني" },
+  phonePlaceholder: { en: "Enter your phone number", ar: "أدخل رقم هاتفك" },
+  createPasswordPlaceholder: { en: "Create a password", ar: "أنشئ كلمة مرور" },
+  confirmPasswordPlaceholder: { en: "Confirm your password", ar: "أكد كلمة المرور" },
+  passwordRequirements: { en: "Must be at least 8 characters", ar: "يجب أن تكون 8 أحرف على الأقل" },
+  agreeToTerms: { en: "By creating an account, you agree to our", ar: "بإنشاء حساب، فإنك توافق على" },
+  termsOfService: { en: "Terms of Service", ar: "شروط الخدمة" },
+  and: { en: "and", ar: "و" },
+  privacyPolicy: { en: "Privacy Policy", ar: "سياسة الخصوصية" },
+  createAccountBtn: { en: "Create Account", ar: "إنشاء حساب" },
+  orSignUpWith: { en: "Or sign up with", ar: "أو سجل باستخدام" },
+  alreadyHaveAccount: { en: "Already have an account?", ar: "لديك حساب بالفعل؟" },
+};
+
 export default function RegisterPage() {
-  const { language } = useLanguage();
-  const { register } = useAuth();
+  const { language } = useLanguageStore();
+  const { register } = useAuthStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({

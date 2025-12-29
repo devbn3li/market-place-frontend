@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { useState } from "react";
 import {
   HelpCircle,
@@ -221,7 +221,7 @@ const faqCategories: FAQCategory[] = [
 ];
 
 export default function FAQPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [openItems, setOpenItems] = useState<{ [key: string]: boolean }>({});
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -306,8 +306,8 @@ export default function FAQPage() {
           <button
             onClick={() => setActiveCategory(null)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeCategory === null
-                ? "bg-orange-500 text-white"
-                : "bg-muted hover:bg-muted/80 text-foreground"
+              ? "bg-orange-500 text-white"
+              : "bg-muted hover:bg-muted/80 text-foreground"
               }`}
           >
             {language === "ar" ? "الكل" : "All"}
@@ -320,8 +320,8 @@ export default function FAQPage() {
                   setActiveCategory(activeCategory === category.titleEn ? null : category.titleEn)
                 }
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${activeCategory === category.titleEn
-                    ? "bg-orange-500 text-white"
-                    : "bg-muted hover:bg-muted/80 text-foreground"
+                  ? "bg-orange-500 text-white"
+                  : "bg-muted hover:bg-muted/80 text-foreground"
                   }`}
               >
                 <category.icon className="h-4 w-4" />

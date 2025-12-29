@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
-import { useCart } from "@/context/cart-context";
+import { useLanguageStore, useCartStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,8 +19,8 @@ import {
 import { useState } from "react";
 
 export default function CartPage() {
-  const { language } = useLanguage();
-  const { items, removeFromCart, updateQuantity, clearCart, totalPrice } = useCart();
+  const { language } = useLanguageStore();
+  const { items, removeFromCart, updateQuantity, clearCart, totalPrice } = useCartStore();
   const [promoCode, setPromoCode] = useState("");
   const [promoApplied, setPromoApplied] = useState(false);
 

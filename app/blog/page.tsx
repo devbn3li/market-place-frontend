@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -180,7 +180,7 @@ const popularTags = [
 ];
 
 export default function BlogPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -370,15 +370,15 @@ export default function BlogPage() {
                     key={cat.id}
                     onClick={() => setSelectedCategory(cat.id)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors ${selectedCategory === cat.id
-                        ? "bg-orange-500 text-white"
-                        : "hover:bg-muted"
+                      ? "bg-orange-500 text-white"
+                      : "hover:bg-muted"
                       }`}
                   >
                     <span>{cat.name[language]}</span>
                     <span
                       className={`text-xs px-2 py-0.5 rounded-full ${selectedCategory === cat.id
-                          ? "bg-white/20"
-                          : "bg-muted"
+                        ? "bg-white/20"
+                        : "bg-muted"
                         }`}
                     >
                       {cat.count}

@@ -1,10 +1,10 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Shield, Eye, Database, Share2, Lock, Clock, Globe, Mail } from "lucide-react";
 
 export default function PrivacyPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
 
   const sections = [
     {

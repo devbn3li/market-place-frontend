@@ -3,7 +3,49 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, TrendingUp, Percent, Zap } from "lucide-react";
-import { useLanguage, translations as t } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
+
+const t = {
+  electronics: { en: "Electronics", ar: "إلكترونيات" },
+  fashion: { en: "Fashion", ar: "أزياء" },
+  homeGarden: { en: "Home & Garden", ar: "المنزل والحديقة" },
+  sports: { en: "Sports", ar: "رياضة" },
+  beauty: { en: "Beauty", ar: "الجمال" },
+  books: { en: "Books", ar: "كتب" },
+  toys: { en: "Toys", ar: "ألعاب" },
+  automotive: { en: "Automotive", ar: "السيارات" },
+  newYearSale: { en: "🎉 New Year Sale - Up to 70% OFF!", ar: "🎉 تخفيضات السنة الجديدة - خصم يصل إلى 70%!" },
+  shopByCategory: { en: "Shop by Category", ar: "تسوق حسب الفئة" },
+  featuredProducts: { en: "Featured Products", ar: "منتجات مميزة" },
+  shopNow: { en: "Shop Now", ar: "تسوق الآن" },
+  discoverDeals: { en: "Discover Amazing Deals", ar: "اكتشف عروض مذهلة" },
+  bestPrices: { en: "Best Prices Guaranteed", ar: "أفضل الأسعار مضمونة" },
+  heroTitle: { en: "Shop Smart, Live Better", ar: "تسوق بذكاء، عش أفضل" },
+  heroSubtitle: { en: "Discover millions of products at unbeatable prices with fast delivery", ar: "اكتشف ملايين المنتجات بأسعار لا تقبل المنافسة مع توصيل سريع" },
+  viewAll: { en: "View All", ar: "عرض الكل" },
+  wirelessHeadphones: { en: "Wireless Headphones", ar: "سماعات لاسلكية" },
+  smartWatch: { en: "Smart Watch", ar: "ساعة ذكية" },
+  leatherBag: { en: "Leather Bag", ar: "حقيبة جلد" },
+  coffeeBeans: { en: "Premium Coffee Beans", ar: "حبوب قهوة فاخرة" },
+  unbeatablePrices: { en: "Unbeatable Prices", ar: "أسعار لا تُقاوم" },
+  heroDescription: { en: "Discover millions of products at unbeatable prices with fast delivery to your door.", ar: "اكتشف ملايين المنتجات بأسعار لا تُقاوم مع توصيل سريع لباب منزلك." },
+  browseCategories: { en: "Browse Categories", ar: "تصفح الفئات" },
+  flashSale: { en: "Flash Sale", ar: "تخفيضات خاطفة" },
+  electronicsDeal: { en: "Electronics Deal", ar: "عروض الإلكترونيات" },
+  saveUpTo50: { en: "Save up to 50% on electronics", ar: "وفر حتى 50% على الإلكترونيات" },
+  trending: { en: "Trending", ar: "رائج" },
+  fashionWeek: { en: "Fashion Week", ar: "أسبوع الموضة" },
+  newArrivalsDropped: { en: "New arrivals just dropped!", ar: "وصل جديد!" },
+  discover: { en: "Discover", ar: "اكتشف" },
+  specialOffer: { en: "Special Offer", ar: "عرض خاص" },
+  freeShippingTitle: { en: "Free Shipping", ar: "شحن مجاني" },
+  onOrdersOver50: { en: "On orders over $50", ar: "للطلبات فوق 50$" },
+  learnMore: { en: "Learn More", ar: "اعرف المزيد" },
+  stayUpdated: { en: "Stay Updated", ar: "ابق على اطلاع" },
+  newsletterDescription: { en: "Subscribe to our newsletter for the latest deals and updates.", ar: "اشترك في نشرتنا الإخبارية لأحدث العروض والتحديثات." },
+  enterYourEmail: { en: "Enter your email", ar: "أدخل بريدك الإلكتروني" },
+  subscribe: { en: "Subscribe", ar: "اشترك" },
+};
 
 const categories = [
   { name: t.electronics, emoji: "📱", href: "/categories/electronics", color: "bg-blue-500" },
@@ -56,7 +98,7 @@ const featuredProducts = [
 ];
 
 export default function Home() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   return (
     <div className="min-h-screen" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Hero Section */}

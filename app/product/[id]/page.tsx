@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useLanguage } from "@/context/language-context";
-import { useCart } from "@/context/cart-context";
+import { useLanguageStore, useCartStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Star, Heart, ShoppingCart, Truck, Shield, RotateCcw, Minus,
@@ -18,8 +17,8 @@ const allProducts = [...bestSellerProducts, ...newArrivalProducts];
 
 export default function ProductPage() {
   const params = useParams();
-  const { language } = useLanguage();
-  const { addToCart } = useCart();
+  const { language } = useLanguageStore();
+  const { addToCart } = useCartStore();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);

@@ -3,8 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
-import { useAuth } from "@/context/auth-context";
+import { useLanguageStore, useAuthStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   User,
@@ -24,8 +23,8 @@ import {
 } from "lucide-react";
 
 export default function ProfilePage() {
-  const { language } = useLanguage();
-  const { user, isAuthenticated, isLoading, logout } = useAuth();
+  const { language } = useLanguageStore();
+  const { user, isAuthenticated, isLoading, logout } = useAuthStore();
   const router = useRouter();
 
   useEffect(() => {

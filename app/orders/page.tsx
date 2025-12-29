@@ -3,10 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
-import { useAuth } from "@/context/auth-context";
-import { useOrders, Order } from "@/context/orders-context";
-import { useCart } from "@/context/cart-context";
+import { useLanguageStore, useAuthStore, useOrdersStore, useCartStore, Order } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {
@@ -23,10 +20,10 @@ import {
 } from "lucide-react";
 
 export default function OrdersPage() {
-  const { language } = useLanguage();
-  const { user, isAuthenticated, isLoading } = useAuth();
-  const { orders } = useOrders();
-  const { addToCart } = useCart();
+  const { language } = useLanguageStore();
+  const { user, isAuthenticated, isLoading } = useAuthStore();
+  const { orders } = useOrdersStore();
+  const { addToCart } = useCartStore();
   const router = useRouter();
 
   useEffect(() => {

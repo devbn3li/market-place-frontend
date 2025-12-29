@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Code2,
@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export default function AboutPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
 
   return (
     <div

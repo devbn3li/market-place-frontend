@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -239,7 +239,7 @@ const benefits = [
 ];
 
 export default function CareersPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
   const [expandedJob, setExpandedJob] = useState<number | null>(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [selectedJob, setSelectedJob] = useState<(typeof jobs)[0] | null>(null);

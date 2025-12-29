@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
-import { useAuth, Address } from "@/context/auth-context";
+import { useLanguageStore, useAuthStore, Address } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -50,8 +49,8 @@ const initialFormData: AddressFormData = {
 };
 
 export default function AddressesPage() {
-  const { language } = useLanguage();
-  const { user, isAuthenticated, isLoading, addAddress, updateAddress, deleteAddress, setDefaultAddress } = useAuth();
+  const { language } = useLanguageStore();
+  const { user, isAuthenticated, isLoading, addAddress, updateAddress, deleteAddress, setDefaultAddress } = useAuthStore();
   const router = useRouter();
 
   const [showForm, setShowForm] = useState(false);
@@ -207,8 +206,8 @@ export default function AddressesPage() {
                       type="button"
                       onClick={() => setFormData({ ...formData, label: option.value })}
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${formData.label === option.value
-                          ? "bg-orange-500 text-white border-orange-500"
-                          : "bg-background hover:bg-muted border-border"
+                        ? "bg-orange-500 text-white border-orange-500"
+                        : "bg-background hover:bg-muted border-border"
                         }`}
                     >
                       <option.icon className="h-4 w-4" />

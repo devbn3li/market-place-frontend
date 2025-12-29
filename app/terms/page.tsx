@@ -1,10 +1,10 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import { FileText, Scale, ShieldCheck, AlertTriangle, Users, CreditCard, Package, MessageSquare } from "lucide-react";
 
 export default function TermsPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
 
   const sections = [
     {

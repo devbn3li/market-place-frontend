@@ -7,9 +7,20 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useLanguage, translations as t } from "@/context/language-context";
-import { useCart } from "@/context/cart-context";
-import { useAuth } from "@/context/auth-context";
+import { useLanguageStore, useCartStore, useAuthStore } from "@/stores";
+
+const t = {
+  home: { en: "Home", ar: "الرئيسية" },
+  categories: { en: "Categories", ar: "الفئات" },
+  deals: { en: "Deals", ar: "العروض" },
+  newArrivals: { en: "New Arrivals", ar: "جديدنا" },
+  bestSellers: { en: "Best Sellers", ar: "الأكثر مبيعاً" },
+  searchPlaceholder: { en: "Search products...", ar: "ابحث عن منتجات..." },
+  login: { en: "Login", ar: "تسجيل الدخول" },
+  freeShipping: { en: "Free shipping on orders over $50", ar: "شحن مجاني للطلبات فوق 50$" },
+  darkMode: { en: "Dark Mode", ar: "الوضع الداكن" },
+  language: { en: "Language", ar: "اللغة" },
+};
 
 const navLinks = [
   { href: "/", label: t.home },
@@ -20,16 +31,12 @@ const navLinks = [
 ];
 
 export function Navbar() {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, toggleLanguage } = useLanguageStore();
   const { theme, setTheme } = useTheme();
-  const { totalItems } = useCart();
-  const { user, isAuthenticated, logout } = useAuth();
+  const totalItems = useCartStore((state) => state.totalItems);
+  const { user, isAuthenticated, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "ar" : "en");
-  };
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");

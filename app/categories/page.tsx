@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguage } from "@/context/language-context";
+import { useLanguageStore } from "@/stores";
 import {
   Smartphone,
   Shirt,
@@ -189,7 +189,7 @@ const categories = [
 ];
 
 export default function CategoriesPage() {
-  const { language } = useLanguage();
+  const { language } = useLanguageStore();
 
   return (
     <div className="min-h-screen bg-muted/30" dir={language === "ar" ? "rtl" : "ltr"}>
