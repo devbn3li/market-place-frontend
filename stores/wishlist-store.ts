@@ -60,6 +60,7 @@ export const useWishlistStore = create<WishlistStore>()(
     }),
     {
       name: "amanoon-wishlist",
+      skipHydration: true,
     }
   )
 );

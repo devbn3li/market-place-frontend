@@ -28,7 +28,7 @@ import { toast } from "sonner";
 
 export default function CheckoutPage() {
   const { language } = useLanguageStore();
-  const { items, totalPrice, clearCart, appliedCoupon, getDiscount } = useCartStore();
+  const { items, totalPrice, clearCart, appliedCoupon } = useCartStore();
   const { user, isAuthenticated } = useAuthStore();
   const { addOrder } = useOrdersStore();
   const router = useRouter();
@@ -77,7 +77,7 @@ export default function CheckoutPage() {
 
   const shipping = totalPrice > 50 ? 0 : 9.99;
   const tax = totalPrice * 0.05;
-  const discount = getDiscount();
+  const discount = appliedCoupon ? totalPrice * (appliedCoupon.discount / 100) : 0;
   const finalTotal = totalPrice + shipping + tax - discount;
 
   const handleShippingChange = (e: React.ChangeEvent<HTMLInputElement>) => {

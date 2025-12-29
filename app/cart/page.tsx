@@ -22,11 +22,11 @@ import { toast } from "sonner";
 
 export default function CartPage() {
   const { language } = useLanguageStore();
-  const { items, removeFromCart, updateQuantity, clearCart, totalPrice, appliedCoupon, applyCoupon, removeCoupon, getDiscount } = useCartStore();
+  const { items, removeFromCart, updateQuantity, clearCart, totalPrice, appliedCoupon, applyCoupon, removeCoupon } = useCartStore();
   const [promoCode, setPromoCode] = useState("");
 
   const shipping = totalPrice > 50 ? 0 : 9.99;
-  const discount = getDiscount();
+  const discount = appliedCoupon ? totalPrice * (appliedCoupon.discount / 100) : 0;
   const finalTotal = totalPrice + shipping - discount;
 
   const handleApplyPromo = () => {

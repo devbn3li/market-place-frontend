@@ -232,6 +232,7 @@ export const useAuthStore = create<AuthStore>()(
     }),
     {
       name: "amanoon-auth",
+      skipHydration: true,
     }
   )
 );

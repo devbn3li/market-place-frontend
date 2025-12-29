@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, TrendingUp, Percent, Zap, Heart } from "lucide-react";
 import { useLanguageStore, useWishlistStore } from "@/stores";
 import { toast } from "sonner";
-import { getFeaturedProducts, getCategoryName, type ProductBasic } from "@/lib/products";
+import { getFeaturedProducts, type ProductBasic } from "@/lib/products";
 
 const t = {
   newYearSale: { en: "🎉 New Year Sale - Up to 70% OFF!", ar: "🎉 تخفيضات السنة الجديدة - خصم يصل إلى 70%!" },

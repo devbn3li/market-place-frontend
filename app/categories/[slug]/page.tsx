@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { generateProductsForCategory, type Product } from "@/lib/products";
+import { generateProductsForCategory } from "@/lib/products";
 
 // Category data
 const categoriesData: Record<

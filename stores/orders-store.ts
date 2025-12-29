@@ -81,6 +81,7 @@ export const useOrdersStore = create<OrdersStore>()(
     }),
     {
       name: "amanoon-orders",
+      skipHydration: true,
     }
   )
 );

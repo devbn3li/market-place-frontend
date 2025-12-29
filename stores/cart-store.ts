@@ -140,6 +140,7 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: "amanoon-cart",
+      skipHydration: true,
     }
   )
 );

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguageStore, useCartStore, useWishlistStore } from "@/stores";
+import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Clock,
@@ -13,11 +13,9 @@ import {
   Gift,
   Timer,
   Flame,
-  ShoppingCart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { toast } from "sonner";
-import { getDeals, type Product } from "@/lib/products";
+import { getDeals } from "@/lib/products";
 
 // Get deals from JSON data
 const dealsProducts = getDeals(12);
