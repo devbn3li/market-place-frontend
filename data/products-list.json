@@ -1,0 +1,436 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "slug": "wireless-headphones-pro",
+      "name": {
+        "en": "Premium Wireless Headphones",
+        "ar": "سماعات لاسلكية فاخرة"
+      },
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+      "price": 199.99,
+      "originalPrice": 299.99,
+      "rating": 4.8,
+      "reviews": 2341,
+      "category": "electronics",
+      "inStock": true,
+      "badge": { "en": "Best Seller", "ar": "الأكثر مبيعاً" }
+    },
+    {
+      "id": 2,
+      "slug": "smart-watch-pro-series",
+      "name": { "en": "Smart Watch Pro Series", "ar": "ساعة ذكية برو سيريز" },
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
+      "price": 349.99,
+      "originalPrice": 449.99,
+      "rating": 4.9,
+      "reviews": 1876,
+      "category": "electronics",
+      "inStock": true,
+      "badge": { "en": "New", "ar": "جديد" }
+    },
+    {
+      "id": 3,
+      "slug": "portable-bluetooth-speaker",
+      "name": {
+        "en": "Portable Bluetooth Speaker",
+        "ar": "مكبر صوت بلوتوث محمول"
+      },
+      "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
+      "price": 79.99,
+      "originalPrice": 129.99,
+      "rating": 4.6,
+      "reviews": 987,
+      "category": "electronics",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 4,
+      "slug": "wireless-charging-pad",
+      "name": { "en": "Wireless Charging Pad", "ar": "قاعدة شحن لاسلكية" },
+      "image": "https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?w=400",
+      "price": 39.99,
+      "originalPrice": 59.99,
+      "rating": 4.5,
+      "reviews": 654,
+      "category": "electronics",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 5,
+      "slug": "4k-action-camera",
+      "name": { "en": "4K Action Camera", "ar": "كاميرا أكشن 4K" },
+      "image": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400",
+      "price": 249.99,
+      "originalPrice": 349.99,
+      "rating": 4.7,
+      "reviews": 1234,
+      "category": "cameras",
+      "inStock": true,
+      "badge": { "en": "Hot", "ar": "رائج" }
+    },
+    {
+      "id": 6,
+      "slug": "gaming-mechanical-keyboard",
+      "name": {
+        "en": "Gaming Mechanical Keyboard",
+        "ar": "لوحة مفاتيح ميكانيكية للألعاب"
+      },
+      "image": "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=400",
+      "price": 149.99,
+      "originalPrice": 199.99,
+      "rating": 4.8,
+      "reviews": 2156,
+      "category": "computers",
+      "inStock": true,
+      "badge": { "en": "Best Seller", "ar": "الأكثر مبيعاً" }
+    },
+    {
+      "id": 7,
+      "slug": "noise-canceling-earbuds",
+      "name": {
+        "en": "Noise Canceling Earbuds",
+        "ar": "سماعات أذن عازلة للضوضاء"
+      },
+      "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400",
+      "price": 129.99,
+      "originalPrice": 179.99,
+      "rating": 4.6,
+      "reviews": 1543,
+      "category": "audio",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 8,
+      "slug": "portable-power-bank-20000mah",
+      "name": {
+        "en": "Portable Power Bank 20000mAh",
+        "ar": "باور بانك محمول 20000 مللي أمبير"
+      },
+      "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400",
+      "price": 49.99,
+      "originalPrice": 79.99,
+      "rating": 4.7,
+      "reviews": 3421,
+      "category": "electronics",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 9,
+      "slug": "smart-home-hub",
+      "name": { "en": "Smart Home Hub", "ar": "مركز المنزل الذكي" },
+      "image": "https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=400",
+      "price": 99.99,
+      "originalPrice": 149.99,
+      "rating": 4.5,
+      "reviews": 876,
+      "category": "electronics",
+      "inStock": true,
+      "badge": { "en": "New", "ar": "جديد" }
+    },
+    {
+      "id": 10,
+      "slug": "fitness-tracker-band",
+      "name": { "en": "Fitness Tracker Band", "ar": "سوار تتبع اللياقة" },
+      "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400",
+      "price": 59.99,
+      "originalPrice": 89.99,
+      "rating": 4.4,
+      "reviews": 2198,
+      "category": "sports",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 11,
+      "slug": "wireless-mouse-pro",
+      "name": { "en": "Wireless Mouse Pro", "ar": "ماوس لاسلكي برو" },
+      "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400",
+      "price": 69.99,
+      "originalPrice": 99.99,
+      "rating": 4.6,
+      "reviews": 1654,
+      "category": "computers",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 12,
+      "slug": "usb-c-hub-adapter",
+      "name": { "en": "USB-C Hub Adapter", "ar": "محول USB-C متعدد المنافذ" },
+      "image": "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?w=400",
+      "price": 44.99,
+      "originalPrice": 69.99,
+      "rating": 4.5,
+      "reviews": 987,
+      "category": "computers",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 13,
+      "slug": "iphone-15-pro-max",
+      "name": {
+        "en": "iPhone 15 Pro Max 256GB",
+        "ar": "آيفون 15 برو ماكس 256 جيجا"
+      },
+      "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400",
+      "price": 1199.99,
+      "originalPrice": 1299.99,
+      "rating": 4.9,
+      "reviews": 5234,
+      "category": "electronics",
+      "inStock": true,
+      "badge": { "en": "New", "ar": "جديد" }
+    },
+    {
+      "id": 14,
+      "slug": "macbook-pro-m3",
+      "name": {
+        "en": "MacBook Pro M3 14-inch",
+        "ar": "ماك بوك برو M3 14 بوصة"
+      },
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400",
+      "price": 1999.99,
+      "originalPrice": 2199.99,
+      "rating": 4.9,
+      "reviews": 3421,
+      "category": "computers",
+      "inStock": true,
+      "badge": { "en": "Hot", "ar": "رائج" }
+    },
+    {
+      "id": 15,
+      "slug": "sony-playstation-5",
+      "name": { "en": "Sony PlayStation 5", "ar": "سوني بلايستيشن 5" },
+      "image": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=400",
+      "price": 499.99,
+      "originalPrice": 549.99,
+      "rating": 4.8,
+      "reviews": 8765,
+      "category": "toys",
+      "inStock": true,
+      "badge": { "en": "Best Seller", "ar": "الأكثر مبيعاً" }
+    },
+    {
+      "id": 16,
+      "slug": "nike-air-jordan-1",
+      "name": {
+        "en": "Nike Air Jordan 1 Retro",
+        "ar": "نايك إير جوردان 1 ريترو"
+      },
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+      "price": 179.99,
+      "originalPrice": 220.0,
+      "rating": 4.7,
+      "reviews": 4532,
+      "category": "fashion",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 17,
+      "slug": "leather-messenger-bag",
+      "name": {
+        "en": "Premium Leather Messenger Bag",
+        "ar": "حقيبة ماسنجر جلد فاخرة"
+      },
+      "image": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400",
+      "price": 149.99,
+      "originalPrice": 199.99,
+      "rating": 4.6,
+      "reviews": 1234,
+      "category": "fashion",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 18,
+      "slug": "espresso-machine-pro",
+      "name": { "en": "Espresso Machine Pro", "ar": "ماكينة إسبريسو برو" },
+      "image": "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400",
+      "price": 299.99,
+      "originalPrice": 399.99,
+      "rating": 4.7,
+      "reviews": 2341,
+      "category": "home-garden",
+      "inStock": true,
+      "badge": { "en": "Hot", "ar": "رائج" }
+    },
+    {
+      "id": 19,
+      "slug": "robot-vacuum-cleaner",
+      "name": { "en": "Robot Vacuum Cleaner", "ar": "مكنسة روبوت ذكية" },
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400",
+      "price": 399.99,
+      "originalPrice": 549.99,
+      "rating": 4.5,
+      "reviews": 1876,
+      "category": "home-garden",
+      "inStock": true,
+      "badge": { "en": "New", "ar": "جديد" }
+    },
+    {
+      "id": 20,
+      "slug": "yoga-mat-premium",
+      "name": { "en": "Premium Yoga Mat", "ar": "سجادة يوغا فاخرة" },
+      "image": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400",
+      "price": 49.99,
+      "originalPrice": 69.99,
+      "rating": 4.6,
+      "reviews": 3214,
+      "category": "sports",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 21,
+      "slug": "adjustable-dumbbells",
+      "name": {
+        "en": "Adjustable Dumbbells Set",
+        "ar": "طقم دمبل قابل للتعديل"
+      },
+      "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400",
+      "price": 299.99,
+      "originalPrice": 399.99,
+      "rating": 4.8,
+      "reviews": 1543,
+      "category": "sports",
+      "inStock": true,
+      "badge": { "en": "Best Seller", "ar": "الأكثر مبيعاً" }
+    },
+    {
+      "id": 22,
+      "slug": "skincare-set-luxury",
+      "name": { "en": "Luxury Skincare Set", "ar": "طقم عناية بالبشرة فاخر" },
+      "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400",
+      "price": 129.99,
+      "originalPrice": 179.99,
+      "rating": 4.7,
+      "reviews": 2876,
+      "category": "beauty",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 23,
+      "slug": "perfume-collection",
+      "name": {
+        "en": "Designer Perfume Collection",
+        "ar": "مجموعة عطور فاخرة"
+      },
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400",
+      "price": 89.99,
+      "originalPrice": 129.99,
+      "rating": 4.5,
+      "reviews": 1654,
+      "category": "beauty",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 24,
+      "slug": "car-dash-camera",
+      "name": { "en": "4K Car Dash Camera", "ar": "كاميرا سيارة 4K" },
+      "image": "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=400",
+      "price": 79.99,
+      "originalPrice": 119.99,
+      "rating": 4.4,
+      "reviews": 987,
+      "category": "automotive",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 25,
+      "slug": "car-phone-mount",
+      "name": {
+        "en": "Magnetic Car Phone Mount",
+        "ar": "حامل هاتف مغناطيسي للسيارة"
+      },
+      "image": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400",
+      "price": 24.99,
+      "originalPrice": 39.99,
+      "rating": 4.6,
+      "reviews": 4532,
+      "category": "automotive",
+      "inStock": true,
+      "badge": null
+    },
+    {
+      "id": 26,
+      "slug": "pet-automatic-feeder",
+      "name": {
+        "en": "Automatic Pet Feeder",
+        "ar": "مغذي حيوانات أليفة أوتوماتيكي"
+      },
+      "image": "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400",
+      "price": 69.99,
+      "originalPrice": 99.99,
+      "rating": 4.5,
+      "reviews": 1234,
+      "category": "pets",
+      "inStock": true,
+      "badge": { "en": "New", "ar": "جديد" }
+    },
+    {
+      "id": 27,
+      "slug": "baby-stroller-pro",
+      "name": { "en": "Premium Baby Stroller", "ar": "عربة أطفال فاخرة" },
+      "image": "https://images.unsplash.com/photo-1586005362735-99d8b6e68e21?w=400",
+      "price": 349.99,
+      "originalPrice": 449.99,
+      "rating": 4.8,
+      "reviews": 876,
+      "category": "baby",
+      "inStock": true,
+      "badge": { "en": "Best Seller", "ar": "الأكثر مبيعاً" }
+    },
+    {
+      "id": 28,
+      "slug": "rolex-submariner",
+      "name": {
+        "en": "Luxury Watch Submariner Style",
+        "ar": "ساعة فاخرة ستايل صب مارينر"
+      },
+      "image": "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400",
+      "price": 599.99,
+      "originalPrice": 799.99,
+      "rating": 4.9,
+      "reviews": 654,
+      "category": "watches",
+      "inStock": true,
+      "badge": { "en": "Luxury", "ar": "فاخر" }
+    },
+    {
+      "id": 29,
+      "slug": "diamond-necklace",
+      "name": { "en": "Diamond Pendant Necklace", "ar": "قلادة ألماس معلقة" },
+      "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400",
+      "price": 899.99,
+      "originalPrice": 1199.99,
+      "rating": 4.8,
+      "reviews": 432,
+      "category": "watches",
+      "inStock": true,
+      "badge": { "en": "Luxury", "ar": "فاخر" }
+    },
+    {
+      "id": 30,
+      "slug": "gaming-chair-pro",
+      "name": { "en": "Ergonomic Gaming Chair", "ar": "كرسي ألعاب مريح" },
+      "image": "https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=400",
+      "price": 299.99,
+      "originalPrice": 399.99,
+      "rating": 4.6,
+      "reviews": 2341,
+      "category": "furniture",
+      "inStock": true,
+      "badge": { "en": "Hot", "ar": "رائج" }
+    }
+  ]
+}

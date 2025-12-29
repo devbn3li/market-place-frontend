@@ -1,0 +1,439 @@
+{
+  "products": {
+    "1": {
+      "id": 1,
+      "slug": "wireless-headphones-pro",
+      "name": {
+        "en": "Premium Wireless Headphones",
+        "ar": "سماعات لاسلكية فاخرة"
+      },
+      "description": {
+        "en": "Experience premium sound quality with our wireless headphones featuring active noise cancellation, 40-hour battery life, and ultra-comfortable ear cushions. Perfect for music lovers and professionals alike.",
+        "ar": "استمتع بجودة صوت فائقة مع سماعاتنا اللاسلكية التي تتميز بخاصية إلغاء الضوضاء النشط، وعمر بطارية 40 ساعة، ووسائد أذن مريحة للغاية. مثالية لعشاق الموسيقى والمحترفين."
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
+        "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800",
+        "https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=800"
+      ],
+      "price": 199.99,
+      "originalPrice": 299.99,
+      "rating": 4.8,
+      "reviews": 2341,
+      "category": "electronics",
+      "brand": "AudioMax",
+      "sku": "AM-WH-001",
+      "inStock": true,
+      "stockCount": 156,
+      "features": {
+        "en": [
+          "Active Noise Cancellation",
+          "40-Hour Battery",
+          "Bluetooth 5.3",
+          "USB-C Charging",
+          "Foldable Design"
+        ],
+        "ar": [
+          "إلغاء الضوضاء النشط",
+          "بطارية 40 ساعة",
+          "بلوتوث 5.3",
+          "شحن USB-C",
+          "تصميم قابل للطي"
+        ]
+      },
+      "specifications": {
+        "Driver Size": "40mm",
+        "Frequency Response": "20Hz - 20kHz",
+        "Impedance": "32 Ohms",
+        "Weight": "250g",
+        "Connectivity": "Bluetooth 5.3, 3.5mm Jack"
+      },
+      "colors": [
+        { "name": { "en": "Black", "ar": "أسود" }, "hex": "#000000" },
+        { "name": { "en": "White", "ar": "أبيض" }, "hex": "#FFFFFF" },
+        { "name": { "en": "Navy Blue", "ar": "أزرق داكن" }, "hex": "#1E3A5F" }
+      ],
+      "warranty": { "en": "2 Years", "ar": "سنتين" },
+      "returnPolicy": {
+        "en": "30-Day Money Back Guarantee",
+        "ar": "ضمان استرداد الأموال خلال 30 يوم"
+      },
+      "tags": [
+        "wireless",
+        "headphones",
+        "noise-canceling",
+        "bluetooth",
+        "premium"
+      ]
+    },
+    "2": {
+      "id": 2,
+      "slug": "smart-watch-pro-series",
+      "name": { "en": "Smart Watch Pro Series", "ar": "ساعة ذكية برو سيريز" },
+      "description": {
+        "en": "Stay connected and track your fitness with our advanced smartwatch. Features include heart rate monitoring, GPS, water resistance up to 50m, and a stunning AMOLED display.",
+        "ar": "ابق متصلاً وتتبع لياقتك مع ساعتنا الذكية المتقدمة. تشمل الميزات مراقبة معدل ضربات القلب، GPS، مقاومة الماء حتى 50 متر، وشاشة AMOLED مذهلة."
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
+        "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800",
+        "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800"
+      ],
+      "price": 349.99,
+      "originalPrice": 449.99,
+      "rating": 4.9,
+      "reviews": 1876,
+      "category": "electronics",
+      "brand": "TechTime",
+      "sku": "TT-SW-002",
+      "inStock": true,
+      "stockCount": 89,
+      "features": {
+        "en": [
+          "Heart Rate Monitor",
+          "Built-in GPS",
+          "50m Water Resistant",
+          "7-Day Battery",
+          "AMOLED Display"
+        ],
+        "ar": [
+          "مراقب معدل ضربات القلب",
+          "GPS مدمج",
+          "مقاوم للماء 50 متر",
+          "بطارية 7 أيام",
+          "شاشة AMOLED"
+        ]
+      },
+      "specifications": {
+        "Display": "1.4\" AMOLED",
+        "Resolution": "454 x 454",
+        "Battery": "420mAh",
+        "Sensors": "Heart Rate, SpO2, Accelerometer, Gyroscope",
+        "Compatibility": "iOS 12+, Android 8+"
+      },
+      "colors": [
+        {
+          "name": { "en": "Midnight Black", "ar": "أسود منتصف الليل" },
+          "hex": "#0D0D0D"
+        },
+        { "name": { "en": "Silver", "ar": "فضي" }, "hex": "#C0C0C0" },
+        { "name": { "en": "Rose Gold", "ar": "ذهبي وردي" }, "hex": "#B76E79" }
+      ],
+      "warranty": { "en": "1 Year", "ar": "سنة واحدة" },
+      "returnPolicy": {
+        "en": "30-Day Money Back Guarantee",
+        "ar": "ضمان استرداد الأموال خلال 30 يوم"
+      },
+      "tags": ["smartwatch", "fitness", "gps", "health", "wearable"]
+    },
+    "3": {
+      "id": 3,
+      "slug": "portable-bluetooth-speaker",
+      "name": {
+        "en": "Portable Bluetooth Speaker",
+        "ar": "مكبر صوت بلوتوث محمول"
+      },
+      "description": {
+        "en": "Take your music anywhere with this powerful portable speaker. IPX7 waterproof rating, 24-hour playtime, and 360° surround sound make it perfect for outdoor adventures.",
+        "ar": "خذ موسيقاك في أي مكان مع هذا المكبر المحمول القوي. تصنيف مقاومة الماء IPX7، وقت تشغيل 24 ساعة، وصوت محيطي 360 درجة يجعله مثاليًا للمغامرات الخارجية."
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800",
+        "https://images.unsplash.com/photo-1589003077984-894e133dabab?w=800"
+      ],
+      "price": 79.99,
+      "originalPrice": 129.99,
+      "rating": 4.6,
+      "reviews": 987,
+      "category": "electronics",
+      "brand": "SoundWave",
+      "sku": "SW-BS-003",
+      "inStock": true,
+      "stockCount": 234,
+      "features": {
+        "en": [
+          "IPX7 Waterproof",
+          "24-Hour Battery",
+          "360° Sound",
+          "Built-in Mic",
+          "Party Mode"
+        ],
+        "ar": [
+          "مقاوم للماء IPX7",
+          "بطارية 24 ساعة",
+          "صوت 360 درجة",
+          "ميكروفون مدمج",
+          "وضع الحفلات"
+        ]
+      },
+      "specifications": {
+        "Output": "20W",
+        "Frequency": "60Hz - 20kHz",
+        "Battery": "7200mAh",
+        "Bluetooth": "5.0",
+        "Dimensions": "180 x 70 x 70mm"
+      },
+      "colors": [
+        { "name": { "en": "Black", "ar": "أسود" }, "hex": "#000000" },
+        { "name": { "en": "Blue", "ar": "أزرق" }, "hex": "#0066CC" },
+        { "name": { "en": "Red", "ar": "أحمر" }, "hex": "#CC0000" }
+      ],
+      "warranty": { "en": "1 Year", "ar": "سنة واحدة" },
+      "returnPolicy": {
+        "en": "30-Day Money Back Guarantee",
+        "ar": "ضمان استرداد الأموال خلال 30 يوم"
+      },
+      "tags": ["speaker", "bluetooth", "portable", "waterproof", "outdoor"]
+    },
+    "13": {
+      "id": 13,
+      "slug": "iphone-15-pro-max",
+      "name": {
+        "en": "iPhone 15 Pro Max 256GB",
+        "ar": "آيفون 15 برو ماكس 256 جيجا"
+      },
+      "description": {
+        "en": "The most powerful iPhone ever. Featuring the A17 Pro chip, a titanium design, a 48MP camera system with 5x optical zoom, and Action button for quick access to your favorite features.",
+        "ar": "أقوى آيفون على الإطلاق. يتميز بشريحة A17 Pro، وتصميم من التيتانيوم، ونظام كاميرا 48 ميجابكسل مع زوم بصري 5x، وزر الإجراء للوصول السريع لميزاتك المفضلة."
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800",
+        "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800",
+        "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800"
+      ],
+      "price": 1199.99,
+      "originalPrice": 1299.99,
+      "rating": 4.9,
+      "reviews": 5234,
+      "category": "electronics",
+      "brand": "Apple",
+      "sku": "APL-IP15PM-256",
+      "inStock": true,
+      "stockCount": 45,
+      "features": {
+        "en": [
+          "A17 Pro Chip",
+          "Titanium Design",
+          "48MP Camera",
+          "5x Optical Zoom",
+          "USB-C",
+          "Action Button"
+        ],
+        "ar": [
+          "شريحة A17 Pro",
+          "تصميم تيتانيوم",
+          "كاميرا 48 ميجابكسل",
+          "زوم بصري 5x",
+          "USB-C",
+          "زر الإجراء"
+        ]
+      },
+      "specifications": {
+        "Display": "6.7\" Super Retina XDR",
+        "Chip": "A17 Pro",
+        "Storage": "256GB",
+        "Camera": "48MP Main + 12MP Ultra Wide + 12MP Telephoto",
+        "Battery": "Up to 29 hours video playback"
+      },
+      "colors": [
+        {
+          "name": { "en": "Natural Titanium", "ar": "تيتانيوم طبيعي" },
+          "hex": "#8B8680"
+        },
+        {
+          "name": { "en": "Blue Titanium", "ar": "تيتانيوم أزرق" },
+          "hex": "#3B4A5F"
+        },
+        {
+          "name": { "en": "White Titanium", "ar": "تيتانيوم أبيض" },
+          "hex": "#E5E5E0"
+        },
+        {
+          "name": { "en": "Black Titanium", "ar": "تيتانيوم أسود" },
+          "hex": "#1D1D1F"
+        }
+      ],
+      "warranty": { "en": "1 Year Apple Warranty", "ar": "ضمان أبل لمدة سنة" },
+      "returnPolicy": {
+        "en": "14-Day Return Policy",
+        "ar": "سياسة إرجاع 14 يوم"
+      },
+      "tags": ["iphone", "apple", "smartphone", "5g", "pro"]
+    },
+    "14": {
+      "id": 14,
+      "slug": "macbook-pro-m3",
+      "name": {
+        "en": "MacBook Pro M3 14-inch",
+        "ar": "ماك بوك برو M3 14 بوصة"
+      },
+      "description": {
+        "en": "Supercharged by M3 Pro and M3 Max chips for exceptional performance. Features a stunning Liquid Retina XDR display, up to 22 hours of battery life, and advanced connectivity options.",
+        "ar": "مدعوم بشرائح M3 Pro و M3 Max لأداء استثنائي. يتميز بشاشة Liquid Retina XDR مذهلة، وعمر بطارية يصل إلى 22 ساعة، وخيارات اتصال متقدمة."
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
+        "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800"
+      ],
+      "price": 1999.99,
+      "originalPrice": 2199.99,
+      "rating": 4.9,
+      "reviews": 3421,
+      "category": "computers",
+      "brand": "Apple",
+      "sku": "APL-MBP14-M3",
+      "inStock": true,
+      "stockCount": 28,
+      "features": {
+        "en": [
+          "M3 Pro/Max Chip",
+          "Liquid Retina XDR",
+          "22-Hour Battery",
+          "MagSafe 3",
+          "6-Speaker Sound System"
+        ],
+        "ar": [
+          "شريحة M3 Pro/Max",
+          "شاشة Liquid Retina XDR",
+          "بطارية 22 ساعة",
+          "MagSafe 3",
+          "نظام صوت 6 مكبرات"
+        ]
+      },
+      "specifications": {
+        "Display": "14.2\" Liquid Retina XDR",
+        "Chip": "Apple M3 Pro",
+        "Memory": "18GB Unified Memory",
+        "Storage": "512GB SSD",
+        "Ports": "3x Thunderbolt 4, HDMI, SDXC, MagSafe 3"
+      },
+      "colors": [
+        {
+          "name": { "en": "Space Black", "ar": "أسود فضائي" },
+          "hex": "#1D1D1F"
+        },
+        { "name": { "en": "Silver", "ar": "فضي" }, "hex": "#E3E4E5" }
+      ],
+      "warranty": { "en": "1 Year Apple Warranty", "ar": "ضمان أبل لمدة سنة" },
+      "returnPolicy": {
+        "en": "14-Day Return Policy",
+        "ar": "سياسة إرجاع 14 يوم"
+      },
+      "tags": ["macbook", "apple", "laptop", "m3", "pro"]
+    },
+    "15": {
+      "id": 15,
+      "slug": "sony-playstation-5",
+      "name": { "en": "Sony PlayStation 5", "ar": "سوني بلايستيشن 5" },
+      "description": {
+        "en": "Experience lightning-fast loading with an ultra-high speed SSD, deeper immersion with support for haptic feedback, adaptive triggers and 3D Audio. Discover a new generation of incredible PlayStation games.",
+        "ar": "اختبر سرعة تحميل فائقة مع SSD عالي السرعة، وانغمس أعمق مع دعم ردود الفعل اللمسية، والأزرار التكيفية والصوت ثلاثي الأبعاد. اكتشف جيلاً جديداً من ألعاب بلايستيشن المذهلة."
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=800",
+        "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=800"
+      ],
+      "price": 499.99,
+      "originalPrice": 549.99,
+      "rating": 4.8,
+      "reviews": 8765,
+      "category": "toys",
+      "brand": "Sony",
+      "sku": "SNY-PS5-STD",
+      "inStock": true,
+      "stockCount": 67,
+      "features": {
+        "en": [
+          "4K Gaming",
+          "120Hz Output",
+          "Ray Tracing",
+          "3D Audio",
+          "DualSense Controller",
+          "Ultra-High Speed SSD"
+        ],
+        "ar": [
+          "ألعاب 4K",
+          "خرج 120Hz",
+          "Ray Tracing",
+          "صوت ثلاثي الأبعاد",
+          "يد DualSense",
+          "SSD فائق السرعة"
+        ]
+      },
+      "specifications": {
+        "CPU": "AMD Zen 2, 8 Cores @ 3.5GHz",
+        "GPU": "10.28 TFLOPs, Ray Tracing",
+        "Memory": "16GB GDDR6",
+        "Storage": "825GB SSD",
+        "Output": "4K @ 120Hz, 8K"
+      },
+      "colors": [{ "name": { "en": "White", "ar": "أبيض" }, "hex": "#FFFFFF" }],
+      "warranty": { "en": "1 Year Sony Warranty", "ar": "ضمان سوني لمدة سنة" },
+      "returnPolicy": {
+        "en": "30-Day Return Policy",
+        "ar": "سياسة إرجاع 30 يوم"
+      },
+      "tags": ["playstation", "gaming", "console", "sony", "ps5"]
+    },
+    "16": {
+      "id": 16,
+      "slug": "nike-air-jordan-1",
+      "name": {
+        "en": "Nike Air Jordan 1 Retro",
+        "ar": "نايك إير جوردان 1 ريترو"
+      },
+      "description": {
+        "en": "The Air Jordan 1 Retro High remakes the classic sneaker, giving you a fresh look with premium leather and iconic Wings logo. The Air-Sole unit provides lightweight cushioning.",
+        "ar": "يعيد Air Jordan 1 Retro High تصنيع الحذاء الكلاسيكي، مما يمنحك مظهرًا جديدًا بجلد فاخر وشعار Wings الأيقوني. توفر وحدة Air-Sole توسيدًا خفيف الوزن."
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+        "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800"
+      ],
+      "price": 179.99,
+      "originalPrice": 220.0,
+      "rating": 4.7,
+      "reviews": 4532,
+      "category": "fashion",
+      "brand": "Nike",
+      "sku": "NK-AJ1-RET",
+      "inStock": true,
+      "stockCount": 145,
+      "features": {
+        "en": [
+          "Premium Leather",
+          "Air-Sole Unit",
+          "Rubber Outsole",
+          "Padded Collar",
+          "Wings Logo"
+        ],
+        "ar": [
+          "جلد فاخر",
+          "وحدة Air-Sole",
+          "نعل خارجي مطاطي",
+          "ياقة مبطنة",
+          "شعار Wings"
+        ]
+      },
+      "specifications": {
+        "Material": "Premium Leather Upper",
+        "Sole": "Rubber",
+        "Closure": "Lace-up",
+        "Style": "High-top",
+        "Origin": "Vietnam"
+      },
+      "sizes": ["US 7", "US 8", "US 9", "US 10", "US 11", "US 12", "US 13"],
+      "colors": [
+        { "name": { "en": "Chicago", "ar": "شيكاغو" }, "hex": "#CC0000" },
+        { "name": { "en": "Royal Blue", "ar": "أزرق ملكي" }, "hex": "#0052CC" },
+        { "name": { "en": "Shadow", "ar": "شادو" }, "hex": "#555555" }
+      ],
+      "warranty": { "en": "Nike Quality Guarantee", "ar": "ضمان جودة نايك" },
+      "returnPolicy": {
+        "en": "60-Day Return Policy",
+        "ar": "سياسة إرجاع 60 يوم"
+      },
+      "tags": ["nike", "jordan", "sneakers", "basketball", "retro"]
+    }
+  }
+}
