@@ -207,7 +207,7 @@ export default function ReturnsPage() {
                 className="bg-card rounded-2xl border p-6 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
                     <policy.icon className="h-6 w-6 text-orange-500" />
                   </div>
                   <div>
@@ -240,7 +240,7 @@ export default function ReturnsPage() {
               <ul className="space-y-3">
                 {eligibleItems.map((item, index) => (
                   <li key={index} className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
                     <span className="text-muted-foreground">
                       {language === "ar" ? item.ar : item.en}
                     </span>
@@ -262,7 +262,7 @@ export default function ReturnsPage() {
               <ul className="space-y-3">
                 {nonEligibleItems.map((item, index) => (
                   <li key={index} className="flex items-center gap-3">
-                    <XCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                    <XCircle className="h-4 w-4 text-red-500 shrink-0" />
                     <span className="text-muted-foreground">
                       {language === "ar" ? item.ar : item.en}
                     </span>
@@ -277,7 +277,7 @@ export default function ReturnsPage() {
         <section className="mb-16">
           <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-6">
             <div className="flex items-start gap-4">
-              <AlertTriangle className="h-6 w-6 text-amber-500 flex-shrink-0 mt-1" />
+              <AlertTriangle className="h-6 w-6 text-amber-500 shrink-0 mt-1" />
               <div>
                 <h3 className="font-bold text-amber-800 dark:text-amber-200 mb-2">
                   {language === "ar" ? "ملاحظة مهمة" : "Important Notice"}
@@ -305,7 +305,7 @@ export default function ReturnsPage() {
                 className="bg-card rounded-xl border p-6 hover:shadow-md transition-shadow"
               >
                 <h3 className="font-bold mb-3 flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center text-sm flex-shrink-0">
+                  <span className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center text-sm shrink-0">
                     {index + 1}
                   </span>
                   {language === "ar" ? faq.questionAr : faq.questionEn}

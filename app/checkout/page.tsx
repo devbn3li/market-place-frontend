@@ -206,8 +206,15 @@ export default function CheckoutPage() {
     clearCart();
   };
 
+  // Redirect to cart if no items (client-side only)
+  useEffect(() => {
+    if (items.length === 0 && step !== 3) {
+      router.push("/cart");
+    }
+  }, [items.length, step, router]);
+
+  // Show nothing during redirect
   if (items.length === 0 && step !== 3) {
-    router.push("/cart");
     return null;
   }
 
@@ -264,7 +271,7 @@ export default function CheckoutPage() {
       <div className="bg-amber-500/10 border-b border-amber-500/20">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-center gap-2 text-amber-700 dark:text-amber-400">
-            <AlertTriangle className="h-4 w-4 flex-shrink-0" />
+            <AlertTriangle className="h-4 w-4 shrink-0" />
             <p className="text-sm text-center">
               {language === "ar"
                 ? " هذا موقع عرض توضيحي (Demo) - لا يتم جمع أو معالجة أي بيانات دفع حقيقية"

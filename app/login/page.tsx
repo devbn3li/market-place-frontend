@@ -15,7 +15,7 @@ const DemoBanner = ({ language }: { language: "en" | "ar" }) => (
   <div className="bg-amber-500/10 border-b border-amber-500/20">
     <div className="container mx-auto px-4 py-2">
       <div className="flex items-center justify-center gap-2 text-amber-700 dark:text-amber-400">
-        <AlertTriangle className="h-4 w-4 flex-shrink-0" />
+        <AlertTriangle className="h-4 w-4 shrink-0" />
         <p className="text-xs sm:text-sm text-center">
           {language === "ar"
             ? " موقع عرض توضيحي - لا يتم تخزين أي بيانات حقيقية"

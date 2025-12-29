@@ -148,7 +148,7 @@ export function Footer() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {features.map((feature, index) => (
               <div key={index} className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/20 flex items-center justify-center">
+                <div className="shrink-0 w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/20 flex items-center justify-center">
                   <feature.icon className="h-6 w-6 text-orange-500" />
                 </div>
                 <div>

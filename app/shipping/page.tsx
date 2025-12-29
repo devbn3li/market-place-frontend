@@ -295,7 +295,7 @@ export default function ShippingPage() {
                 className="bg-card rounded-2xl border p-6 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
                     <policy.icon className="h-5 w-5 text-orange-500" />
                   </div>
                   <div>
@@ -358,7 +358,7 @@ export default function ShippingPage() {
                 className="bg-card rounded-xl border p-6 hover:shadow-md transition-shadow"
               >
                 <h3 className="font-bold mb-3 flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center text-sm flex-shrink-0">
+                  <span className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center text-sm shrink-0">
                     {index + 1}
                   </span>
                   {language === "ar" ? faq.questionAr : faq.questionEn}

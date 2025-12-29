@@ -205,7 +205,7 @@ export default function OrdersPage() {
                     <div className="space-y-3">
                       {order.items.map((item, index) => (
                         <div key={index} className="flex items-center gap-4">
-                          <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-muted flex-shrink-0">
+                          <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-muted shrink-0">
                             <Image
                               src={item.image}
                               alt={item.name[language]}
@@ -228,7 +228,7 @@ export default function OrdersPage() {
 
                     {/* Shipping Address */}
                     <div className="mt-4 pt-4 border-t flex items-start gap-3">
-                      <MapPin className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <MapPin className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
                       <div className="text-sm">
                         <p className="font-medium">
                           {order.shippingAddress.firstName} {order.shippingAddress.lastName}
