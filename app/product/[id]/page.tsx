@@ -10,7 +10,7 @@ import {
   Plus, Share2, ChevronRight, Check, Package, Clock, CreditCard,
 } from "lucide-react";
 import { useState, useRef } from "react";
-import { toast } from "sonner";
+import { useToastAlert } from "@/hooks/use-toast-alert";
 import { getProductById, getRelatedProducts, toProduct, toProducts } from "@/lib/products";
 
 export default function ProductPage() {
@@ -19,6 +19,7 @@ export default function ProductPage() {
   const { language } = useLanguageStore();
   const { addToCart } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
+  const toastAlert = useToastAlert();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isZooming, setIsZooming] = useState(false);
@@ -70,11 +71,9 @@ export default function ProductPage() {
         category: product.category,
       });
     }
-    toast.success(
+    toastAlert.success(
       language === "ar" ? "تمت الإضافة للسلة" : "Added to cart",
-      {
-        description: `${quantity}x ${product.name[language]}`,
-      }
+      `${quantity}x ${product.name[language]}`
     );
   };
 
@@ -139,7 +138,8 @@ export default function ProductPage() {
                 <Image
                   src={productImages[selectedImage]}
                   alt={product.name[language]}
-                  fill
+                  width={600}
+                  height={600}
                   className="w-full h-full object-cover pointer-events-none"
                 />
                 {discount > 0 && (
@@ -165,7 +165,7 @@ export default function ProductPage() {
                       reviews: product.reviews,
                     });
                     const inWishlist = isInWishlist(product.id);
-                    toast.success(
+                    toastAlert.success(
                       inWishlist
                         ? language === "ar"
                           ? "تم إزالة المنتج من قائمة الرغبات"
@@ -200,7 +200,7 @@ export default function ProductPage() {
 
               {/* Zoomed Image Panel */}
               {isZooming && (
-                <div className="hidden lg:block absolute left-full ml-4 w-187.5 h-175 bg-card rounded-xl border overflow-hidden shadow-2xl z-50">
+                <div className="hidden lg:block absolute left-full ml-4 w-96 h-96 bg-card rounded-xl border overflow-hidden shadow-2xl z-50">
                   <div
                     className="w-full h-full"
                     style={{
@@ -219,7 +219,7 @@ export default function ProductPage() {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${selectedImage === index
+                  className={`relative w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${selectedImage === index
                     ? "border-orange-500"
                     : "border-transparent hover:border-gray-300"
                     }`}
@@ -227,7 +227,8 @@ export default function ProductPage() {
                   <Image
                     src={img}
                     alt={`${product.name[language]} ${index + 1}`}
-                    fill
+                    width={80}
+                    height={80}
                     className="w-full h-full object-cover"
                   />
                 </button>
@@ -378,7 +379,7 @@ export default function ProductPage() {
                     }).catch(() => { });
                   } else {
                     navigator.clipboard.writeText(url);
-                    toast.success(
+                    toastAlert.success(
                       language === "ar" ? "تم نسخ الرابط" : "Link copied to clipboard"
                     );
                   }
@@ -531,7 +532,8 @@ export default function ProductPage() {
                     <Image
                       src={relatedProduct.image}
                       alt={relatedProduct.name[language]}
-                      fill
+                      width={300}
+                      height={300}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                   </div>
