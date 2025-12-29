@@ -31,7 +31,7 @@ const navLinks = [
 ];
 
 export function Navbar() {
-  const { language, setLanguage, toggleLanguage } = useLanguageStore();
+  const { language, toggleLanguage } = useLanguageStore();
   const { theme, setTheme } = useTheme();
   const totalItems = useCartStore((state) => state.totalItems);
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -43,23 +43,7 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-500 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" dir={language === "ar" ? "rtl" : "ltr"}>
-      {/* Top Bar */}
-      <div className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm">
-          <span>{t.freeShipping[language]}</span>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center gap-1 hover:opacity-80 transition-opacity"
-            >
-              <Globe className="h-4 w-4" />
-              <span>{language === "en" ? "العربية" : "English"}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Main Navbar */}
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
@@ -102,7 +86,19 @@ export function Navbar() {
           </nav>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            {/* Language Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleLanguage}
+              className="hidden sm:flex"
+              title={language === "en" ? "العربية" : "English"}
+            >
+              <Globe className="h-5 w-5" />
+              <span className="sr-only">Toggle language</span>
+            </Button>
+
             {/* Dark Mode Toggle */}
             <Button
               variant="ghost"
@@ -206,15 +202,16 @@ export function Navbar() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side={language === "ar" ? "right" : "left"} className="w-80">
-                <div className="flex flex-col gap-6 mt-6">
+              <SheetContent side={language === "ar" ? "right" : "left"} className="w-[85vw] max-w-[320px] p-0 overflow-y-auto" dir={language === "ar" ? "rtl" : "ltr"}>
+                <div className="flex flex-col gap-6 p-6 pt-12">
                   {/* Mobile Search */}
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Search className={`absolute top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground ${language === "ar" ? "right-3" : "left-3"}`} />
                     <Input
                       type="search"
                       placeholder={t.searchPlaceholder[language]}
-                      className="w-full pl-10 pr-4"
+                      className={`w-full ${language === "ar" ? "pr-10 pl-4" : "pl-10 pr-4"}`}
+                      dir={language === "ar" ? "rtl" : "ltr"}
                     />
                   </div>
 
@@ -287,7 +284,7 @@ export function Navbar() {
                         {t.language[language]}
                       </span>
                       <Button variant="ghost" size="sm" onClick={toggleLanguage}>
-                        <Globe className="h-4 w-4 mr-2" />
+                        <Globe className={`h-4 w-4 ${language === "ar" ? "ml-2" : "mr-2"}`} />
                         {language === "en" ? "العربية" : "English"}
                       </Button>
                     </div>
