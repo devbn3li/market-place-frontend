@@ -80,7 +80,7 @@ export default function Home() {
   return (
     <div className="min-h-screen" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-orange-500 via-yellow-500 to-orange-600">
+      <section className="relative overflow-hidden bg-linear-to-br from-orange-500 via-yellow-500 to-orange-600">
         <div className="absolute inset-0 bg-black/10" />
         <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 items-center">

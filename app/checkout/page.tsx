@@ -560,12 +560,12 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Card Preview */}
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 mb-6 text-white relative overflow-hidden">
+                <div className="bg-linear-to-br from-gray-800 to-gray-900 rounded-xl p-6 mb-6 text-white relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
 
                   <div className="flex justify-between items-start mb-8">
-                    <div className="w-12 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded" />
+                    <div className="w-12 h-8 bg-linear-to-br from-yellow-400 to-yellow-600 rounded" />
                     <span className="text-sm opacity-80">Credit Card</span>
                   </div>
 

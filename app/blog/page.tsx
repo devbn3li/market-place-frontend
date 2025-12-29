@@ -406,7 +406,7 @@ export default function BlogPage() {
             </div>
 
             {/* Newsletter */}
-            <div className="bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl p-6 text-white">
+            <div className="bg-linear-to-br from-orange-500 to-pink-500 rounded-xl p-6 text-white">
               <h3 className="font-bold text-lg mb-2">
                 {language === "ar"
                   ? "اشترك في نشرتنا البريدية"

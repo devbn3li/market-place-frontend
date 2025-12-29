@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface OrderItem {
   id: number;
@@ -82,6 +82,13 @@ export const useOrdersStore = create<OrdersStore>()(
     {
       name: "amanoon-orders",
       skipHydration: true,
+      storage: createJSONStorage(() => 
+        typeof window !== 'undefined' ? window.localStorage : {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        }
+      ),
     }
   )
 );

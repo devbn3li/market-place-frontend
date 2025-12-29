@@ -115,7 +115,7 @@ export default function OrdersPage() {
   return (
     <div className="min-h-screen bg-muted/30" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Header */}
-      <div className="bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-500 text-white py-8">
+      <div className="bg-linear-to-br from-orange-500 via-orange-400 to-yellow-500 text-white py-8">
         <div className="container mx-auto px-4">
           <Link
             href="/profile"

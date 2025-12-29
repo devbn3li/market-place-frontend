@@ -141,7 +141,7 @@ export default function AddressesPage() {
   return (
     <div className="min-h-screen bg-muted/30" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Header */}
-      <div className="bg-gradient-to-br from-blue-500 via-blue-400 to-cyan-500 text-white py-8">
+      <div className="bg-linear-to-br from-blue-500 via-blue-400 to-cyan-500 text-white py-8">
         <div className="container mx-auto px-4">
           <Link
             href="/profile"

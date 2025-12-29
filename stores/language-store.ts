@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type Language = "en" | "ar";
 
@@ -27,6 +27,13 @@ export const useLanguageStore = create<LanguageStore>()(
     {
       name: "amanoon-language",
       skipHydration: true,
+      storage: createJSONStorage(() => 
+        typeof window !== 'undefined' ? window.localStorage : {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        }
+      ),
     }
   )
 );

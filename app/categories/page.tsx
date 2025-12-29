@@ -219,7 +219,7 @@ export default function CategoriesPage() {
                 className={`group ${category.bgColor} rounded-2xl p-6 border hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
               >
                 <div className="flex items-start gap-4">
-                  <div className={`p-3 rounded-xl bg-gradient-to-br ${category.color} text-white shadow-lg group-hover:scale-110 transition-transform`}>
+                  <div className={`p-3 rounded-xl bg-linear-to-br ${category.color} text-white shadow-lg group-hover:scale-110 transition-transform`}>
                     <Icon className="h-6 w-6" />
                   </div>
                   <div className="flex-1">

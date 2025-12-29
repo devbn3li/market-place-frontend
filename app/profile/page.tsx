@@ -131,7 +131,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-500 text-white py-12">
+      <div className="bg-linear-to-br from-orange-500 via-orange-400 to-yellow-500 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-6">
             {/* Avatar */}

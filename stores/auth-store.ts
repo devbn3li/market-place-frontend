@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface Address {
   id: string;
@@ -233,6 +233,13 @@ export const useAuthStore = create<AuthStore>()(
     {
       name: "amanoon-auth",
       skipHydration: true,
+      storage: createJSONStorage(() => 
+        typeof window !== 'undefined' ? window.localStorage : {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        }
+      ),
     }
   )
 );

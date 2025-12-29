@@ -227,7 +227,7 @@ export default function SellPage() {
       </div>
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+      <div className="bg-linear-to-br from-orange-500 to-orange-600 text-white">
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="max-w-3xl mx-auto text-center">
             <Store className="h-16 w-16 mx-auto mb-6 opacity-90" />

@@ -270,7 +270,7 @@ export default function CareersPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500 text-white py-20">
+      <div className="bg-linear-to-br from-purple-600 via-pink-500 to-orange-500 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-4 py-2 rounded-full mb-6">
             <Briefcase className="h-5 w-5" />
@@ -354,7 +354,7 @@ export default function CareersPage() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 text-white">
+                    <div className="p-3 rounded-xl bg-linear-to-br from-orange-500 to-pink-500 text-white">
                       <job.icon className="h-6 w-6" />
                     </div>
                     <div>

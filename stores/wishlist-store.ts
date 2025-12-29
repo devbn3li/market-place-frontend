@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface WishlistItem {
   id: number;
@@ -61,6 +61,13 @@ export const useWishlistStore = create<WishlistStore>()(
     {
       name: "amanoon-wishlist",
       skipHydration: true,
+      storage: createJSONStorage(() => 
+        typeof window !== 'undefined' ? window.localStorage : {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        }
+      ),
     }
   )
 );

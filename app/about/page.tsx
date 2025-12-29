@@ -27,7 +27,7 @@ export default function AboutPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-orange-500 via-yellow-500 to-orange-600 text-white py-20">
+      <div className="bg-linear-to-br from-orange-500 via-yellow-500 to-orange-600 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-4 py-2 rounded-full mb-6">
             <Code2 className="h-5 w-5" />
@@ -53,7 +53,7 @@ export default function AboutPage() {
           {/* What is Amanoon */}
           <div className="bg-card rounded-2xl border p-8 mb-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-yellow-500 text-white">
+              <div className="p-3 rounded-xl bg-linear-to-br from-orange-500 to-yellow-500 text-white">
                 <Lightbulb className="h-6 w-6" />
               </div>
               <h2 className="text-2xl font-bold">
@@ -81,9 +81,9 @@ export default function AboutPage() {
           </div>
 
           {/* Name Origin */}
-          <div className="bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-950/30 dark:to-yellow-950/30 rounded-2xl border p-8 mb-8">
+          <div className="bg-linear-to-br from-orange-50 to-yellow-50 dark:from-orange-950/30 dark:to-yellow-950/30 rounded-2xl border p-8 mb-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 text-white">
+              <div className="p-3 rounded-xl bg-linear-to-br from-blue-500 to-purple-500 text-white">
                 <Sparkles className="h-6 w-6" />
               </div>
               <h2 className="text-2xl font-bold">
@@ -166,7 +166,7 @@ export default function AboutPage() {
           {/* Technologies Used */}
           <div className="bg-card rounded-2xl border p-8 mb-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 text-white">
+              <div className="p-3 rounded-xl bg-linear-to-br from-green-500 to-emerald-500 text-white">
                 <Rocket className="h-6 w-6" />
               </div>
               <h2 className="text-2xl font-bold">
@@ -197,7 +197,7 @@ export default function AboutPage() {
           {/* Features */}
           <div className="bg-card rounded-2xl border p-8 mb-8">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+              <div className="p-3 rounded-xl bg-linear-to-br from-purple-500 to-pink-500 text-white">
                 <Zap className="h-6 w-6" />
               </div>
               <h2 className="text-2xl font-bold">
