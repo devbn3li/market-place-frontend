@@ -49,7 +49,7 @@
       "id": 4,
       "slug": "wireless-charging-pad",
       "name": { "en": "Wireless Charging Pad", "ar": "قاعدة شحن لاسلكية" },
-      "image": "https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?w=400",
+      "image": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400",
       "price": 39.99,
       "originalPrice": 59.99,
       "rating": 4.5,
@@ -381,7 +381,7 @@
       "id": 27,
       "slug": "baby-stroller-pro",
       "name": { "en": "Premium Baby Stroller", "ar": "عربة أطفال فاخرة" },
-      "image": "https://images.unsplash.com/photo-1586005362735-99d8b6e68e21?w=400",
+      "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400",
       "price": 349.99,
       "originalPrice": 449.99,
       "rating": 4.8,
@@ -435,7 +435,10 @@
     {
       "id": 31,
       "slug": "4k-ultra-hd-monitor",
-      "name": { "en": "4K Ultra HD Monitor 32\"", "ar": "شاشة 4K فائقة الدقة 32 بوصة" },
+      "name": {
+        "en": "4K Ultra HD Monitor 32\"",
+        "ar": "شاشة 4K فائقة الدقة 32 بوصة"
+      },
       "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400",
       "price": 449.99,
       "originalPrice": 599.99,
@@ -448,7 +451,10 @@
     {
       "id": 32,
       "slug": "mechanical-keyboard-rgb",
-      "name": { "en": "Mechanical RGB Gaming Keyboard", "ar": "لوحة مفاتيح ميكانيكية للألعاب RGB" },
+      "name": {
+        "en": "Mechanical RGB Gaming Keyboard",
+        "ar": "لوحة مفاتيح ميكانيكية للألعاب RGB"
+      },
       "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400",
       "price": 129.99,
       "originalPrice": 179.99,
@@ -461,7 +467,10 @@
     {
       "id": 33,
       "slug": "wireless-gaming-mouse",
-      "name": { "en": "Wireless Gaming Mouse Pro", "ar": "ماوس ألعاب لاسلكي احترافي" },
+      "name": {
+        "en": "Wireless Gaming Mouse Pro",
+        "ar": "ماوس ألعاب لاسلكي احترافي"
+      },
       "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400",
       "price": 89.99,
       "originalPrice": 139.99,
@@ -474,7 +483,10 @@
     {
       "id": 34,
       "slug": "usb-c-hub-multiport",
-      "name": { "en": "USB-C Hub Multiport Adapter", "ar": "محول USB-C متعدد المنافذ" },
+      "name": {
+        "en": "USB-C Hub Multiport Adapter",
+        "ar": "محول USB-C متعدد المنافذ"
+      },
       "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=400",
       "price": 49.99,
       "originalPrice": 79.99,
@@ -487,7 +499,10 @@
     {
       "id": 35,
       "slug": "external-ssd-1tb",
-      "name": { "en": "External SSD 1TB Portable", "ar": "هارد SSD خارجي 1 تيرابايت محمول" },
+      "name": {
+        "en": "External SSD 1TB Portable",
+        "ar": "هارد SSD خارجي 1 تيرابايت محمول"
+      },
       "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400",
       "price": 149.99,
       "originalPrice": 199.99,
@@ -500,7 +515,10 @@
     {
       "id": 36,
       "slug": "webcam-1080p-hd",
-      "name": { "en": "1080P HD Webcam with Microphone", "ar": "كاميرا ويب 1080P عالية الدقة مع ميكروفون" },
+      "name": {
+        "en": "1080P HD Webcam with Microphone",
+        "ar": "كاميرا ويب 1080P عالية الدقة مع ميكروفون"
+      },
       "image": "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400",
       "price": 79.99,
       "originalPrice": 119.99,
@@ -513,7 +531,10 @@
     {
       "id": 37,
       "slug": "desk-lamp-led",
-      "name": { "en": "LED Desk Lamp with USB Charging", "ar": "مصباح مكتب LED مع شحن USB" },
+      "name": {
+        "en": "LED Desk Lamp with USB Charging",
+        "ar": "مصباح مكتب LED مع شحن USB"
+      },
       "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400",
       "price": 39.99,
       "originalPrice": 59.99,
@@ -526,7 +547,10 @@
     {
       "id": 38,
       "slug": "coffee-maker-automatic",
-      "name": { "en": "Automatic Coffee Maker Machine", "ar": "آلة صنع القهوة الأوتوماتيكية" },
+      "name": {
+        "en": "Automatic Coffee Maker Machine",
+        "ar": "آلة صنع القهوة الأوتوماتيكية"
+      },
       "image": "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400",
       "price": 179.99,
       "originalPrice": 249.99,
@@ -539,8 +563,11 @@
     {
       "id": 39,
       "slug": "air-fryer-digital",
-      "name": { "en": "Digital Air Fryer 5.8 Quart", "ar": "قلاية هوائية رقمية 5.8 كوارت" },
-      "image": "https://images.unsplash.com/photo-1585516173457-26ab7b4c91be?w=400",
+      "name": {
+        "en": "Digital Air Fryer 5.8 Quart",
+        "ar": "قلاية هوائية رقمية 5.8 كوارت"
+      },
+      "image": "https://images.unsplash.com/photo-1558346547-4439467ba2c6?w=400",
       "price": 129.99,
       "originalPrice": 179.99,
       "rating": 4.8,
@@ -552,7 +579,10 @@
     {
       "id": 40,
       "slug": "blender-high-speed",
-      "name": { "en": "High-Speed Professional Blender", "ar": "خلاط احترافي عالي السرعة" },
+      "name": {
+        "en": "High-Speed Professional Blender",
+        "ar": "خلاط احترافي عالي السرعة"
+      },
       "image": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400",
       "price": 99.99,
       "originalPrice": 149.99,
@@ -565,7 +595,10 @@
     {
       "id": 41,
       "slug": "yoga-mat-premium",
-      "name": { "en": "Premium Yoga Mat Non-Slip", "ar": "سجادة يوغا فاخرة مانعة للانزلاق" },
+      "name": {
+        "en": "Premium Yoga Mat Non-Slip",
+        "ar": "سجادة يوغا فاخرة مانعة للانزلاق"
+      },
       "image": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400",
       "price": 34.99,
       "originalPrice": 49.99,
@@ -578,7 +611,10 @@
     {
       "id": 42,
       "slug": "dumbbells-adjustable-set",
-      "name": { "en": "Adjustable Dumbbells Set 50lbs", "ar": "طقم دامبلز قابل للتعديل 50 رطل" },
+      "name": {
+        "en": "Adjustable Dumbbells Set 50lbs",
+        "ar": "طقم دامبلز قابل للتعديل 50 رطل"
+      },
       "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400",
       "price": 249.99,
       "originalPrice": 349.99,
@@ -591,7 +627,10 @@
     {
       "id": 43,
       "slug": "resistance-bands-set",
-      "name": { "en": "Resistance Bands Exercise Set", "ar": "طقم أحزمة مقاومة للتمارين" },
+      "name": {
+        "en": "Resistance Bands Exercise Set",
+        "ar": "طقم أحزمة مقاومة للتمارين"
+      },
       "image": "https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=400",
       "price": 29.99,
       "originalPrice": 44.99,
@@ -604,7 +643,10 @@
     {
       "id": 44,
       "slug": "running-shoes-mens",
-      "name": { "en": "Men's Running Shoes Lightweight", "ar": "حذاء جري رجالي خفيف الوزن" },
+      "name": {
+        "en": "Men's Running Shoes Lightweight",
+        "ar": "حذاء جري رجالي خفيف الوزن"
+      },
       "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
       "price": 89.99,
       "originalPrice": 129.99,
@@ -617,7 +659,10 @@
     {
       "id": 45,
       "slug": "water-bottle-insulated",
-      "name": { "en": "Insulated Water Bottle 32oz", "ar": "زجاجة ماء معزولة 32 أونصة" },
+      "name": {
+        "en": "Insulated Water Bottle 32oz",
+        "ar": "زجاجة ماء معزولة 32 أونصة"
+      },
       "image": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400",
       "price": 24.99,
       "originalPrice": 34.99,
@@ -630,7 +675,10 @@
     {
       "id": 46,
       "slug": "backpack-travel-laptop",
-      "name": { "en": "Travel Laptop Backpack Anti-Theft", "ar": "حقيبة ظهر لابتوب للسفر مضادة للسرقة" },
+      "name": {
+        "en": "Travel Laptop Backpack Anti-Theft",
+        "ar": "حقيبة ظهر لابتوب للسفر مضادة للسرقة"
+      },
       "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400",
       "price": 59.99,
       "originalPrice": 89.99,
@@ -643,7 +691,10 @@
     {
       "id": 47,
       "slug": "sunglasses-polarized",
-      "name": { "en": "Polarized Sunglasses UV Protection", "ar": "نظارة شمسية مستقطبة واقية من الأشعة" },
+      "name": {
+        "en": "Polarized Sunglasses UV Protection",
+        "ar": "نظارة شمسية مستقطبة واقية من الأشعة"
+      },
       "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400",
       "price": 39.99,
       "originalPrice": 69.99,
@@ -656,7 +707,10 @@
     {
       "id": 48,
       "slug": "wallet-leather-mens",
-      "name": { "en": "Men's Leather Wallet Slim", "ar": "محفظة رجالية جلدية نحيفة" },
+      "name": {
+        "en": "Men's Leather Wallet Slim",
+        "ar": "محفظة رجالية جلدية نحيفة"
+      },
       "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=400",
       "price": 34.99,
       "originalPrice": 54.99,
@@ -669,7 +723,10 @@
     {
       "id": 49,
       "slug": "sneakers-casual-womens",
-      "name": { "en": "Women's Casual Sneakers Comfortable", "ar": "حذاء رياضي نسائي كاجوال مريح" },
+      "name": {
+        "en": "Women's Casual Sneakers Comfortable",
+        "ar": "حذاء رياضي نسائي كاجوال مريح"
+      },
       "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400",
       "price": 69.99,
       "originalPrice": 99.99,
@@ -682,7 +739,10 @@
     {
       "id": 50,
       "slug": "handbag-leather-tote",
-      "name": { "en": "Leather Tote Handbag Women", "ar": "حقيبة يد جلدية نسائية كبيرة" },
+      "name": {
+        "en": "Leather Tote Handbag Women",
+        "ar": "حقيبة يد جلدية نسائية كبيرة"
+      },
       "image": "https://images.unsplash.com/photo-1564422170194-896b89110ef8?w=400",
       "price": 149.99,
       "originalPrice": 229.99,
