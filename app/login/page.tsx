@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -49,10 +49,22 @@ export default function LoginPage() {
   const { login } = useAuthStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  // Load saved email on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedEmail = localStorage.getItem("amanoon-remembered-email");
+      if (savedEmail) {
+        setFormData((prev) => ({ ...prev, email: savedEmail }));
+        setRememberMe(true);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +73,12 @@ export default function LoginPage() {
     const result = await login(formData.email, formData.password);
 
     if (result.success) {
+      // Save or remove email based on remember me
+      if (rememberMe) {
+        localStorage.setItem("amanoon-remembered-email", formData.email);
+      } else {
+        localStorage.removeItem("amanoon-remembered-email");
+      }
       toast.success(language === "ar" ? "تم تسجيل الدخول بنجاح!" : "Login successful!");
       router.push("/profile");
     } else {
@@ -149,9 +167,11 @@ export default function LoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-300 accent-orange-500"
                 />
-                <label htmlFor="remember-me" className={`${language === "ar" ? "mr-2" : "ml-2"} text-sm text-muted-foreground`}>
+                <label htmlFor="remember-me" className={`${language === "ar" ? "mr-2" : "ml-2"} text-sm text-muted-foreground cursor-pointer`}>
                   {t.rememberMe[language]}
                 </label>
               </div>
