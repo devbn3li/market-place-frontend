@@ -20,6 +20,7 @@ import {
   Star,
   Home,
   Briefcase,
+  AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -258,6 +259,20 @@ export default function CheckoutPage() {
       className="min-h-screen bg-muted/30"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
+      {/* Demo Notice Banner */}
+      <div className="bg-amber-500/10 border-b border-amber-500/20">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-center gap-2 text-amber-700 dark:text-amber-400">
+            <AlertTriangle className="h-4 w-4 flex-shrink-0" />
+            <p className="text-sm text-center">
+              {language === "ar"
+                ? "⚠️ هذا موقع عرض توضيحي (Demo) - لا يتم جمع أو معالجة أي بيانات دفع حقيقية"
+                : "⚠️ This is a Demo Site - No real payment information is collected or processed"}
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Header */}
       <div className="bg-card border-b">
         <div className="container mx-auto px-4 py-4">
