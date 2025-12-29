@@ -35,14 +35,14 @@ const t = {
 };
 
 const categories = [
-  { name: { en: "Electronics", ar: "إلكترونيات" }, emoji: "📱", href: "/categories/electronics", color: "bg-blue-500" },
-  { name: { en: "Fashion", ar: "أزياء" }, emoji: "👗", href: "/categories/fashion", color: "bg-pink-500" },
-  { name: { en: "Home & Garden", ar: "المنزل والحديقة" }, emoji: "🏠", href: "/categories/home-garden", color: "bg-green-500" },
-  { name: { en: "Sports", ar: "رياضة" }, emoji: "⚽", href: "/categories/sports", color: "bg-orange-500" },
-  { name: { en: "Beauty", ar: "الجمال" }, emoji: "💄", href: "/categories/beauty", color: "bg-purple-500" },
-  { name: { en: "Books", ar: "كتب" }, emoji: "📚", href: "/categories/books", color: "bg-yellow-500" },
-  { name: { en: "Toys", ar: "ألعاب" }, emoji: "🎮", href: "/categories/toys", color: "bg-red-500" },
-  { name: { en: "Automotive", ar: "السيارات" }, emoji: "🚗", href: "/categories/automotive", color: "bg-gray-500" },
+  { name: { en: "Electronics", ar: "إلكترونيات" }, image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=100&h=100&fit=crop", href: "/categories/electronics", color: "bg-blue-500" },
+  { name: { en: "Fashion", ar: "أزياء" }, image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=100&h=100&fit=crop", href: "/categories/fashion", color: "bg-pink-500" },
+  { name: { en: "Home & Garden", ar: "المنزل والحديقة" }, image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=100&h=100&fit=crop", href: "/categories/home-garden", color: "bg-green-500" },
+  { name: { en: "Sports", ar: "رياضة" }, image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=100&h=100&fit=crop", href: "/categories/sports", color: "bg-orange-500" },
+  { name: { en: "Beauty", ar: "الجمال" }, image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=100&h=100&fit=crop", href: "/categories/beauty", color: "bg-purple-500" },
+  { name: { en: "Books", ar: "كتب" }, image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=100&h=100&fit=crop", href: "/categories/books", color: "bg-yellow-500" },
+  { name: { en: "Toys", ar: "ألعاب" }, image: "https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=100&h=100&fit=crop", href: "/categories/toys", color: "bg-red-500" },
+  { name: { en: "Automotive", ar: "السيارات" }, image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=100&h=100&fit=crop", href: "/categories/automotive", color: "bg-gray-500" },
 ];
 
 // Get featured products from JSON
@@ -146,8 +146,13 @@ export default function Home() {
               href={category.href}
               className="group flex flex-col items-center p-4 rounded-xl bg-card hover:shadow-lg transition-all duration-300 border"
             >
-              <div className={`w-14 h-14 ${category.color} rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform`}>
-                {category.emoji}
+              <div className="w-14 h-14 rounded-full overflow-hidden mb-3 group-hover:scale-110 transition-transform ring-2 ring-muted">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={category.image}
+                  alt={category.name[language]}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="text-sm font-medium text-center">{category.name[language]}</span>
             </Link>

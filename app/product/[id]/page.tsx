@@ -359,7 +359,27 @@ export default function ProductPage() {
               >
                 {language === "ar" ? "اشتري الآن" : "Buy Now"}
               </Button>
-              <Button size="lg" variant="outline" className="h-14">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14"
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      title: product.name[language],
+                      text: language === "ar" 
+                        ? `شاهد هذا المنتج: ${product.name.ar}` 
+                        : `Check out this product: ${product.name.en}`,
+                      url: window.location.href,
+                    }).catch(() => {});
+                  } else {
+                    navigator.clipboard.writeText(window.location.href);
+                    toast.success(
+                      language === "ar" ? "تم نسخ الرابط" : "Link copied to clipboard"
+                    );
+                  }
+                }}
+              >
                 <Share2 className="h-5 w-5" />
               </Button>
             </div>
