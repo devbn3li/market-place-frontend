@@ -1,0 +1,23 @@
+{
+  "name": "Amanoon - E-commerce Demo",
+  "short_name": "Amanoon",
+  "description": "A demonstration e-commerce marketplace built with Next.js. This is a portfolio project showcasing modern web development skills.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f97316",
+  "orientation": "portrait-primary",
+  "categories": ["shopping", "demo", "portfolio"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

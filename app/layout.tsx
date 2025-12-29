@@ -18,13 +18,43 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "Amanoon - Your Ultimate Marketplace",
-  description: "Shop millions of products at great prices. Electronics, Fashion, Home & Garden, and more!",
-  keywords: ["marketplace", "online shopping", "electronics", "fashion", "deals"],
+  title: {
+    default: "Amanoon - E-commerce Demo | Portfolio Project",
+    template: "%s | Amanoon Demo",
+  },
+  description:
+    "Amanoon is a demonstration e-commerce marketplace built with Next.js. This is a portfolio/demo project showcasing modern web development - no real transactions occur.",
+  keywords: [
+    "demo",
+    "portfolio",
+    "e-commerce demo",
+    "Next.js project",
+    "web development",
+    "marketplace demo",
+  ],
+  authors: [{ name: "Developer Portfolio" }],
+  creator: "Portfolio Project",
+  publisher: "Demo Site",
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
-    title: "Amanoon - Your Ultimate Marketplace",
-    description: "Shop millions of products at great prices",
+    title: "Amanoon - E-commerce Demo Site",
+    description:
+      "A demonstration e-commerce marketplace. This is a portfolio project - no real transactions.",
     type: "website",
+    siteName: "Amanoon Demo",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amanoon - E-commerce Demo",
+    description: "Portfolio demo project showcasing e-commerce development",
+  },
+  manifest: "/manifest.json",
+  other: {
+    "demo-site": "true",
+    "portfolio-project": "true",
   },
 };
 
@@ -35,6 +65,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#f97316" />
+        <meta name="application-name" content="Amanoon Demo" />
+        <meta name="apple-mobile-web-app-title" content="Amanoon Demo" />
+        <meta name="format-detection" content="telephone=no" />
+        {/* Demo site indicator for crawlers */}
+        <meta name="classification" content="Demo/Portfolio" />
+        <meta name="category" content="Demo Website" />
+      </head>
       <body
         className={`${inter.variable} ${cairo.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
