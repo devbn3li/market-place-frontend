@@ -3,6 +3,7 @@
 import { useLanguage } from "@/context/language-context";
 import { useCart } from "@/context/cart-context";
 import { useAuth } from "@/context/auth-context";
+import { useOrders } from "@/context/orders-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -32,11 +33,13 @@ export default function CheckoutPage() {
   const { language } = useLanguage();
   const { items, totalPrice, clearCart } = useCart();
   const { user, isAuthenticated } = useAuth();
+  const { addOrder } = useOrders();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment, 3: Confirmation
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
   const [useNewAddress, setUseNewAddress] = useState(false);
+  const [orderNumber, setOrderNumber] = useState<string>("");
 
   const [shippingInfo, setShippingInfo] = useState({
     firstName: "",
@@ -159,10 +162,45 @@ export default function CheckoutPage() {
     // Simulate payment processing
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    // In production, you would call Stripe API here
-    // const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
-    // const response = await fetch('/api/create-payment-intent', { ... });
+    // Get shipping address (from saved address or form)
+    const shippingAddr = selectedAddress && !useNewAddress
+      ? {
+        firstName: selectedAddress.firstName,
+        lastName: selectedAddress.lastName,
+        address: selectedAddress.address,
+        city: selectedAddress.city,
+        country: selectedAddress.country,
+        postalCode: selectedAddress.postalCode,
+        phone: selectedAddress.phone,
+      }
+      : {
+        firstName: shippingInfo.firstName,
+        lastName: shippingInfo.lastName,
+        address: shippingInfo.address,
+        city: shippingInfo.city,
+        country: shippingInfo.country,
+        postalCode: shippingInfo.postalCode,
+        phone: shippingInfo.phone,
+      };
 
+    // Create order
+    const newOrderNumber = addOrder({
+      items: items.map(item => ({
+        id: item.id,
+        name: item.name,
+        image: item.image,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      shippingAddress: shippingAddr,
+      subtotal: totalPrice,
+      shipping: shipping,
+      tax: tax,
+      total: finalTotal,
+      userId: user?.id,
+    });
+
+    setOrderNumber(newOrderNumber);
     setIsProcessing(false);
     setStep(3);
     clearCart();
@@ -197,13 +235,13 @@ export default function CheckoutPage() {
               {language === "ar" ? "رقم الطلب" : "Order Number"}
             </p>
             <p className="text-lg font-bold text-orange-500">
-              #AMN-{Date.now().toString().slice(-8)}
+              #{orderNumber}
             </p>
           </div>
           <div className="flex flex-col gap-4">
-            <Link href="/" className="w-full">
+            <Link href="/orders" className="w-full">
               <Button className="w-full bg-orange-500 hover:bg-orange-600">
-                {language === "ar" ? "العودة للرئيسية" : "Back to Home"}
+                {language === "ar" ? "عرض طلباتي" : "View My Orders"}
               </Button>
             </Link>
             <Link href="/categories" className="w-full">

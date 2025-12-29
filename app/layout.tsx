@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { LanguageProvider } from "@/context/language-context";
 import { CartProvider } from "@/context/cart-context";
 import { AuthProvider } from "@/context/auth-context";
+import { OrdersProvider } from "@/context/orders-context";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 
@@ -47,11 +48,13 @@ export default function RootLayout({
         >
           <LanguageProvider>
             <AuthProvider>
-              <CartProvider>
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </CartProvider>
+              <OrdersProvider>
+                <CartProvider>
+                  <Navbar />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </CartProvider>
+              </OrdersProvider>
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
