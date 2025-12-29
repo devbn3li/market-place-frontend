@@ -19,7 +19,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { bestSellerProducts, Product } from "@/lib/products";
+import { getBestSellers, type Product } from "@/lib/products";
+
+// Get best sellers from JSON data
+const bestSellerProducts = getBestSellers(20);
 
 const categories = [
   { id: "all", name: { en: "All", ar: "الكل" } },
@@ -312,8 +315,8 @@ export default function BestSellersPage() {
                   <button
                     onClick={(e) => handleWishlistToggle(product, e)}
                     className={`absolute bottom-2 right-2 p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)
-                        ? "bg-red-500 text-white opacity-100"
-                        : "bg-white/90 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100"
+                      ? "bg-red-500 text-white opacity-100"
+                      : "bg-white/90 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100"
                       }`}
                   >
                     <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />

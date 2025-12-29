@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { generateProductsForCategory, type Product } from "@/lib/products";
 
 // Category data
 const categoriesData: Record<
@@ -226,175 +227,6 @@ const categoriesData: Record<
   },
 };
 
-// Generate products based on category
-const generateProducts = (categoryId: string) => {
-  const baseProducts = [
-    {
-      id: 1,
-      name: {
-        en: "Premium Wireless Headphones",
-        ar: "سماعات لاسلكية فاخرة",
-      },
-      image:
-        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
-      price: 199.99,
-      originalPrice: 299.99,
-      rating: 4.8,
-      reviews: 2341,
-    },
-    {
-      id: 2,
-      name: {
-        en: "Smart Watch Pro Series",
-        ar: "ساعة ذكية برو سيريز",
-      },
-      image:
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
-      price: 349.99,
-      originalPrice: 449.99,
-      rating: 4.9,
-      reviews: 1876,
-    },
-    {
-      id: 3,
-      name: {
-        en: "Portable Bluetooth Speaker",
-        ar: "مكبر صوت بلوتوث محمول",
-      },
-      image:
-        "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
-      price: 79.99,
-      originalPrice: 129.99,
-      rating: 4.6,
-      reviews: 987,
-    },
-    {
-      id: 4,
-      name: {
-        en: "Wireless Charging Pad",
-        ar: "قاعدة شحن لاسلكية",
-      },
-      image:
-        "https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?w=400",
-      price: 39.99,
-      originalPrice: 59.99,
-      rating: 4.5,
-      reviews: 654,
-    },
-    {
-      id: 5,
-      name: {
-        en: "4K Action Camera",
-        ar: "كاميرا أكشن 4K",
-      },
-      image:
-        "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400",
-      price: 249.99,
-      originalPrice: 349.99,
-      rating: 4.7,
-      reviews: 1234,
-    },
-    {
-      id: 6,
-      name: {
-        en: "Gaming Mechanical Keyboard",
-        ar: "لوحة مفاتيح ميكانيكية للألعاب",
-      },
-      image:
-        "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=400",
-      price: 149.99,
-      originalPrice: 199.99,
-      rating: 4.8,
-      reviews: 2156,
-    },
-    {
-      id: 7,
-      name: {
-        en: "Noise Canceling Earbuds",
-        ar: "سماعات أذن عازلة للضوضاء",
-      },
-      image:
-        "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400",
-      price: 129.99,
-      originalPrice: 179.99,
-      rating: 4.6,
-      reviews: 1543,
-    },
-    {
-      id: 8,
-      name: {
-        en: "Portable Power Bank 20000mAh",
-        ar: "باور بانك محمول 20000 مللي أمبير",
-      },
-      image:
-        "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400",
-      price: 49.99,
-      originalPrice: 79.99,
-      rating: 4.7,
-      reviews: 3421,
-    },
-    {
-      id: 9,
-      name: {
-        en: "Smart Home Hub",
-        ar: "مركز المنزل الذكي",
-      },
-      image:
-        "https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=400",
-      price: 99.99,
-      originalPrice: 149.99,
-      rating: 4.5,
-      reviews: 876,
-    },
-    {
-      id: 10,
-      name: {
-        en: "Fitness Tracker Band",
-        ar: "سوار تتبع اللياقة",
-      },
-      image:
-        "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400",
-      price: 59.99,
-      originalPrice: 89.99,
-      rating: 4.4,
-      reviews: 2198,
-    },
-    {
-      id: 11,
-      name: {
-        en: "Wireless Mouse Pro",
-        ar: "ماوس لاسلكي برو",
-      },
-      image:
-        "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400",
-      price: 69.99,
-      originalPrice: 99.99,
-      rating: 4.6,
-      reviews: 1654,
-    },
-    {
-      id: 12,
-      name: {
-        en: "USB-C Hub Adapter",
-        ar: "محول USB-C متعدد المنافذ",
-      },
-      image:
-        "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?w=400",
-      price: 44.99,
-      originalPrice: 69.99,
-      rating: 4.5,
-      reviews: 987,
-    },
-  ];
-
-  // Customize products based on category
-  return baseProducts.map((product, index) => ({
-    ...product,
-    id: parseInt(`${categoryId.length}${index + 1}`),
-    category: categoriesData[categoryId]?.name || { en: "General", ar: "عام" },
-  }));
-};
-
 const sortOptions = [
   { id: "featured", name: { en: "Featured", ar: "المميزة" } },
   { id: "newest", name: { en: "Newest", ar: "الأحدث" } },
@@ -424,7 +256,8 @@ export default function CategoryPage() {
   const [showFilters, setShowFilters] = useState(false);
 
   const category = categoriesData[categorySlug];
-  const products = generateProducts(categorySlug);
+  // Use products from JSON data
+  const products = generateProductsForCategory(categorySlug);
 
   // Filter and sort products
   const selectedPriceRange = priceRanges.find((r) => r.id === priceRange);
@@ -612,8 +445,8 @@ export default function CategoryPage() {
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2 ${viewMode === "grid"
-                      ? "bg-orange-500 text-white"
-                      : "hover:bg-muted"
+                    ? "bg-orange-500 text-white"
+                    : "hover:bg-muted"
                     }`}
                 >
                   <Grid3X3 className="h-4 w-4" />
@@ -621,8 +454,8 @@ export default function CategoryPage() {
                 <button
                   onClick={() => setViewMode("list")}
                   className={`p-2 ${viewMode === "list"
-                      ? "bg-orange-500 text-white"
-                      : "hover:bg-muted"
+                    ? "bg-orange-500 text-white"
+                    : "hover:bg-muted"
                     }`}
                 >
                   <LayoutList className="h-4 w-4" />
@@ -699,8 +532,8 @@ export default function CategoryPage() {
                   <button
                     onClick={(e) => handleWishlistToggle(product, e)}
                     className={`absolute top-2 right-2 p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)
-                        ? "bg-red-500 text-white opacity-100"
-                        : "bg-white/90 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100"
+                      ? "bg-red-500 text-white opacity-100"
+                      : "bg-white/90 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100"
                       }`}
                   >
                     <Heart

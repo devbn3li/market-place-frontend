@@ -10,10 +10,7 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
-import { bestSellerProducts, newArrivalProducts } from "@/lib/products";
-
-// Combine all products
-const allProducts = [...bestSellerProducts, ...newArrivalProducts];
+import { getProductById, getRelatedProducts, toProduct, toProducts } from "@/lib/products";
 
 export default function ProductPage() {
   const params = useParams();
@@ -35,7 +32,9 @@ export default function ProductPage() {
   };
 
   const productId = Number(params.id);
-  const product = allProducts.find((p) => p.id === productId);
+  // Use getProductById from JSON data
+  const productBasic = getProductById(productId);
+  const product = productBasic ? toProduct(productBasic) : null;
 
   if (!product) {
     return (
@@ -94,10 +93,9 @@ export default function ProductPage() {
     product.image.replace("w=400", "w=403"),
   ];
 
-  // Related products
-  const relatedProducts = allProducts
-    .filter((p) => p.id !== product.id && p.category.en === product.category.en)
-    .slice(0, 4);
+  // Related products from JSON data
+  const relatedProductsBasic = product ? getRelatedProducts(product.id, 4) : [];
+  const relatedProducts = toProducts(relatedProductsBasic);
 
   return (
     <div
@@ -176,8 +174,8 @@ export default function ProductPage() {
                     );
                   }}
                   className={`absolute bottom-4 right-4 p-3 rounded-full hover:scale-110 transition-transform z-10 ${isInWishlist(product.id)
-                      ? "bg-red-500 text-white"
-                      : "bg-white/90 dark:bg-gray-800/90"
+                    ? "bg-red-500 text-white"
+                    : "bg-white/90 dark:bg-gray-800/90"
                     }`}
                 >
                   <Heart
@@ -304,9 +302,11 @@ export default function ProductPage() {
                   <span className="text-green-600 font-medium">
                     {language === "ar" ? "متوفر في المخزون" : "In Stock"}
                   </span>
-                  <span className="text-muted-foreground">
-                    ({product.stockCount} {language === "ar" ? "قطعة" : "units"})
-                  </span>
+                  {product.stockCount && (
+                    <span className="text-muted-foreground">
+                      ({product.stockCount} {language === "ar" ? "قطعة" : "units"})
+                    </span>
+                  )}
                 </>
               ) : (
                 <span className="text-red-500 font-medium">
@@ -330,9 +330,9 @@ export default function ProductPage() {
                 </button>
                 <span className="w-12 text-center font-medium">{quantity}</span>
                 <button
-                  onClick={() => setQuantity(Math.min(product.stockCount, quantity + 1))}
+                  onClick={() => setQuantity(Math.min(product.stockCount || 100, quantity + 1))}
                   className="p-3 hover:bg-muted transition-colors"
-                  disabled={quantity >= product.stockCount}
+                  disabled={quantity >= (product.stockCount || 100)}
                 >
                   <Plus className="h-4 w-4" />
                 </button>
@@ -428,7 +428,9 @@ export default function ProductPage() {
             {language === "ar" ? "وصف المنتج" : "Product Description"}
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            {product.description[language]}
+            {product.description?.[language] || (language === "ar"
+              ? "منتج عالي الجودة مع مواصفات ممتازة. يأتي مع ضمان الشركة المصنعة وخدمة ما بعد البيع."
+              : "High quality product with excellent specifications. Comes with manufacturer warranty and after-sales service.")}
           </p>
 
           {/* Additional Details */}

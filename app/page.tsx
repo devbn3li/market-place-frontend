@@ -5,30 +5,16 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, TrendingUp, Percent, Zap, Heart } from "lucide-react";
 import { useLanguageStore, useWishlistStore } from "@/stores";
 import { toast } from "sonner";
+import { getFeaturedProducts, getCategoryName, type ProductBasic } from "@/lib/products";
 
 const t = {
-  electronics: { en: "Electronics", ar: "إلكترونيات" },
-  fashion: { en: "Fashion", ar: "أزياء" },
-  homeGarden: { en: "Home & Garden", ar: "المنزل والحديقة" },
-  sports: { en: "Sports", ar: "رياضة" },
-  beauty: { en: "Beauty", ar: "الجمال" },
-  books: { en: "Books", ar: "كتب" },
-  toys: { en: "Toys", ar: "ألعاب" },
-  automotive: { en: "Automotive", ar: "السيارات" },
   newYearSale: { en: "🎉 New Year Sale - Up to 70% OFF!", ar: "🎉 تخفيضات السنة الجديدة - خصم يصل إلى 70%!" },
   shopByCategory: { en: "Shop by Category", ar: "تسوق حسب الفئة" },
   featuredProducts: { en: "Featured Products", ar: "منتجات مميزة" },
   shopNow: { en: "Shop Now", ar: "تسوق الآن" },
-  discoverDeals: { en: "Discover Amazing Deals", ar: "اكتشف عروض مذهلة" },
-  bestPrices: { en: "Best Prices Guaranteed", ar: "أفضل الأسعار مضمونة" },
-  heroTitle: { en: "Shop Smart, Live Better", ar: "تسوق بذكاء، عش أفضل" },
-  heroSubtitle: { en: "Discover millions of products at unbeatable prices with fast delivery", ar: "اكتشف ملايين المنتجات بأسعار لا تقبل المنافسة مع توصيل سريع" },
   viewAll: { en: "View All", ar: "عرض الكل" },
-  wirelessHeadphones: { en: "Wireless Headphones", ar: "سماعات لاسلكية" },
-  smartWatch: { en: "Smart Watch", ar: "ساعة ذكية" },
-  leatherBag: { en: "Leather Bag", ar: "حقيبة جلد" },
-  coffeeBeans: { en: "Premium Coffee Beans", ar: "حبوب قهوة فاخرة" },
   unbeatablePrices: { en: "Unbeatable Prices", ar: "أسعار لا تُقاوم" },
+  heroTitle: { en: "Shop Smart, Live Better", ar: "تسوق بذكاء، عش أفضل" },
   heroDescription: { en: "Discover millions of products at unbeatable prices with fast delivery to your door.", ar: "اكتشف ملايين المنتجات بأسعار لا تُقاوم مع توصيل سريع لباب منزلك." },
   browseCategories: { en: "Browse Categories", ar: "تصفح الفئات" },
   flashSale: { en: "Flash Sale", ar: "تخفيضات خاطفة" },
@@ -49,60 +35,24 @@ const t = {
 };
 
 const categories = [
-  { name: t.electronics, emoji: "📱", href: "/categories/electronics", color: "bg-blue-500" },
-  { name: t.fashion, emoji: "👗", href: "/categories/fashion", color: "bg-pink-500" },
-  { name: t.homeGarden, emoji: "🏠", href: "/categories/home", color: "bg-green-500" },
-  { name: t.sports, emoji: "⚽", href: "/categories/sports", color: "bg-orange-500" },
-  { name: t.beauty, emoji: "💄", href: "/categories/beauty", color: "bg-purple-500" },
-  { name: t.books, emoji: "📚", href: "/categories/books", color: "bg-yellow-500" },
-  { name: t.toys, emoji: "🎮", href: "/categories/toys", color: "bg-red-500" },
-  { name: t.automotive, emoji: "🚗", href: "/categories/automotive", color: "bg-gray-500" },
+  { name: { en: "Electronics", ar: "إلكترونيات" }, emoji: "📱", href: "/categories/electronics", color: "bg-blue-500" },
+  { name: { en: "Fashion", ar: "أزياء" }, emoji: "👗", href: "/categories/fashion", color: "bg-pink-500" },
+  { name: { en: "Home & Garden", ar: "المنزل والحديقة" }, emoji: "🏠", href: "/categories/home-garden", color: "bg-green-500" },
+  { name: { en: "Sports", ar: "رياضة" }, emoji: "⚽", href: "/categories/sports", color: "bg-orange-500" },
+  { name: { en: "Beauty", ar: "الجمال" }, emoji: "💄", href: "/categories/beauty", color: "bg-purple-500" },
+  { name: { en: "Books", ar: "كتب" }, emoji: "📚", href: "/categories/books", color: "bg-yellow-500" },
+  { name: { en: "Toys", ar: "ألعاب" }, emoji: "🎮", href: "/categories/toys", color: "bg-red-500" },
+  { name: { en: "Automotive", ar: "السيارات" }, emoji: "🚗", href: "/categories/automotive", color: "bg-gray-500" },
 ];
 
-const featuredProducts = [
-  {
-    id: 1,
-    name: t.wirelessHeadphones,
-    price: 79.99,
-    originalPrice: 129.99,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
-    rating: 4.5,
-    reviews: 1234,
-  },
-  {
-    id: 2,
-    name: t.smartWatch,
-    price: 299.99,
-    originalPrice: 399.99,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",
-    rating: 4.8,
-    reviews: 856,
-  },
-  {
-    id: 3,
-    name: t.leatherBag,
-    price: 149.99,
-    originalPrice: 199.99,
-    image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=300&fit=crop",
-    rating: 4.6,
-    reviews: 423,
-  },
-  {
-    id: 4,
-    name: t.coffeeBeans,
-    price: 24.99,
-    originalPrice: 34.99,
-    image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300&h=300&fit=crop",
-    rating: 4.9,
-    reviews: 2156,
-  },
-];
+// Get featured products from JSON
+const featuredProducts = getFeaturedProducts(4);
 
 export default function Home() {
   const { language } = useLanguageStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
 
-  const handleWishlistToggle = (e: React.MouseEvent, product: typeof featuredProducts[0]) => {
+  const handleWishlistToggle = (e: React.MouseEvent, product: ProductBasic) => {
     e.preventDefault();
     e.stopPropagation();
     toggleWishlist({
@@ -273,8 +223,8 @@ export default function Home() {
                 <button
                   onClick={(e) => handleWishlistToggle(e, product)}
                   className={`absolute top-2 ${language === "ar" ? "left-2" : "right-2"} p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)
-                      ? "bg-red-500 text-white"
-                      : "bg-white/90 hover:bg-red-500 hover:text-white text-gray-600"
+                    ? "bg-red-500 text-white"
+                    : "bg-white/90 hover:bg-red-500 hover:text-white text-gray-600"
                     }`}
                 >
                   <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />

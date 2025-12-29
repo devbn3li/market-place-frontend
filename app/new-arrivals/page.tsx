@@ -17,165 +17,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { getNewArrivals, type Product } from "@/lib/products";
 
-const newArrivals = [
-  {
-    id: 1,
-    name: { en: "iPhone 15 Pro Max 256GB", ar: "آيفون 15 برو ماكس 256 جيجا" },
-    image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400",
-    price: 1199.99,
-    originalPrice: 1299.99,
-    rating: 4.9,
-    reviews: 234,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    badge: { en: "Just Arrived", ar: "وصل حديثاً" },
-    isNew: true,
-    daysAgo: 1,
-  },
-  {
-    id: 2,
-    name: { en: "Nike Air Max 2024 Limited Edition", ar: "نايك اير ماكس 2024 إصدار محدود" },
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
-    price: 189.99,
-    originalPrice: 220.00,
-    rating: 4.8,
-    reviews: 156,
-    category: { en: "Fashion", ar: "أزياء" },
-    badge: { en: "Trending", ar: "رائج" },
-    isNew: true,
-    daysAgo: 2,
-  },
-  {
-    id: 3,
-    name: { en: "Sony WH-1000XM5 Headphones", ar: "سماعات سوني WH-1000XM5" },
-    image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400",
-    price: 349.99,
-    originalPrice: 399.99,
-    rating: 4.9,
-    reviews: 892,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    badge: { en: "Best Seller", ar: "الأكثر مبيعاً" },
-    isNew: true,
-    daysAgo: 3,
-  },
-  {
-    id: 4,
-    name: { en: "Samsung Galaxy Watch 6 Pro", ar: "ساعة سامسونج جالاكسي 6 برو" },
-    image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400",
-    price: 449.99,
-    originalPrice: 499.99,
-    rating: 4.7,
-    reviews: 445,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    badge: { en: "New", ar: "جديد" },
-    isNew: true,
-    daysAgo: 4,
-  },
-  {
-    id: 5,
-    name: { en: "Dyson V15 Detect Vacuum", ar: "مكنسة دايسون V15 ديتكت" },
-    image: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=400",
-    price: 749.99,
-    originalPrice: 849.99,
-    rating: 4.8,
-    reviews: 567,
-    category: { en: "Home", ar: "منزل" },
-    badge: { en: "Premium", ar: "مميز" },
-    isNew: true,
-    daysAgo: 5,
-  },
-  {
-    id: 6,
-    name: { en: "Lululemon Align Leggings", ar: "ليغنز لولوليمون أليان" },
-    image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400",
-    price: 98.00,
-    originalPrice: 118.00,
-    rating: 4.9,
-    reviews: 2341,
-    category: { en: "Fashion", ar: "أزياء" },
-    badge: { en: "Popular", ar: "شائع" },
-    isNew: true,
-    daysAgo: 5,
-  },
-  {
-    id: 7,
-    name: { en: "MacBook Air M3 15-inch", ar: "ماك بوك اير M3 15 بوصة" },
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400",
-    price: 1299.99,
-    originalPrice: 1399.99,
-    rating: 4.9,
-    reviews: 123,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    badge: { en: "Just Arrived", ar: "وصل حديثاً" },
-    isNew: true,
-    daysAgo: 1,
-  },
-  {
-    id: 8,
-    name: { en: "Gucci GG Marmont Bag", ar: "حقيبة غوتشي جي جي مارمونت" },
-    image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400",
-    price: 2350.00,
-    originalPrice: 2500.00,
-    rating: 4.8,
-    reviews: 89,
-    category: { en: "Fashion", ar: "أزياء" },
-    badge: { en: "Luxury", ar: "فاخر" },
-    isNew: true,
-    daysAgo: 2,
-  },
-  {
-    id: 9,
-    name: { en: "PlayStation 5 Slim Console", ar: "بلايستيشن 5 سليم" },
-    image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400",
-    price: 449.99,
-    originalPrice: 499.99,
-    rating: 4.9,
-    reviews: 3456,
-    category: { en: "Gaming", ar: "ألعاب" },
-    badge: { en: "Hot", ar: "ساخن" },
-    isNew: true,
-    daysAgo: 3,
-  },
-  {
-    id: 10,
-    name: { en: "Nespresso Vertuo Next Coffee Machine", ar: "ماكينة قهوة نسبريسو فيرتو نكست" },
-    image: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400",
-    price: 179.99,
-    originalPrice: 219.99,
-    rating: 4.7,
-    reviews: 678,
-    category: { en: "Home", ar: "منزل" },
-    badge: { en: "New", ar: "جديد" },
-    isNew: true,
-    daysAgo: 4,
-  },
-  {
-    id: 11,
-    name: { en: "Ray-Ban Meta Smart Glasses", ar: "نظارات ري بان ميتا الذكية" },
-    image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400",
-    price: 299.99,
-    originalPrice: 349.99,
-    rating: 4.6,
-    reviews: 234,
-    category: { en: "Electronics", ar: "إلكترونيات" },
-    badge: { en: "Innovative", ar: "مبتكر" },
-    isNew: true,
-    daysAgo: 6,
-  },
-  {
-    id: 12,
-    name: { en: "Adidas Ultraboost 24 Running Shoes", ar: "حذاء أديداس ألترابوست 24" },
-    image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400",
-    price: 189.99,
-    originalPrice: 210.00,
-    rating: 4.8,
-    reviews: 567,
-    category: { en: "Sports", ar: "رياضة" },
-    badge: { en: "New", ar: "جديد" },
-    isNew: true,
-    daysAgo: 7,
-  },
-];
+// Get new arrivals from JSON data
+const newArrivals = getNewArrivals(12);
 
 const categories = [
   { id: "all", name: { en: "All", ar: "الكل" } },
@@ -194,7 +39,7 @@ export default function NewArrivalsPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("newest");
 
-  const handleAddToCart = (product: typeof newArrivals[0], e: React.MouseEvent) => {
+  const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart({
@@ -213,7 +58,7 @@ export default function NewArrivalsPage() {
     );
   };
 
-  const handleWishlistToggle = (product: typeof newArrivals[0], e: React.MouseEvent) => {
+  const handleWishlistToggle = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     toggleWishlist({
@@ -246,7 +91,7 @@ export default function NewArrivalsPage() {
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case "newest":
-        return a.daysAgo - b.daysAgo;
+        return (a.daysAgo || 0) - (b.daysAgo || 0);
       case "price-low":
         return a.price - b.price;
       case "price-high":
@@ -381,10 +226,12 @@ export default function NewArrivalsPage() {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
                   />
                   {/* Badge */}
-                  <span className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                    <Sparkles className="h-3 w-3" />
-                    {product.badge[language]}
-                  </span>
+                  {product.badge && (
+                    <span className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                      <Sparkles className="h-3 w-3" />
+                      {product.badge[language]}
+                    </span>
+                  )}
                   {/* Days Ago */}
                   <span className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full">
                     {product.daysAgo === 1
@@ -399,8 +246,8 @@ export default function NewArrivalsPage() {
                   <button
                     onClick={(e) => handleWishlistToggle(product, e)}
                     className={`absolute bottom-2 right-2 p-2 rounded-full transition-all shadow-md ${isInWishlist(product.id)
-                        ? "bg-red-500 text-white opacity-100"
-                        : "bg-white/90 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100"
+                      ? "bg-red-500 text-white opacity-100"
+                      : "bg-white/90 hover:bg-red-500 hover:text-white opacity-0 group-hover:opacity-100"
                       }`}
                   >
                     <Heart className={`h-4 w-4 ${isInWishlist(product.id) ? "fill-current" : ""}`} />
@@ -450,10 +297,12 @@ export default function NewArrivalsPage() {
                     alt={product.name[language]}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
-                  <span className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                    <Sparkles className="h-3 w-3" />
-                    {product.badge[language]}
-                  </span>
+                  {product.badge && (
+                    <span className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                      <Sparkles className="h-3 w-3" />
+                      {product.badge[language]}
+                    </span>
+                  )}
                 </div>
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>

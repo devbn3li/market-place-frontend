@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLanguageStore } from "@/stores";
+import { useLanguageStore, useCartStore, useWishlistStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
   Clock,
@@ -13,144 +13,40 @@ import {
   Gift,
   Timer,
   Flame,
+  ShoppingCart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import { getDeals, type Product } from "@/lib/products";
 
-// Flash deals with countdown
-const flashDeals = [
-  {
-    id: 1,
-    name: { en: "Wireless Bluetooth Earbuds Pro", ar: "سماعات بلوتوث لاسلكية برو" },
-    image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400",
-    originalPrice: 199.99,
-    salePrice: 79.99,
-    discount: 60,
-    rating: 4.8,
-    reviews: 2340,
-    sold: 1850,
-    stock: 50,
-  },
-  {
-    id: 2,
-    name: { en: "Smart Watch Series 8", ar: "ساعة ذكية سيريز 8" },
-    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400",
-    originalPrice: 399.99,
-    salePrice: 199.99,
-    discount: 50,
-    rating: 4.9,
-    reviews: 5670,
-    sold: 3200,
-    stock: 25,
-  },
-  {
-    id: 3,
-    name: { en: "4K Ultra HD Action Camera", ar: "كاميرا أكشن 4K فائقة الدقة" },
-    image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400",
-    originalPrice: 299.99,
-    salePrice: 149.99,
-    discount: 50,
-    rating: 4.7,
-    reviews: 1890,
-    sold: 980,
-    stock: 35,
-  },
-  {
-    id: 4,
-    name: { en: "Noise Cancelling Headphones", ar: "سماعات عازلة للضوضاء" },
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
-    originalPrice: 349.99,
-    salePrice: 139.99,
-    discount: 60,
-    rating: 4.8,
-    reviews: 3450,
-    sold: 2100,
-    stock: 40,
-  },
-];
+// Get deals from JSON data
+const dealsProducts = getDeals(12);
 
-// Daily deals
-const dailyDeals = [
-  {
-    id: 5,
-    name: { en: "Premium Leather Wallet", ar: "محفظة جلد فاخرة" },
-    image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=400",
-    originalPrice: 89.99,
-    salePrice: 39.99,
-    discount: 55,
-    rating: 4.6,
-    reviews: 890,
-  },
-  {
-    id: 6,
-    name: { en: "Portable Bluetooth Speaker", ar: "سماعة بلوتوث محمولة" },
-    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
-    originalPrice: 129.99,
-    salePrice: 59.99,
-    discount: 54,
-    rating: 4.7,
-    reviews: 2100,
-  },
-  {
-    id: 7,
-    name: { en: "Mechanical Gaming Keyboard", ar: "كيبورد ألعاب ميكانيكي" },
-    image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=400",
-    originalPrice: 159.99,
-    salePrice: 79.99,
-    discount: 50,
-    rating: 4.8,
-    reviews: 1560,
-  },
-  {
-    id: 8,
-    name: { en: "Fitness Tracker Band", ar: "سوار تتبع اللياقة" },
-    image: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400",
-    originalPrice: 79.99,
-    salePrice: 29.99,
-    discount: 63,
-    rating: 4.5,
-    reviews: 3200,
-  },
-  {
-    id: 9,
-    name: { en: "Wireless Charging Pad", ar: "قاعدة شحن لاسلكية" },
-    image: "https://images.unsplash.com/photo-1586816879360-004f5b0c51e5?w=400",
-    originalPrice: 49.99,
-    salePrice: 19.99,
-    discount: 60,
-    rating: 4.4,
-    reviews: 780,
-  },
-  {
-    id: 10,
-    name: { en: "USB-C Hub Multiport Adapter", ar: "محول USB-C متعدد المنافذ" },
-    image: "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?w=400",
-    originalPrice: 69.99,
-    salePrice: 34.99,
-    discount: 50,
-    rating: 4.6,
-    reviews: 1230,
-  },
-  {
-    id: 11,
-    name: { en: "Ergonomic Mouse Wireless", ar: "ماوس لاسلكي مريح" },
-    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400",
-    originalPrice: 59.99,
-    salePrice: 24.99,
-    discount: 58,
-    rating: 4.5,
-    reviews: 2340,
-  },
-  {
-    id: 12,
-    name: { en: "LED Desk Lamp Smart", ar: "مصباح مكتب LED ذكي" },
-    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400",
-    originalPrice: 89.99,
-    salePrice: 44.99,
-    discount: 50,
-    rating: 4.7,
-    reviews: 560,
-  },
-];
+// Flash deals (first 4)
+const flashDeals = dealsProducts.slice(0, 4).map((p, i) => ({
+  id: p.id,
+  name: p.name,
+  image: p.image,
+  originalPrice: p.originalPrice,
+  salePrice: p.price,
+  discount: Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100),
+  rating: p.rating,
+  reviews: p.reviews,
+  sold: 1000 + i * 500,
+  stock: 50 - i * 10,
+}));
+
+// Daily deals (remaining)
+const dailyDeals = dealsProducts.slice(4).map((p) => ({
+  id: p.id,
+  name: p.name,
+  image: p.image,
+  originalPrice: p.originalPrice,
+  salePrice: p.price,
+  discount: Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100),
+  rating: p.rating,
+  reviews: p.reviews,
+}));
 
 // Category deals
 const categoryDeals = [
