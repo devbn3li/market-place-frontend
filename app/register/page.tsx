@@ -12,14 +12,14 @@ import { toast } from "sonner";
 
 // Demo Banner Component
 const DemoBanner = ({ language }: { language: "en" | "ar" }) => (
-  <div className="fixed top-0 left-0 right-0 z-50 bg-amber-500/10 border-b border-amber-500/20">
+  <div className="bg-amber-500/10 border-b border-amber-500/20">
     <div className="container mx-auto px-4 py-2">
       <div className="flex items-center justify-center gap-2 text-amber-700 dark:text-amber-400">
         <AlertTriangle className="h-4 w-4 flex-shrink-0" />
         <p className="text-xs sm:text-sm text-center">
           {language === "ar"
-            ? "⚠️ موقع عرض توضيحي - لا يتم تخزين أي بيانات حقيقية"
-            : "⚠️ Demo Site - No real data is stored"}
+            ? " موقع عرض توضيحي - لا يتم تخزين أي بيانات حقيقية"
+            : " Demo Site - No real data is stored"}
         </p>
       </div>
     </div>
@@ -122,7 +122,7 @@ export default function RegisterPage() {
   return (
     <>
       <DemoBanner language={language} />
-      <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-muted/30 pt-16" dir={language === "ar" ? "rtl" : "ltr"}>
+      <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-muted/30" dir={language === "ar" ? "rtl" : "ltr"}>
         <div className="max-w-2xl w-full space-y-8">
           {/* Header */}
           <div className="text-center">

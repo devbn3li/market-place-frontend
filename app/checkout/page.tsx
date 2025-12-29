@@ -266,8 +266,8 @@ export default function CheckoutPage() {
             <AlertTriangle className="h-4 w-4 flex-shrink-0" />
             <p className="text-sm text-center">
               {language === "ar"
-                ? "⚠️ هذا موقع عرض توضيحي (Demo) - لا يتم جمع أو معالجة أي بيانات دفع حقيقية"
-                : "⚠️ This is a Demo Site - No real payment information is collected or processed"}
+                ? " هذا موقع عرض توضيحي (Demo) - لا يتم جمع أو معالجة أي بيانات دفع حقيقية"
+                : " This is a Demo Site - No real payment information is collected or processed"}
             </p>
           </div>
         </div>

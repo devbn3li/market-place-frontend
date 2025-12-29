@@ -251,7 +251,7 @@ export default function AboutPage() {
           {/* Disclaimer */}
           <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-2xl p-6 mb-8">
             <h3 className="font-bold text-amber-800 dark:text-amber-200 mb-2">
-              {language === "ar" ? "⚠️ تنويه مهم" : "⚠️ Important Disclaimer"}
+              {language === "ar" ? " تنويه مهم" : " Important Disclaimer"}
             </h3>
             <p className="text-amber-700 dark:text-amber-300 text-sm">
               {language === "ar"
