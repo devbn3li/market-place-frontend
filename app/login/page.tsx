@@ -1,14 +1,45 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
 import { useLanguage, translations as t } from "@/context/language-context";
+import { useAuth } from "@/context/auth-context";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const { language } = useLanguage();
+  const { login } = useAuth();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const result = await login(formData.email, formData.password);
+
+    if (result.success) {
+      toast.success(language === "ar" ? "تم تسجيل الدخول بنجاح!" : "Login successful!");
+      router.push("/profile");
+    } else {
+      toast.error(
+        language === "ar"
+          ? "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+          : "Invalid email or password"
+      );
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-muted/30" dir={language === "ar" ? "rtl" : "ltr"}>
@@ -28,7 +59,7 @@ export default function LoginPage() {
 
         {/* Login Form */}
         <div className="bg-card rounded-2xl shadow-lg border p-8">
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email */}
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
@@ -41,6 +72,8 @@ export default function LoginPage() {
                   name="email"
                   type="email"
                   required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder={t.enterYourEmailPlaceholder[language]}
                   className={language === "ar" ? "pr-10" : "pl-10"}
                 />
@@ -67,6 +100,8 @@ export default function LoginPage() {
                   name="password"
                   type="password"
                   required
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   placeholder={t.enterYourPassword[language]}
                   className={language === "ar" ? "pr-10" : "pl-10"}
                 />
@@ -87,9 +122,18 @@ export default function LoginPage() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600">
-              {t.signIn[language]}
-              <ArrowRight className={`${language === "ar" ? "mr-2 rotate-180" : "ml-2"} h-4 w-4`} />
+            <Button type="submit" disabled={isLoading} className="w-full bg-orange-500 hover:bg-orange-600">
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  {language === "ar" ? "جاري تسجيل الدخول..." : "Signing in..."}
+                </>
+              ) : (
+                <>
+                  {t.signIn[language]}
+                  <ArrowRight className={`${language === "ar" ? "mr-2 rotate-180" : "ml-2"} h-4 w-4`} />
+                </>
+              )}
             </Button>
           </form>
 

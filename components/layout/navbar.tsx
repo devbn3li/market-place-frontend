@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun } from "lucide-react";
+import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLanguage, translations as t } from "@/context/language-context";
 import { useCart } from "@/context/cart-context";
+import { useAuth } from "@/context/auth-context";
 
 const navLinks = [
   { href: "/", label: t.home },
@@ -22,7 +23,9 @@ export function Navbar() {
   const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
   const { totalItems } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "ar" : "en");
@@ -117,13 +120,76 @@ export function Navbar() {
               </Button>
             </Link>
 
-            {/* Login Button */}
-            <Link href="/login">
-              <Button variant="outline" className="hidden sm:flex gap-2">
-                <User className="h-4 w-4" />
-                <span>{t.login[language]}</span>
-              </Button>
-            </Link>
+            {/* User Menu / Login Button */}
+            {isAuthenticated && user ? (
+              <div className="relative hidden sm:block">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white text-sm font-bold">
+                    {user.firstName.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-sm font-medium hidden md:block">
+                    {user.firstName}
+                  </span>
+                  <ChevronDown className={`h-4 w-4 transition-transform ${showUserMenu ? "rotate-180" : ""}`} />
+                </button>
+
+                {/* Dropdown Menu */}
+                {showUserMenu && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowUserMenu(false)}
+                    />
+                    <div className="absolute right-0 mt-2 w-56 bg-card rounded-xl shadow-lg border z-50 overflow-hidden">
+                      <div className="p-3 border-b bg-muted/50">
+                        <p className="font-medium">{user.firstName} {user.lastName}</p>
+                        <p className="text-xs text-muted-foreground">{user.email}</p>
+                      </div>
+                      <div className="py-2">
+                        <Link
+                          href="/profile"
+                          onClick={() => setShowUserMenu(false)}
+                          className="flex items-center gap-3 px-4 py-2 hover:bg-muted transition-colors"
+                        >
+                          <User className="h-4 w-4" />
+                          <span>{language === "ar" ? "حسابي" : "My Account"}</span>
+                        </Link>
+                        <Link
+                          href="/orders"
+                          onClick={() => setShowUserMenu(false)}
+                          className="flex items-center gap-3 px-4 py-2 hover:bg-muted transition-colors"
+                        >
+                          <ShoppingCart className="h-4 w-4" />
+                          <span>{language === "ar" ? "طلباتي" : "My Orders"}</span>
+                        </Link>
+                      </div>
+                      <div className="border-t py-2">
+                        <button
+                          onClick={() => {
+                            logout();
+                            setShowUserMenu(false);
+                          }}
+                          className="flex items-center gap-3 px-4 py-2 w-full text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          <span>{language === "ar" ? "تسجيل الخروج" : "Sign Out"}</span>
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <Link href="/login">
+                <Button variant="outline" className="hidden sm:flex gap-2">
+                  <User className="h-4 w-4" />
+                  <span>{t.login[language]}</span>
+                </Button>
+              </Link>
+            )}
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -161,12 +227,43 @@ export function Navbar() {
 
                   {/* Mobile Actions */}
                   <div className="flex flex-col gap-3 pt-4 border-t">
-                    <Link href="/login" onClick={() => setIsOpen(false)}>
-                      <Button className="w-full gap-2">
-                        <User className="h-4 w-4" />
-                        <span>{t.login[language]}</span>
-                      </Button>
-                    </Link>
+                    {isAuthenticated && user ? (
+                      <>
+                        <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+                          <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">
+                            {user.firstName.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <p className="font-medium">{user.firstName} {user.lastName}</p>
+                            <p className="text-xs text-muted-foreground">{user.email}</p>
+                          </div>
+                        </div>
+                        <Link href="/profile" onClick={() => setIsOpen(false)}>
+                          <Button variant="outline" className="w-full gap-2">
+                            <User className="h-4 w-4" />
+                            <span>{language === "ar" ? "حسابي" : "My Account"}</span>
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="destructive"
+                          className="w-full gap-2"
+                          onClick={() => {
+                            logout();
+                            setIsOpen(false);
+                          }}
+                        >
+                          <LogOut className="h-4 w-4" />
+                          <span>{language === "ar" ? "تسجيل الخروج" : "Sign Out"}</span>
+                        </Button>
+                      </>
+                    ) : (
+                      <Link href="/login" onClick={() => setIsOpen(false)}>
+                        <Button className="w-full gap-2">
+                          <User className="h-4 w-4" />
+                          <span>{t.login[language]}</span>
+                        </Button>
+                      </Link>
+                    )}
 
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">

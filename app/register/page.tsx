@@ -1,18 +1,84 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Lock, User, ArrowRight, Phone } from "lucide-react";
+import { Mail, Lock, User, ArrowRight, Phone, Loader2 } from "lucide-react";
 import { useLanguage, translations as t } from "@/context/language-context";
+import { useAuth } from "@/context/auth-context";
+import { toast } from "sonner";
 
 export default function RegisterPage() {
   const { language } = useLanguage();
+  const { register } = useAuth();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      toast.error(
+        language === "ar"
+          ? "كلمتا المرور غير متطابقتين"
+          : "Passwords do not match"
+      );
+      return;
+    }
+
+    // Validate password length
+    if (formData.password.length < 8) {
+      toast.error(
+        language === "ar"
+          ? "كلمة المرور يجب أن تكون 8 أحرف على الأقل"
+          : "Password must be at least 8 characters"
+      );
+      return;
+    }
+
+    setIsLoading(true);
+
+    const result = await register({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password,
+    });
+
+    if (result.success) {
+      toast.success(
+        language === "ar"
+          ? "تم إنشاء الحساب بنجاح!"
+          : "Account created successfully!"
+      );
+      router.push("/profile");
+    } else {
+      toast.error(
+        language === "ar"
+          ? "البريد الإلكتروني مسجل بالفعل"
+          : "Email already registered"
+      );
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-muted/30" dir={language === "ar" ? "rtl" : "ltr"}>
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-2xl w-full space-y-8">
         {/* Header */}
         <div className="text-center">
           <Link href="/" className="inline-block mb-6">
@@ -28,7 +94,7 @@ export default function RegisterPage() {
 
         {/* Register Form */}
         <div className="bg-card rounded-2xl shadow-lg border p-8">
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -42,6 +108,8 @@ export default function RegisterPage() {
                     name="firstName"
                     type="text"
                     required
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                     placeholder={t.firstNamePlaceholder[language]}
                     className={language === "ar" ? "pr-10" : "pl-10"}
                   />
@@ -56,6 +124,8 @@ export default function RegisterPage() {
                   name="lastName"
                   type="text"
                   required
+                  value={formData.lastName}
+                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                   placeholder={t.lastNamePlaceholder[language]}
                 />
               </div>
@@ -73,6 +143,8 @@ export default function RegisterPage() {
                   name="email"
                   type="email"
                   required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder={t.emailPlaceholder[language]}
                   className={language === "ar" ? "pr-10" : "pl-10"}
                 />
@@ -91,6 +163,8 @@ export default function RegisterPage() {
                   name="phone"
                   type="tel"
                   required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder={t.phonePlaceholder[language]}
                   className={language === "ar" ? "pr-10" : "pl-10"}
                 />
@@ -109,6 +183,8 @@ export default function RegisterPage() {
                   name="password"
                   type="password"
                   required
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   placeholder={t.createPasswordPlaceholder[language]}
                   className={language === "ar" ? "pr-10" : "pl-10"}
                 />
@@ -130,6 +206,8 @@ export default function RegisterPage() {
                   name="confirmPassword"
                   type="password"
                   required
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   placeholder={t.confirmPasswordPlaceholder[language]}
                   className={language === "ar" ? "pr-10" : "pl-10"}
                 />
@@ -158,9 +236,18 @@ export default function RegisterPage() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600">
-              {t.createAccountBtn[language]}
-              <ArrowRight className={`${language === "ar" ? "mr-2 rotate-180" : "ml-2"} h-4 w-4`} />
+            <Button type="submit" disabled={isLoading} className="w-full bg-orange-500 hover:bg-orange-600">
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  {language === "ar" ? "جاري إنشاء الحساب..." : "Creating account..."}
+                </>
+              ) : (
+                <>
+                  {t.createAccountBtn[language]}
+                  <ArrowRight className={`${language === "ar" ? "mr-2 rotate-180" : "ml-2"} h-4 w-4`} />
+                </>
+              )}
             </Button>
           </form>
 
