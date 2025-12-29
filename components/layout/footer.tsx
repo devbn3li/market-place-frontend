@@ -171,7 +171,7 @@ export function Footer() {
           {/* Brand & Newsletter */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
-              <span className="text-3xl font-bold bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 bg-clip-text text-transparent">
+              <span className="text-3xl font-bold bg-linear-to-r from-orange-500 via-yellow-500 to-orange-600 bg-clip-text text-transparent">
                 {language === "ar" ? "امانون" : "Amanoon"}
               </span>
             </Link>
@@ -266,6 +266,8 @@ export function Footer() {
                 alt="Mastercard"
                 width={60}
                 height={24}
+                sizes="60px"
+                loading="lazy"
                 className="h-6 object-contain"
               />
               <Image
@@ -273,6 +275,8 @@ export function Footer() {
                 alt="Visa"
                 width={60}
                 height={24}
+                sizes="60px"
+                loading="lazy"
                 className="h-6 object-contain"
               />
               <Image
@@ -280,6 +284,8 @@ export function Footer() {
                 alt="PayPal"
                 width={60}
                 height={24}
+                sizes="60px"
+                loading="lazy"
                 className="h-6 object-contain"
               />
             </div>

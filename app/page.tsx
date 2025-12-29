@@ -39,14 +39,14 @@ const t = {
 };
 
 const categories = [
-  { name: { en: "Electronics", ar: "إلكترونيات" }, image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=100&h=100&fit=crop", href: "/categories/electronics", color: "bg-blue-500" },
-  { name: { en: "Fashion", ar: "أزياء" }, image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=100&h=100&fit=crop", href: "/categories/fashion", color: "bg-pink-500" },
-  { name: { en: "Home & Garden", ar: "المنزل والحديقة" }, image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=100&h=100&fit=crop", href: "/categories/home-garden", color: "bg-green-500" },
-  { name: { en: "Sports", ar: "رياضة" }, image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=100&h=100&fit=crop", href: "/categories/sports", color: "bg-orange-500" },
-  { name: { en: "Beauty", ar: "الجمال" }, image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=100&h=100&fit=crop", href: "/categories/beauty", color: "bg-purple-500" },
-  { name: { en: "Books", ar: "كتب" }, image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=100&h=100&fit=crop", href: "/categories/books", color: "bg-yellow-500" },
-  { name: { en: "Toys", ar: "ألعاب" }, image: "https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=100&h=100&fit=crop", href: "/categories/toys", color: "bg-red-500" },
-  { name: { en: "Automotive", ar: "السيارات" }, image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=100&h=100&fit=crop", href: "/categories/automotive", color: "bg-gray-500" },
+  { name: { en: "Electronics", ar: "إلكترونيات" }, image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/electronics", color: "bg-blue-500" },
+  { name: { en: "Fashion", ar: "أزياء" }, image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/fashion", color: "bg-pink-500" },
+  { name: { en: "Home & Garden", ar: "المنزل والحديقة" }, image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/home-garden", color: "bg-green-500" },
+  { name: { en: "Sports", ar: "رياضة" }, image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/sports", color: "bg-orange-500" },
+  { name: { en: "Beauty", ar: "الجمال" }, image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/beauty", color: "bg-purple-500" },
+  { name: { en: "Books", ar: "كتب" }, image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/books", color: "bg-yellow-500" },
+  { name: { en: "Toys", ar: "ألعاب" }, image: "https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/toys", color: "bg-red-500" },
+  { name: { en: "Automotive", ar: "السيارات" }, image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=100&h=100&fit=crop&auto=format&q=80", href: "/categories/automotive", color: "bg-gray-500" },
 ];
 
 // Get featured products from JSON
@@ -119,10 +119,11 @@ export default function Home() {
             </div>
             <div className="hidden lg:block">
               <Image
-                src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=600&h=500&fit=crop"
+                src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=600&h=500&fit=crop&auto=format&q=80"
                 alt={language === "ar" ? "عميل سعيد يتسوق عبر الإنترنت" : "Happy customer shopping online"}
                 width={600}
                 height={500}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="rounded-2xl shadow-2xl"
                 priority
                 fetchPriority="high"
@@ -159,6 +160,8 @@ export default function Home() {
                   alt={category.name[language]}
                   width={56}
                   height={56}
+                  sizes="56px"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -227,6 +230,8 @@ export default function Home() {
                   src={product.image}
                   alt={product.name[language]}
                   fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className={`absolute top-2 ${language === "ar" ? "right-2" : "left-2"} bg-red-500 text-white text-xs font-bold px-2 py-1 rounded`}>

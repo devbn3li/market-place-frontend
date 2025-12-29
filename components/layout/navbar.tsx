@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown, Heart } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLanguageStore, useCartStore, useAuthStore, useWishlistStore } from "@/stores";
+
+// Dynamic import for Sheet - reduces initial bundle, loads only when mobile menu is opened
+const Sheet = dynamic(() => import("@/components/ui/sheet").then(mod => ({ default: mod.Sheet })), { ssr: false });
+const SheetContent = dynamic(() => import("@/components/ui/sheet").then(mod => ({ default: mod.SheetContent })), { ssr: false });
+const SheetTrigger = dynamic(() => import("@/components/ui/sheet").then(mod => ({ default: mod.SheetTrigger })), { ssr: false });
 
 const t = {
   home: { en: "Home", ar: "الرئيسية" },
