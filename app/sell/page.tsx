@@ -23,6 +23,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { toast } from "sonner";
 
 const t = {
@@ -456,9 +457,11 @@ export default function SellPage() {
                     <div className="flex gap-2 flex-wrap mb-3">
                       {images.map((img, i) => (
                         <div key={i} className="relative group">
-                          <img
+                          <Image
                             src={img}
                             alt={`Product ${i + 1}`}
+                            width={80}
+                            height={80}
                             className="w-20 h-20 object-cover rounded-lg border"
                           />
                           <button

@@ -23,6 +23,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -674,10 +675,11 @@ export default function CheckoutPage() {
               <div className="space-y-3 max-h-60 overflow-y-auto mb-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name[language]}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 object-cover rounded-lg"
                     />
                     <div className="flex-1 min-w-0">
@@ -764,10 +766,11 @@ export default function CheckoutPage() {
 
               {/* Trust Badges */}
               <div className="mt-4 flex justify-center gap-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/512px-Stripe_Logo%2C_revised_2016.svg.png"
                   alt="Stripe"
+                  width={80}
+                  height={24}
                   className="h-6 opacity-50"
                 />
               </div>

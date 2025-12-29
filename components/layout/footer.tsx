@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   Facebook,
   Twitter,
@@ -260,22 +261,25 @@ export function Footer() {
               {t.allRightsReserved[language]}
             </p>
             <div className="flex items-center gap-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/200px-MasterCard_Logo.svg.png"
                 alt="Mastercard"
+                width={60}
+                height={24}
                 className="h-6 object-contain"
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png"
                 alt="Visa"
+                width={60}
+                height={24}
                 className="h-6 object-contain"
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/200px-PayPal.svg.png"
                 alt="PayPal"
+                width={60}
+                height={24}
                 className="h-6 object-contain"
               />
             </div>

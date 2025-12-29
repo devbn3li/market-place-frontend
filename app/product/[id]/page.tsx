@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useLanguageStore, useCartStore, useWishlistStore } from "@/stores";
 import { Button } from "@/components/ui/button";
@@ -135,10 +136,10 @@ export default function ProductPage() {
                 onMouseLeave={() => setIsZooming(false)}
                 onMouseMove={handleMouseMove}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={productImages[selectedImage]}
                   alt={product.name[language]}
+                  fill
                   className="w-full h-full object-cover pointer-events-none"
                 />
                 {discount > 0 && (
@@ -223,10 +224,10 @@ export default function ProductPage() {
                     : "border-transparent hover:border-gray-300"
                     }`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={img}
                     alt={`${product.name[language]} ${index + 1}`}
+                    fill
                     className="w-full h-full object-cover"
                   />
                 </button>
@@ -527,10 +528,10 @@ export default function ProductPage() {
                   className="group bg-card rounded-xl border overflow-hidden hover:shadow-lg transition-all"
                 >
                   <div className="relative aspect-square">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={relatedProduct.image}
                       alt={relatedProduct.name[language]}
+                      fill
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                   </div>

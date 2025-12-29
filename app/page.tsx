@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, TrendingUp, Percent, Zap, Heart } from "lucide-react";
 import { useLanguageStore, useWishlistStore } from "@/stores";
@@ -114,10 +115,11 @@ export default function Home() {
               </div>
             </div>
             <div className="hidden lg:block">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=600&h=500&fit=crop"
                 alt="Shopping"
+                width={600}
+                height={500}
                 className="rounded-2xl shadow-2xl"
               />
             </div>
@@ -147,10 +149,11 @@ export default function Home() {
               className="group flex flex-col items-center p-4 rounded-xl bg-card hover:shadow-lg transition-all duration-300 border"
             >
               <div className="w-14 h-14 rounded-full overflow-hidden mb-3 group-hover:scale-110 transition-transform ring-2 ring-muted">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={category.image}
                   alt={category.name[language]}
+                  width={56}
+                  height={56}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -215,10 +218,10 @@ export default function Home() {
               className="group bg-card rounded-xl border overflow-hidden hover:shadow-xl transition-all duration-300"
             >
               <div className="relative aspect-square overflow-hidden bg-muted">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={product.image}
                   alt={product.name[language]}
+                  fill
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className={`absolute top-2 ${language === "ar" ? "right-2" : "left-2"} bg-red-500 text-white text-xs font-bold px-2 py-1 rounded`}>

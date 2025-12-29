@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguageStore, useCartStore, useWishlistStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
@@ -218,12 +219,12 @@ export default function NewArrivalsPage() {
                 href={`/product/${product.id}`}
                 className="group bg-card rounded-xl border overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1"
               >
-                <div className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div className="relative h-48">
+                  <Image
                     src={product.image}
                     alt={product.name[language]}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+                    fill
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                   {/* Badge */}
                   {product.badge && (
@@ -290,11 +291,11 @@ export default function NewArrivalsPage() {
                 href={`/product/${product.id}`}
                 className="group bg-card rounded-xl border overflow-hidden hover:shadow-lg transition-all flex"
               >
-                <div className="relative w-48 shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div className="relative w-48 h-48 shrink-0">
+                  <Image
                     src={product.image}
                     alt={product.name[language]}
+                    fill
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                   {product.badge && (

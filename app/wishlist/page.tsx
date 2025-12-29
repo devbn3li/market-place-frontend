@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguageStore, useWishlistStore, useCartStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
@@ -113,10 +114,10 @@ export default function WishlistPage() {
                 >
                   <div className="relative aspect-square overflow-hidden">
                     <Link href={`/product/${item.id}`}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.name[language]}
+                        fill
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </Link>

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguageStore, useAuthStore, useOrdersStore, useCartStore, Order } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -205,10 +206,10 @@ export default function OrdersPage() {
                       {order.items.map((item, index) => (
                         <div key={index} className="flex items-center gap-4">
                           <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-muted flex-shrink-0">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                            <Image
                               src={item.image}
                               alt={item.name[language]}
+                              fill
                               className="w-full h-full object-cover"
                             />
                           </div>

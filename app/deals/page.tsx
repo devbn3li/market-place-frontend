@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguageStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import {
@@ -178,12 +179,12 @@ export default function DealsPage() {
                 href={`/product/${deal.id}`}
                 className="bg-white dark:bg-card rounded-xl overflow-hidden group hover:shadow-xl transition-all"
               >
-                <div className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div className="relative h-40">
+                  <Image
                     src={deal.image}
                     alt={deal.name[language]}
-                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform"
+                    fill
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                   <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
                     -{deal.discount}%
@@ -250,10 +251,10 @@ export default function DealsPage() {
                 href={`/categories/${cat.id}?deals=true`}
                 className="relative rounded-2xl overflow-hidden group h-48"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={cat.image}
                   alt={cat.name[language]}
+                  fill
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div
@@ -295,12 +296,12 @@ export default function DealsPage() {
                 href={`/product/${deal.id}`}
                 className="bg-card rounded-xl overflow-hidden border group hover:shadow-lg transition-all hover:-translate-y-1"
               >
-                <div className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div className="relative h-40">
+                  <Image
                     src={deal.image}
                     alt={deal.name[language]}
-                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform"
+                    fill
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                   <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">
                     -{deal.discount}%
