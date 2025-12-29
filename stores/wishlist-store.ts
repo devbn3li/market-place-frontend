@@ -61,12 +61,14 @@ export const useWishlistStore = create<WishlistStore>()(
     {
       name: "amanoon-wishlist",
       skipHydration: true,
-      storage: createJSONStorage(() => 
-        typeof window !== 'undefined' ? window.localStorage : {
-          getItem: () => null,
-          setItem: () => {},
-          removeItem: () => {},
-        }
+      storage: createJSONStorage(() =>
+        typeof window !== "undefined"
+          ? window.localStorage
+          : {
+              getItem: () => null,
+              setItem: () => {},
+              removeItem: () => {},
+            }
       ),
     }
   )

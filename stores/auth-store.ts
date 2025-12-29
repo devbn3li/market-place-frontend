@@ -233,12 +233,14 @@ export const useAuthStore = create<AuthStore>()(
     {
       name: "amanoon-auth",
       skipHydration: true,
-      storage: createJSONStorage(() => 
-        typeof window !== 'undefined' ? window.localStorage : {
-          getItem: () => null,
-          setItem: () => {},
-          removeItem: () => {},
-        }
+      storage: createJSONStorage(() =>
+        typeof window !== "undefined"
+          ? window.localStorage
+          : {
+              getItem: () => null,
+              setItem: () => {},
+              removeItem: () => {},
+            }
       ),
     }
   )

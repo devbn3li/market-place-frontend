@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { toast } from "sonner";
+import { useToastAlert } from "@/hooks/use-toast-alert";
 
 const t = {
   sellOnAmanoon: { en: "Sell on Amanoon", ar: "بيع على امانون" },
@@ -104,8 +104,9 @@ const categories = [
 
 export default function SellPage() {
   const { language } = useLanguageStore();
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
   const router = useRouter();
+  const toastAlert = useToastAlert();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [images, setImages] = useState<string[]>([]);
@@ -144,7 +145,7 @@ export default function SellPage() {
     e.preventDefault();
 
     if (!isAuthenticated) {
-      toast.error(
+      toastAlert.error(
         language === "ar" ? "يجب تسجيل الدخول أولاً" : "Please login first"
       );
       router.push("/login");
@@ -152,7 +153,7 @@ export default function SellPage() {
     }
 
     if (!formData.name || !formData.category || !formData.price) {
-      toast.error(
+      toastAlert.error(
         language === "ar"
           ? "يرجى ملء جميع الحقول المطلوبة"
           : "Please fill all required fields"
@@ -167,7 +168,7 @@ export default function SellPage() {
 
     setIsSubmitting(false);
     setIsSuccess(true);
-    toast.success(t.successMessage[language]);
+    toastAlert.success(t.successMessage[language]);
   };
 
   if (isSuccess) {
@@ -277,7 +278,7 @@ export default function SellPage() {
                 <h3 className="font-semibold text-sm mb-2">{item.title[language]}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.desc[language]}</p>
               </div>
-            ))})
+            ))}
           </div>
         </div>
       </div>

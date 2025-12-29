@@ -4,9 +4,11 @@ import { useLanguageStore } from "@/stores";
 import { Cookie, Settings, BarChart3, Target, Shield, ToggleLeft, HelpCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useToastAlert } from "@/hooks/use-toast-alert";
 
 export default function CookiesPage() {
   const { language } = useLanguageStore();
+  const toastAlert = useToastAlert();
   const [preferences, setPreferences] = useState({
     essential: true,
     analytics: true,
@@ -80,7 +82,12 @@ export default function CookiesPage() {
   const savePreferences = () => {
     // Here you would save to localStorage or send to server
     console.log("Saving preferences:", preferences);
-    alert(language === "ar" ? "تم حفظ تفضيلاتك!" : "Your preferences have been saved!");
+    toastAlert.success(
+      language === "ar" ? "تم حفظ تفضيلاتك!" : "Your preferences have been saved!",
+      language === "ar"
+        ? "سيتم تطبيق إعدادات ملفات تعريف الارتباط الجديدة"
+        : "Your new cookie settings will be applied"
+    );
   };
 
   return (

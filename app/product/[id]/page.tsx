@@ -116,7 +116,7 @@ export default function ProductPage() {
               {product.category[language]}
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground truncate max-w-[200px]">
+            <span className="text-foreground truncate max-w-50">
               {product.name[language]}
             </span>
           </nav>
@@ -200,7 +200,7 @@ export default function ProductPage() {
 
               {/* Zoomed Image Panel */}
               {isZooming && (
-                <div className="hidden lg:block absolute left-full ml-4 w-[750px] h-[700px] bg-card rounded-xl border overflow-hidden shadow-2xl z-50">
+                <div className="hidden lg:block absolute left-full ml-4 w-187.5 h-175 bg-card rounded-xl border overflow-hidden shadow-2xl z-50">
                   <div
                     className="w-full h-full"
                     style={{

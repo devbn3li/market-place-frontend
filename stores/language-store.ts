@@ -27,12 +27,14 @@ export const useLanguageStore = create<LanguageStore>()(
     {
       name: "amanoon-language",
       skipHydration: true,
-      storage: createJSONStorage(() => 
-        typeof window !== 'undefined' ? window.localStorage : {
-          getItem: () => null,
-          setItem: () => {},
-          removeItem: () => {},
-        }
+      storage: createJSONStorage(() =>
+        typeof window !== "undefined"
+          ? window.localStorage
+          : {
+              getItem: () => null,
+              setItem: () => {},
+              removeItem: () => {},
+            }
       ),
     }
   )
