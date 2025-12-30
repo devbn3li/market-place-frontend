@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Lock, ArrowRight, Loader2, AlertTriangle } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2, AlertTriangle, Eye, EyeOff } from "lucide-react";
 import { useLanguageStore, useAuthStore } from "@/stores";
 import { toast } from "sonner";
 
@@ -54,6 +54,7 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   // Load saved email on mount
   useEffect(() => {
@@ -151,13 +152,21 @@ export default function LoginPage() {
                   <Input
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     placeholder={t.enterYourPassword[language]}
-                    className={language === "ar" ? "pr-10" : "pl-10"}
+                    className={language === "ar" ? "pr-10 pl-10" : "pl-10 pr-10"}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className={`absolute ${language === "ar" ? "left-3" : "right-3"} top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors`}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
                 </div>
               </div>
 
