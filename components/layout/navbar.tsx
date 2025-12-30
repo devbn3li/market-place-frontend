@@ -3,7 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown, Heart } from "lucide-react";
+import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown, Heart, Settings } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -197,6 +197,14 @@ export function Navbar() {
                         >
                           <ShoppingCart className="h-4 w-4" />
                           <span>{language === "ar" ? "طلباتي" : "My Orders"}</span>
+                        </Link>
+                        <Link
+                          href="/settings"
+                          onClick={() => setShowUserMenu(false)}
+                          className="flex items-center gap-3 px-4 py-2 hover:bg-muted transition-colors"
+                        >
+                          <Settings className="h-4 w-4" />
+                          <span>{language === "ar" ? "الإعدادات" : "Settings"}</span>
                         </Link>
                       </div>
                       <div className="border-t py-2">
