@@ -164,8 +164,8 @@ export default function AdminUsersPage() {
   if (!mounted) {
     return (
       <div className="animate-pulse space-y-6">
-        <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/3"></div>
-        <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+        <div className="h-12 bg-gray-200 dark:bg-black/80 rounded-lg w-1/3"></div>
+        <div className="h-96 bg-gray-200 dark:bg-black/80 rounded-xl"></div>
       </div>
     );
   }
@@ -176,7 +176,7 @@ export default function AdminUsersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white">{t.userManagement}</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-500 dark:text-white/60">
             {t.totalUsers.replace("{count}", users.length.toString())}
           </p>
         </div>
@@ -187,7 +187,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className={`absolute ${language === 'ar' ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400`} />
@@ -222,27 +222,27 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div className="bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-100 dark:border-gray-600">
+            <thead className="bg-gray-50 dark:bg-black/80 border-b border-gray-100 dark:border-white/20">
               <tr>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.user}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.email}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.phone}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.accountType}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.registrationDate}
                 </th>
-                <th className="text-center py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300">
+                <th className="text-center py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80">
                   {t.actions}
                 </th>
               </tr>
@@ -250,7 +250,7 @@ export default function AdminUsersPage() {
             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
               {filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={6} className="py-12 text-center text-gray-500 dark:text-white/60">
                     {t.noUsers}
                   </td>
                 </tr>
@@ -271,13 +271,13 @@ export default function AdminUsersPage() {
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-white/80">
                         <Mail className="w-4 h-4 text-gray-400" />
                         {user.email}
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-white/80">
                         <Phone className="w-4 h-4 text-gray-400" />
                         {user.phone || "-"}
                       </div>
@@ -286,7 +286,7 @@ export default function AdminUsersPage() {
                       {getAccountTypeBadge(user.accountType || "buyer")}
                     </td>
                     <td className="py-4 px-6">
-                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm">
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-white/80 text-sm">
                         <Calendar className="w-4 h-4 text-gray-400" />
                         {new Date(user.createdAt).toLocaleDateString(language === 'ar' ? "ar-SA" : "en-US")}
                       </div>
@@ -325,7 +325,7 @@ export default function AdminUsersPage() {
                                 </div>
 
                                 <div className="space-y-4">
-                                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-black/80 rounded-lg">
                                     <Mail className="w-5 h-5 text-gray-400" />
                                     <div>
                                       <p className="text-xs text-gray-400">
@@ -336,7 +336,7 @@ export default function AdminUsersPage() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-black/80 rounded-lg">
                                     <Phone className="w-5 h-5 text-gray-400" />
                                     <div>
                                       <p className="text-xs text-gray-400">
@@ -347,7 +347,7 @@ export default function AdminUsersPage() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                  <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-black/80 rounded-lg">
                                     <Calendar className="w-5 h-5 text-gray-400" />
                                     <div>
                                       <p className="text-xs text-gray-400">
@@ -362,8 +362,8 @@ export default function AdminUsersPage() {
                                   </div>
                                 </div>
 
-                                <div className="pt-4 border-t dark:border-gray-700">
-                                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                                <div className="pt-4 border-t dark:border-white/15">
+                                  <p className="text-sm font-medium text-gray-700 dark:text-white/80 mb-3">
                                     {t.changeAccountType}
                                   </p>
                                   <div className="flex gap-2">

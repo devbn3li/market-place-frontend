@@ -232,8 +232,8 @@ export default function AdminSellersPage() {
   if (!mounted) {
     return (
       <div className="animate-pulse space-y-6">
-        <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/3"></div>
-        <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+        <div className="h-12 bg-gray-200 dark:bg-black/80 rounded-lg w-1/3"></div>
+        <div className="h-96 bg-gray-200 dark:bg-black/80 rounded-xl"></div>
       </div>
     );
   }
@@ -244,7 +244,7 @@ export default function AdminSellersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white">{t.sellerManagement}</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-500 dark:text-white/60">
             {t.totalRequests.replace("{count}", sellers.length.toString())}
           </p>
         </div>
@@ -252,18 +252,18 @@ export default function AdminSellersPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
               <Clock className="w-5 h-5 text-orange-600 dark:text-orange-400" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-800 dark:text-white">{pendingCount}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{t.pendingRequests}</p>
+              <p className="text-sm text-gray-500 dark:text-white/60">{t.pendingRequests}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
               <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
@@ -272,11 +272,11 @@ export default function AdminSellersPage() {
               <p className="text-2xl font-bold text-gray-800 dark:text-white">
                 {approvedCount}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{t.activeSellers}</p>
+              <p className="text-sm text-gray-500 dark:text-white/60">{t.activeSellers}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
               <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
@@ -285,14 +285,14 @@ export default function AdminSellersPage() {
               <p className="text-2xl font-bold text-gray-800 dark:text-white">
                 {rejectedCount}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{t.rejectedRequests}</p>
+              <p className="text-sm text-gray-500 dark:text-white/60">{t.rejectedRequests}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className={`absolute ${language === 'ar' ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400`} />
@@ -329,7 +329,7 @@ export default function AdminSellersPage() {
       {/* Sellers Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredSellers.length === 0 ? (
-          <div className="col-span-full py-12 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-xl">
+          <div className="col-span-full py-12 text-center text-gray-500 dark:text-white/60 bg-white dark:bg-black rounded-xl">
             <Store className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
             <p>{t.noSellerRequests}</p>
           </div>
@@ -337,7 +337,7 @@ export default function AdminSellersPage() {
           filteredSellers.map((seller) => (
             <div
               key={seller.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15 overflow-hidden hover:shadow-md transition-shadow"
             >
               <div className="p-5">
                 <div className="flex items-start justify-between mb-4">
@@ -349,7 +349,7 @@ export default function AdminSellersPage() {
                       <h3 className="font-semibold text-gray-800 dark:text-white">
                         {seller.sellerInfo.storeNameAr}
                       </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-500 dark:text-white/60">
                         {seller.sellerInfo.storeName}
                       </p>
                     </div>
@@ -358,15 +358,15 @@ export default function AdminSellersPage() {
                 </div>
 
                 <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-white/80">
                     <Building className="w-4 h-4 text-gray-400" />
                     {getBusinessTypeName(seller.sellerInfo.businessType)}
                   </div>
-                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-white/80">
                     <Mail className="w-4 h-4 text-gray-400" />
                     {seller.email}
                   </div>
-                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-white/80">
                     <Calendar className="w-4 h-4 text-gray-400" />
                     {t.appliedAt}{" "}
                     {new Date(
@@ -375,7 +375,7 @@ export default function AdminSellersPage() {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
+                <div className="mt-4 pt-4 border-t border-gray-100 dark:border-white/15 flex gap-2">
                   <Sheet>
                     <SheetTrigger asChild>
                       <Button
@@ -403,7 +403,7 @@ export default function AdminSellersPage() {
                               <h3 className="text-lg font-semibold dark:text-white">
                                 {selectedSeller.sellerInfo.storeNameAr}
                               </h3>
-                              <p className="text-gray-500 dark:text-gray-400">
+                              <p className="text-gray-500 dark:text-white/60">
                                 {selectedSeller.sellerInfo.storeName}
                               </p>
                               {getStatusBadge(selectedSeller.sellerInfo.status)}
@@ -411,7 +411,7 @@ export default function AdminSellersPage() {
                           </div>
 
                           {/* Owner Info */}
-                          <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl space-y-3">
+                          <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
                             <h4 className="font-medium text-gray-700 dark:text-gray-200">
                               {t.ownerInfo}
                             </h4>
@@ -451,20 +451,20 @@ export default function AdminSellersPage() {
                           </div>
 
                           {/* Store Description */}
-                          <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl space-y-3">
+                          <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
                             <h4 className="font-medium text-gray-700 dark:text-gray-200">
                               {t.storeDescription}
                             </h4>
-                            <p className="text-gray-600 dark:text-gray-300 text-sm">
+                            <p className="text-gray-600 dark:text-white/80 text-sm">
                               {selectedSeller.sellerInfo.storeDescriptionAr}
                             </p>
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-gray-500 dark:text-white/60 text-sm">
                               {selectedSeller.sellerInfo.storeDescription}
                             </p>
                           </div>
 
                           {/* Timeline */}
-                          <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl space-y-3">
+                          <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
                             <h4 className="font-medium text-gray-700 dark:text-gray-200">
                               {t.timeline}
                             </h4>

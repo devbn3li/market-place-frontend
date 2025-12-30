@@ -24,13 +24,33 @@ interface Product {
   nameAr: string;
   price: number;
   originalPrice?: number;
-  category: string;
+  category: "electronics" | "sports" | "accessories" | "home" | "fashion" | "beauty";
   seller: string;
   stock: number;
   status: "active" | "pending" | "rejected";
   image: string;
   createdAt: string;
 }
+
+// Category translations
+const categoryTranslations = {
+  ar: {
+    electronics: "إلكترونيات",
+    sports: "رياضة",
+    accessories: "إكسسوارات",
+    home: "منزل",
+    fashion: "أزياء",
+    beauty: "جمال",
+  },
+  en: {
+    electronics: "Electronics",
+    sports: "Sports",
+    accessories: "Accessories",
+    home: "Home",
+    fashion: "Fashion",
+    beauty: "Beauty",
+  },
+};
 
 // Mock products data
 const mockProducts: Product[] = [
@@ -40,7 +60,7 @@ const mockProducts: Product[] = [
     nameAr: "سماعات لاسلكية",
     price: 299,
     originalPrice: 399,
-    category: "إلكترونيات",
+    category: "electronics",
     seller: "TechStore",
     stock: 45,
     status: "active",
@@ -52,7 +72,7 @@ const mockProducts: Product[] = [
     name: "Smart Watch",
     nameAr: "ساعة ذكية",
     price: 599,
-    category: "إلكترونيات",
+    category: "electronics",
     seller: "GadgetWorld",
     stock: 23,
     status: "active",
@@ -65,7 +85,7 @@ const mockProducts: Product[] = [
     nameAr: "حذاء رياضي",
     price: 450,
     originalPrice: 550,
-    category: "رياضة",
+    category: "sports",
     seller: "SportZone",
     stock: 0,
     status: "active",
@@ -77,7 +97,7 @@ const mockProducts: Product[] = [
     name: "Leather Wallet",
     nameAr: "محفظة جلدية",
     price: 199,
-    category: "إكسسوارات",
+    category: "accessories",
     seller: "FashionHub",
     stock: 67,
     status: "pending",
@@ -90,7 +110,7 @@ const mockProducts: Product[] = [
     nameAr: "آلة صنع القهوة",
     price: 899,
     originalPrice: 1099,
-    category: "منزل",
+    category: "home",
     seller: "HomeAppliances",
     stock: 12,
     status: "active",
@@ -211,8 +231,8 @@ export default function AdminProductsPage() {
   if (!mounted) {
     return (
       <div className="animate-pulse space-y-6">
-        <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/3"></div>
-        <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+        <div className="h-12 bg-gray-200 dark:bg-black/80 rounded-lg w-1/3"></div>
+        <div className="h-96 bg-gray-200 dark:bg-black/80 rounded-xl"></div>
       </div>
     );
   }
@@ -223,7 +243,7 @@ export default function AdminProductsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white">{t.productManagement}</h1>
-          <p className="text-gray-500 dark:text-gray-400">{t.totalProducts.replace("{count}", products.length.toString())}</p>
+          <p className="text-gray-500 dark:text-white/60">{t.totalProducts.replace("{count}", products.length.toString())}</p>
         </div>
         <Button className="gap-2">
           <Plus className="w-4 h-4" />
@@ -233,29 +253,29 @@ export default function AdminProductsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
               <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-800 dark:text-white">{stats.total}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t.totalProductsStat}</p>
+              <p className="text-xs text-gray-500 dark:text-white/60">{t.totalProductsStat}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
               <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-800 dark:text-white">{stats.active}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t.activeProducts}</p>
+              <p className="text-xs text-gray-500 dark:text-white/60">{t.activeProducts}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
               <Package className="w-5 h-5 text-orange-600 dark:text-orange-400" />
@@ -264,11 +284,11 @@ export default function AdminProductsPage() {
               <p className="text-2xl font-bold text-gray-800 dark:text-white">
                 {stats.pending}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t.underReview}</p>
+              <p className="text-xs text-gray-500 dark:text-white/60">{t.underReview}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
               <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
@@ -277,14 +297,14 @@ export default function AdminProductsPage() {
               <p className="text-2xl font-bold text-gray-800 dark:text-white">
                 {stats.outOfStock}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t.outOfStock}</p>
+              <p className="text-xs text-gray-500 dark:text-white/60">{t.outOfStock}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className={`absolute ${language === 'ar' ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400`} />
@@ -319,30 +339,30 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Products Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div className="bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-100 dark:border-gray-600">
+            <thead className="bg-gray-50 dark:bg-black/80 border-b border-gray-100 dark:border-white/20">
               <tr>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.product}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.price}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.category}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.seller}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.stock}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.status}
                 </th>
-                <th className="text-center py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300">
+                <th className="text-center py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80">
                   {t.actions}
                 </th>
               </tr>
@@ -350,7 +370,7 @@ export default function AdminProductsPage() {
             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={7} className="py-12 text-center text-gray-500 dark:text-white/60">
                     <Package className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
                     {t.noProducts}
                   </td>
@@ -360,7 +380,7 @@ export default function AdminProductsPage() {
                   <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-gray-100 dark:bg-black/80 rounded-lg flex items-center justify-center">
                           <ImageIcon className="w-6 h-6 text-gray-400" />
                         </div>
                         <div>
@@ -384,13 +404,13 @@ export default function AdminProductsPage() {
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+                      <span className="flex items-center gap-1 text-gray-600 dark:text-white/80">
                         <Tag className="w-4 h-4 text-gray-400" />
-                        {product.category}
+                        {categoryTranslations[language][product.category]}
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+                      <span className="flex items-center gap-1 text-gray-600 dark:text-white/80">
                         <Store className="w-4 h-4 text-gray-400" />
                         {product.seller}
                       </span>

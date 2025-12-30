@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLanguageStore } from "@/stores";
+import { useTheme } from "next-themes";
 import {
   Save,
   Globe,
@@ -171,6 +172,7 @@ export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<PlatformSettings>(defaultSettings);
   const [activeTab, setActiveTab] = useState("general");
   const { language } = useLanguageStore();
+  const { theme, setTheme } = useTheme();
   const t = translations[language];
 
   useEffect(() => {
@@ -178,9 +180,54 @@ export default function AdminSettingsPage() {
     // Load settings from localStorage
     const savedSettings = localStorage.getItem("amanoon-platform-settings");
     if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
+      const parsed = JSON.parse(savedSettings);
+      setSettings(parsed);
+      // Apply saved colors to CSS variables
+      applyColors(parsed.appearance.primaryColor, parsed.appearance.accentColor);
     }
   }, []);
+
+  // Apply colors to CSS variables
+  const applyColors = (primary: string, accent: string) => {
+    document.documentElement.style.setProperty('--color-primary-custom', primary);
+    document.documentElement.style.setProperty('--color-accent-custom', accent);
+  };
+
+  // Handle dark mode toggle
+  const handleDarkModeToggle = () => {
+    const newDarkMode = !settings.appearance.darkMode;
+    setSettings({
+      ...settings,
+      appearance: {
+        ...settings.appearance,
+        darkMode: newDarkMode,
+      },
+    });
+    setTheme(newDarkMode ? 'dark' : 'light');
+  };
+
+  // Handle color change
+  const handlePrimaryColorChange = (color: string) => {
+    setSettings({
+      ...settings,
+      appearance: {
+        ...settings.appearance,
+        primaryColor: color,
+      },
+    });
+    applyColors(color, settings.appearance.accentColor);
+  };
+
+  const handleAccentColorChange = (color: string) => {
+    setSettings({
+      ...settings,
+      appearance: {
+        ...settings.appearance,
+        accentColor: color,
+      },
+    });
+    applyColors(settings.appearance.primaryColor, color);
+  };
 
   const handleSave = () => {
     localStorage.setItem("amanoon-platform-settings", JSON.stringify(settings));
@@ -197,8 +244,8 @@ export default function AdminSettingsPage() {
   if (!mounted) {
     return (
       <div className="animate-pulse space-y-6">
-        <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/3"></div>
-        <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+        <div className="h-12 bg-gray-200 dark:bg-black/80 rounded-lg w-1/3"></div>
+        <div className="h-96 bg-gray-200 dark:bg-black/80 rounded-xl"></div>
       </div>
     );
   }
@@ -209,7 +256,7 @@ export default function AdminSettingsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white">{t.platformSettings}</h1>
-          <p className="text-gray-500 dark:text-gray-400">{t.managePlatformSettings}</p>
+          <p className="text-gray-500 dark:text-white/60">{t.managePlatformSettings}</p>
         </div>
         <Button onClick={handleSave} className="gap-2">
           <Save className="w-4 h-4" />
@@ -219,7 +266,7 @@ export default function AdminSettingsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Tabs Sidebar */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 h-fit">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15 h-fit">
           <nav className="space-y-1">
             {tabs.map((tab) => (
               <button
@@ -227,7 +274,7 @@ export default function AdminSettingsPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${language === 'ar' ? 'text-right' : 'text-left'} ${activeTab === tab.id
                   ? "bg-orange-500 text-white"
-                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  : "text-gray-600 dark:text-white/80 hover:bg-gray-100 dark:hover:bg-gray-700"
                   }`}
               >
                 <tab.icon className="w-5 h-5" />
@@ -238,7 +285,7 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Settings Content */}
-        <div className="lg:col-span-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <div className="lg:col-span-3 bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15 p-6">
           {activeTab === "general" && (
             <div className="space-y-6">
               <div>
@@ -250,7 +297,7 @@ export default function AdminSettingsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.siteNameEn}
                   </label>
                   <div className="relative">
@@ -271,7 +318,7 @@ export default function AdminSettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.siteNameAr}
                   </label>
                   <div className="relative">
@@ -292,7 +339,7 @@ export default function AdminSettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.email}
                   </label>
                   <div className="relative">
@@ -314,7 +361,7 @@ export default function AdminSettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.phoneNumber}
                   </label>
                   <div className="relative">
@@ -335,7 +382,7 @@ export default function AdminSettingsPage() {
                   </div>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.addressEn}
                   </label>
                   <div className="relative">
@@ -356,7 +403,7 @@ export default function AdminSettingsPage() {
                   </div>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.addressAr}
                   </label>
                   <div className="relative">
@@ -391,7 +438,7 @@ export default function AdminSettingsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.currency}
                   </label>
                   <select
@@ -405,7 +452,7 @@ export default function AdminSettingsPage() {
                         },
                       })
                     }
-                    className="w-full px-4 py-2 border dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                    className="w-full px-4 py-2 border dark:border-white/20 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-black/80 text-gray-800 dark:text-white"
                   >
                     <option value="SAR">{t.sarCurrency}</option>
                     <option value="USD">{t.usdCurrency}</option>
@@ -414,7 +461,7 @@ export default function AdminSettingsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.taxRate}
                   </label>
                   <div className="relative">
@@ -436,7 +483,7 @@ export default function AdminSettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.freeShippingThreshold}
                   </label>
                   <div className="relative">
@@ -461,7 +508,7 @@ export default function AdminSettingsPage() {
                   </p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.defaultShippingFee}
                   </label>
                   <div className="relative">
@@ -520,11 +567,11 @@ export default function AdminSettingsPage() {
                 ].map((item) => (
                   <div
                     key={item.key}
-                    className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                    className="flex items-center justify-between p-4 bg-gray-50 dark:bg-black/80 rounded-lg"
                   >
                     <div>
                       <p className="font-medium text-gray-800 dark:text-white">{item.label}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.description}</p>
+                      <p className="text-sm text-gray-500 dark:text-white/60">{item.description}</p>
                     </div>
                     <button
                       onClick={() =>
@@ -572,69 +619,37 @@ export default function AdminSettingsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.primaryColor}
                   </label>
                   <div className="flex items-center gap-3">
                     <input
                       type="color"
                       value={settings.appearance.primaryColor}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          appearance: {
-                            ...settings.appearance,
-                            primaryColor: e.target.value,
-                          },
-                        })
-                      }
-                      className="w-12 h-12 rounded-lg border-2 border-gray-200 dark:border-gray-600 cursor-pointer"
+                      onChange={(e) => handlePrimaryColorChange(e.target.value)}
+                      className="w-12 h-12 rounded-lg border-2 border-gray-200 dark:border-white/20 cursor-pointer"
                     />
                     <Input
                       value={settings.appearance.primaryColor}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          appearance: {
-                            ...settings.appearance,
-                            primaryColor: e.target.value,
-                          },
-                        })
-                      }
+                      onChange={(e) => handlePrimaryColorChange(e.target.value)}
                       className="flex-1"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
                     {t.secondaryColor}
                   </label>
                   <div className="flex items-center gap-3">
                     <input
                       type="color"
                       value={settings.appearance.accentColor}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          appearance: {
-                            ...settings.appearance,
-                            accentColor: e.target.value,
-                          },
-                        })
-                      }
-                      className="w-12 h-12 rounded-lg border-2 border-gray-200 dark:border-gray-600 cursor-pointer"
+                      onChange={(e) => handleAccentColorChange(e.target.value)}
+                      className="w-12 h-12 rounded-lg border-2 border-gray-200 dark:border-white/20 cursor-pointer"
                     />
                     <Input
                       value={settings.appearance.accentColor}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          appearance: {
-                            ...settings.appearance,
-                            accentColor: e.target.value,
-                          },
-                        })
-                      }
+                      onChange={(e) => handleAccentColorChange(e.target.value)}
                       className="flex-1"
                     />
                   </div>
@@ -642,30 +657,22 @@ export default function AdminSettingsPage() {
               </div>
 
               <div className="pt-4">
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-black/80 rounded-lg">
                   <div>
                     <p className="font-medium text-gray-800 dark:text-white">{t.darkMode}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-gray-500 dark:text-white/60">
                       {t.darkModeDesc}
                     </p>
                   </div>
                   <button
-                    onClick={() =>
-                      setSettings({
-                        ...settings,
-                        appearance: {
-                          ...settings.appearance,
-                          darkMode: !settings.appearance.darkMode,
-                        },
-                      })
-                    }
-                    className={`relative w-12 h-6 rounded-full transition-colors ${settings.appearance.darkMode
+                    onClick={handleDarkModeToggle}
+                    className={`relative w-12 h-6 rounded-full transition-colors ${theme === 'dark'
                       ? "bg-orange-500"
                       : "bg-gray-300 dark:bg-gray-600"
                       }`}
                   >
                     <span
-                      className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${settings.appearance.darkMode
+                      className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${theme === 'dark'
                         ? (language === 'ar' ? "left-1" : "right-1")
                         : (language === 'ar' ? "left-7" : "right-7")
                         }`}
@@ -675,8 +682,8 @@ export default function AdminSettingsPage() {
               </div>
 
               {/* Preview */}
-              <div className="pt-6 border-t dark:border-gray-700">
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+              <div className="pt-6 border-t dark:border-white/15">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-white/80 mb-3">
                   {t.colorPreview}
                 </h3>
                 <div className="flex gap-4">

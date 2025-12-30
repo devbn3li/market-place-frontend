@@ -236,7 +236,7 @@ export default function AdminDashboard() {
       <div className="animate-pulse space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-32 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+            <div key={i} className="h-32 bg-gray-200 dark:bg-black/80 rounded-xl"></div>
           ))}
         </div>
       </div>
@@ -258,11 +258,11 @@ export default function AdminDashboard() {
         {statCards.map((stat, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-black rounded-xl p-6 shadow-sm border border-gray-100 dark:border-white/15 hover:shadow-md transition-shadow"
           >
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                <p className="text-sm text-gray-500 dark:text-white/60 mb-1">
                   {language === "ar" ? stat.titleAr : stat.titleEn}
                 </p>
                 <p className="text-2xl font-bold text-gray-800 dark:text-white">{stat.value}</p>
@@ -294,8 +294,8 @@ export default function AdminDashboard() {
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Activity */}
-        <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-          <div className="p-6 border-b border-gray-100 dark:border-gray-700">
+        <div className="lg:col-span-2 bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15">
+          <div className="p-6 border-b border-gray-100 dark:border-white/15">
             <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
               {t.recentActivity[language]}
             </h2>
@@ -305,14 +305,14 @@ export default function AdminDashboard() {
               {recentActivities.map((activity) => (
                 <div
                   key={activity.id}
-                  className="flex items-start gap-4 p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="flex items-start gap-4 p-4 rounded-lg bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
                 >
                   {getStatusIcon(activity.status)}
                   <div className="flex-1">
-                    <p className="text-gray-800 dark:text-gray-200">
+                    <p className="text-gray-800 dark:text-white">
                       {language === "ar" ? activity.messageAr : activity.messageEn}
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-xs text-gray-400 dark:text-white/50 mt-1">
                       {language === "ar" ? activity.timeAr : activity.timeEn}
                     </p>
                   </div>
@@ -323,8 +323,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-          <div className="p-6 border-b border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15">
+          <div className="p-6 border-b border-gray-100 dark:border-white/15">
             <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
               {t.quickActions[language]}
             </h2>
@@ -385,22 +385,22 @@ export default function AdminDashboard() {
 
       {/* Charts Section (Placeholder) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <div className="bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15 p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
             {t.salesStats[language]}
           </h2>
-          <div className="h-64 bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
+          <div className="h-64 bg-linear-to-br from-gray-50 to-gray-100 dark:from-black/80 dark:to-black/60 rounded-lg flex items-center justify-center">
             <div className="text-center text-gray-400">
               <TrendingUp className="w-12 h-12 mx-auto mb-2" />
               <p>{t.salesChart[language]}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <div className="bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15 p-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
             {t.userDistribution[language]}
           </h2>
-          <div className="h-64 bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
+          <div className="h-64 bg-linear-to-br from-gray-50 to-gray-100 dark:from-black/80 dark:to-black/60 rounded-lg flex items-center justify-center">
             <div className="text-center text-gray-400">
               <Users className="w-12 h-12 mx-auto mb-2" />
               <p>{t.usersChart[language]}</p>

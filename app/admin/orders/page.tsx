@@ -298,8 +298,8 @@ export default function AdminOrdersPage() {
   if (!mounted) {
     return (
       <div className="animate-pulse space-y-6">
-        <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/3"></div>
-        <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+        <div className="h-12 bg-gray-200 dark:bg-black/80 rounded-lg w-1/3"></div>
+        <div className="h-96 bg-gray-200 dark:bg-black/80 rounded-xl"></div>
       </div>
     );
   }
@@ -310,42 +310,42 @@ export default function AdminOrdersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white">{t.orderManagement}</h1>
-          <p className="text-gray-500 dark:text-gray-400">{t.totalOrders.replace("{count}", orders.length.toString())}</p>
+          <p className="text-gray-500 dark:text-white/60">{t.totalOrders.replace("{count}", orders.length.toString())}</p>
         </div>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <p className="text-2xl font-bold text-gray-800 dark:text-white">{stats.total}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{t.totalOrdersStat}</p>
+          <p className="text-xs text-gray-500 dark:text-white/60">{t.totalOrdersStat}</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.pending}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{t.waitingOrders}</p>
+          <p className="text-xs text-gray-500 dark:text-white/60">{t.waitingOrders}</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.processing}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{t.processingOrders}</p>
+          <p className="text-xs text-gray-500 dark:text-white/60">{t.processingOrders}</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{stats.shipped}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{t.shippedOrders}</p>
+          <p className="text-xs text-gray-500 dark:text-white/60">{t.shippedOrders}</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <p className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.delivered}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{t.deliveredOrders}</p>
+          <p className="text-xs text-gray-500 dark:text-white/60">{t.deliveredOrders}</p>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+        <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
           <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
             {stats.totalRevenue.toLocaleString()} {t.currency}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{t.totalRevenue}</p>
+          <p className="text-xs text-gray-500 dark:text-white/60">{t.totalRevenue}</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="bg-white dark:bg-black rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/15">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className={`absolute ${language === 'ar' ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400`} />
@@ -391,30 +391,30 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <div className="bg-white dark:bg-black rounded-xl shadow-sm border border-gray-100 dark:border-white/15 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-100 dark:border-gray-600">
+            <thead className="bg-gray-50 dark:bg-black/80 border-b border-gray-100 dark:border-white/20">
               <tr>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.orderNumber}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.customer}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.products}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.total}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.status}
                 </th>
-                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300`}>
+                <th className={`${language === 'ar' ? 'text-right' : 'text-left'} py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80`}>
                   {t.date}
                 </th>
-                <th className="text-center py-4 px-6 text-sm font-medium text-gray-500 dark:text-gray-300">
+                <th className="text-center py-4 px-6 text-sm font-medium text-gray-500 dark:text-white/80">
                   {t.actions}
                 </th>
               </tr>
@@ -422,7 +422,7 @@ export default function AdminOrdersPage() {
             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
               {filteredOrders.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={7} className="py-12 text-center text-gray-500 dark:text-white/60">
                     <ShoppingCart className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" />
                     {t.noOrders}
                   </td>
@@ -446,7 +446,7 @@ export default function AdminOrdersPage() {
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <p className="text-gray-600 dark:text-gray-300">
+                      <p className="text-gray-600 dark:text-white/80">
                         {order.items.length} {t.product}
                         {language === 'ar' && order.items.length > 1 ? "ات" : language === 'en' && order.items.length > 1 ? "s" : ""}
                       </p>
@@ -458,7 +458,7 @@ export default function AdminOrdersPage() {
                     </td>
                     <td className="py-4 px-6">{getStatusBadge(order.status)}</td>
                     <td className="py-4 px-6">
-                      <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300 text-sm">
+                      <div className="flex items-center gap-1 text-gray-600 dark:text-white/80 text-sm">
                         <Calendar className="w-4 h-4 text-gray-400" />
                         {new Date(order.createdAt).toLocaleDateString(language === 'ar' ? "ar-SA" : "en-US")}
                       </div>
@@ -486,7 +486,7 @@ export default function AdminOrdersPage() {
                                   <h3 className="text-lg font-semibold dark:text-white">
                                     {selectedOrder.orderNumber}
                                   </h3>
-                                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                                  <p className="text-sm text-gray-500 dark:text-white/60">
                                     {new Date(
                                       selectedOrder.createdAt
                                     ).toLocaleString(language === 'ar' ? "ar-SA" : "en-US")}
@@ -496,7 +496,7 @@ export default function AdminOrdersPage() {
                               </div>
 
                               {/* Customer Info */}
-                              <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl space-y-3">
+                              <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
                                 <h4 className="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
                                   <User className="w-4 h-4" />
                                   {t.customerInfo}
@@ -505,28 +505,28 @@ export default function AdminOrdersPage() {
                                   <p className="text-gray-800 dark:text-white">
                                     {selectedOrder.customer.name}
                                   </p>
-                                  <p className="text-gray-600 dark:text-gray-300">
+                                  <p className="text-gray-600 dark:text-white/80">
                                     {selectedOrder.customer.email}
                                   </p>
-                                  <p className="text-gray-600 dark:text-gray-300">
+                                  <p className="text-gray-600 dark:text-white/80">
                                     {selectedOrder.customer.phone}
                                   </p>
                                 </div>
                               </div>
 
                               {/* Shipping Address */}
-                              <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl space-y-3">
+                              <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
                                 <h4 className="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
                                   <MapPin className="w-4 h-4" />
                                   {t.shippingAddress}
                                 </h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-300">
+                                <p className="text-sm text-gray-600 dark:text-white/80">
                                   {selectedOrder.shippingAddress}
                                 </p>
                               </div>
 
                               {/* Order Items */}
-                              <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl space-y-3">
+                              <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
                                 <h4 className="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
                                   <Package className="w-4 h-4" />
                                   {t.orderItems}
@@ -535,7 +535,7 @@ export default function AdminOrdersPage() {
                                   {selectedOrder.items.map((item, index) => (
                                     <div
                                       key={index}
-                                      className="flex items-center justify-between bg-white dark:bg-gray-800 p-3 rounded-lg"
+                                      className="flex items-center justify-between bg-white dark:bg-black p-3 rounded-lg"
                                     >
                                       <div>
                                         <p className="font-medium text-gray-800 dark:text-white">
@@ -554,18 +554,18 @@ export default function AdminOrdersPage() {
                               </div>
 
                               {/* Payment */}
-                              <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl space-y-3">
+                              <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
                                 <h4 className="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
                                   <DollarSign className="w-4 h-4" />
                                   {t.payment}
                                 </h4>
                                 <div className="flex items-center justify-between">
-                                  <p className="text-gray-600 dark:text-gray-300">{t.paymentMethod}</p>
+                                  <p className="text-gray-600 dark:text-white/80">{t.paymentMethod}</p>
                                   <p className="font-medium text-gray-800 dark:text-white">
                                     {selectedOrder.paymentMethod}
                                   </p>
                                 </div>
-                                <div className="flex items-center justify-between pt-2 border-t dark:border-gray-600">
+                                <div className="flex items-center justify-between pt-2 border-t dark:border-white/20">
                                   <p className="font-semibold text-gray-800 dark:text-white">
                                     {t.total}
                                   </p>
