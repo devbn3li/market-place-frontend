@@ -14,6 +14,20 @@ export interface Address {
   isDefault: boolean;
 }
 
+export type AccountType = "buyer" | "seller";
+export type SellerStatus = "none" | "pending" | "approved" | "rejected";
+
+export interface SellerInfo {
+  storeName: string;
+  storeNameAr: string;
+  storeDescription: string;
+  storeDescriptionAr: string;
+  businessType: string;
+  status: SellerStatus;
+  appliedAt?: string;
+  approvedAt?: string;
+}
+
 export interface User {
   id: string;
   firstName: string;
@@ -22,6 +36,8 @@ export interface User {
   phone: string;
   createdAt: string;
   addresses: Address[];
+  accountType: AccountType;
+  sellerInfo?: SellerInfo;
 }
 
 interface StoredUser extends User {
@@ -43,12 +59,17 @@ interface AuthStore {
     email: string;
     phone: string;
     password: string;
+    accountType?: AccountType;
   }) => { success: boolean; message: string };
   logout: () => void;
   addAddress: (address: Omit<Address, "id">) => void;
   updateAddress: (id: string, address: Partial<Address>) => void;
   deleteAddress: (id: string) => void;
   setDefaultAddress: (id: string) => void;
+  applyToBecomeSeller: (
+    sellerData: Omit<SellerInfo, "status" | "appliedAt" | "approvedAt">
+  ) => { success: boolean; message: string };
+  updateUser: (userData: Partial<User>) => void;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -81,6 +102,7 @@ export const useAuthStore = create<AuthStore>()(
           password: userData.password,
           createdAt: new Date().toISOString(),
           addresses: [],
+          accountType: userData.accountType || "buyer",
         };
 
         const userWithoutPassword: User = {
@@ -91,6 +113,7 @@ export const useAuthStore = create<AuthStore>()(
           phone: newUser.phone,
           createdAt: newUser.createdAt,
           addresses: newUser.addresses,
+          accountType: newUser.accountType,
         };
 
         set({
@@ -129,6 +152,8 @@ export const useAuthStore = create<AuthStore>()(
           phone: foundUser.phone,
           createdAt: foundUser.createdAt,
           addresses: foundUser.addresses || [],
+          accountType: foundUser.accountType || "buyer",
+          sellerInfo: foundUser.sellerInfo,
         };
 
         set({
@@ -225,6 +250,43 @@ export const useAuthStore = create<AuthStore>()(
         const updatedUser = { ...user, addresses };
         const updatedUsers = users.map((u) =>
           u.id === user.id ? { ...u, addresses } : u
+        );
+
+        set({ user: updatedUser, users: updatedUsers });
+      },
+
+      applyToBecomeSeller: (sellerData) => {
+        const { user, users } = get();
+        if (!user) {
+          return { success: false, message: "User not found" };
+        }
+
+        const sellerInfo: SellerInfo = {
+          ...sellerData,
+          status: "pending",
+          appliedAt: new Date().toISOString(),
+        };
+
+        const updatedUser = { ...user, sellerInfo };
+        const updatedUsers = users.map((u) =>
+          u.id === user.id ? { ...u, sellerInfo } : u
+        );
+
+        set({ user: updatedUser, users: updatedUsers });
+
+        return {
+          success: true,
+          message: "Application submitted successfully",
+        };
+      },
+
+      updateUser: (userData) => {
+        const { user, users } = get();
+        if (!user) return;
+
+        const updatedUser = { ...user, ...userData };
+        const updatedUsers = users.map((u) =>
+          u.id === user.id ? { ...u, ...userData } : u
         );
 
         set({ user: updatedUser, users: updatedUsers });

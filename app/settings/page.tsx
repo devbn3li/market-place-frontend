@@ -16,6 +16,10 @@ import {
   CreditCard,
   Package,
   ChevronRight,
+  Store,
+  Clock,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import { useToastAlert } from "@/hooks/use-toast-alert";
 import Link from "next/link";
@@ -58,6 +62,16 @@ const t = {
   allowDataSharing: { en: "Allow data sharing with partners", ar: "السماح بمشاركة البيانات مع الشركاء" },
   allowTracking: { en: "Allow activity tracking", ar: "السماح بتتبع النشاط" },
   allowAds: { en: "Show personalized ads", ar: "عرض إعلانات مخصصة" },
+  becomeSeller: { en: "Become a Seller", ar: "كن بائعاً" },
+  becomeSellerDesc: { en: "Start selling your products on Amanoon", ar: "ابدأ ببيع منتجاتك على أمانون" },
+  applyNow: { en: "Apply Now", ar: "قدم الآن" },
+  sellerBenefits: { en: "Reach millions of customers and grow your business", ar: "وصل لملايين العملاء ونمِّ عملك" },
+  applicationPending: { en: "Application Pending", ar: "الطلب قيد المراجعة" },
+  applicationPendingDesc: { en: "Your seller application is being reviewed", ar: "طلبك للبيع قيد المراجعة" },
+  applicationApproved: { en: "Seller Account Active", ar: "حساب البائع نشط" },
+  goToSellerCenter: { en: "Go to Seller Center", ar: "اذهب إلى مركز البائعين" },
+  applicationRejected: { en: "Application Rejected", ar: "تم رفض الطلب" },
+  reapply: { en: "Reapply", ar: "أعد التقديم" },
 };
 
 const quickLinks = [
@@ -469,6 +483,58 @@ export default function SettingsPage() {
                 })}
               </div>
             </div>
+
+            {/* Become a Seller Section */}
+            {user?.accountType !== "seller" && (
+              <div className="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl p-6 text-white">
+                {!user?.sellerInfo || user.sellerInfo.status === "none" ? (
+                  <>
+                    <Store className="h-10 w-10 mb-4" />
+                    <h3 className="font-bold text-lg mb-2">{t.becomeSeller[language]}</h3>
+                    <p className="text-sm text-white/90 mb-4">
+                      {t.sellerBenefits[language]}
+                    </p>
+                    <Link href="/become-seller">
+                      <Button className="w-full bg-white text-orange-500 hover:bg-white/90">
+                        {t.applyNow[language]}
+                        <ChevronRight className={`h-4 w-4 ${language === "ar" ? "mr-2 rotate-180" : "ml-2"}`} />
+                      </Button>
+                    </Link>
+                  </>
+                ) : user.sellerInfo.status === "pending" ? (
+                  <div className="text-center">
+                    <Clock className="h-10 w-10 mx-auto mb-4" />
+                    <h3 className="font-bold text-lg mb-2">{t.applicationPending[language]}</h3>
+                    <p className="text-sm text-white/90">
+                      {t.applicationPendingDesc[language]}
+                    </p>
+                  </div>
+                ) : user.sellerInfo.status === "rejected" ? (
+                  <>
+                    <XCircle className="h-10 w-10 mb-4" />
+                    <h3 className="font-bold text-lg mb-2">{t.applicationRejected[language]}</h3>
+                    <Link href="/become-seller">
+                      <Button className="w-full bg-white text-orange-500 hover:bg-white/90 mt-4">
+                        {t.reapply[language]}
+                      </Button>
+                    </Link>
+                  </>
+                ) : null}
+              </div>
+            )}
+
+            {user?.accountType === "seller" && (
+              <div className="bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl p-6 text-white">
+                <CheckCircle className="h-10 w-10 mb-4" />
+                <h3 className="font-bold text-lg mb-2">{t.applicationApproved[language]}</h3>
+                <Link href="/seller-center">
+                  <Button className="w-full bg-white text-green-600 hover:bg-white/90 mt-4">
+                    {t.goToSellerCenter[language]}
+                    <ChevronRight className={`h-4 w-4 ${language === "ar" ? "mr-2 rotate-180" : "ml-2"}`} />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Lock, User, ArrowRight, Phone, Loader2, AlertTriangle } from "lucide-react";
+import { Mail, Lock, User, ArrowRight, Phone, Loader2, AlertTriangle, Store, ShoppingBag } from "lucide-react";
 import { useLanguageStore, useAuthStore } from "@/stores";
 import { toast } from "sonner";
 
@@ -52,6 +52,11 @@ const t = {
   createAccountBtn: { en: "Create Account", ar: "إنشاء حساب" },
   orSignUpWith: { en: "Or sign up with", ar: "أو سجل باستخدام" },
   alreadyHaveAccount: { en: "Already have an account?", ar: "لديك حساب بالفعل؟" },
+  accountType: { en: "Account Type", ar: "نوع الحساب" },
+  buyer: { en: "Buyer", ar: "مشتري" },
+  buyerDesc: { en: "Shop and buy products", ar: "تسوق واشترِ المنتجات" },
+  seller: { en: "Seller", ar: "بائع" },
+  sellerDesc: { en: "Sell your products on Amanoon", ar: "بع منتجاتك على أمانون" },
 };
 
 export default function RegisterPage() {
@@ -66,6 +71,7 @@ export default function RegisterPage() {
     phone: "",
     password: "",
     confirmPassword: "",
+    accountType: "buyer" as "buyer" | "seller",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -99,6 +105,7 @@ export default function RegisterPage() {
       email: formData.email,
       phone: formData.phone,
       password: formData.password,
+      accountType: formData.accountType,
     });
 
     if (result.success) {
@@ -107,7 +114,7 @@ export default function RegisterPage() {
           ? "تم إنشاء الحساب بنجاح!"
           : "Account created successfully!"
       );
-      router.push("/profile");
+      router.push(formData.accountType === "seller" ? "/seller-center" : "/profile");
     } else {
       toast.error(
         language === "ar"
@@ -140,6 +147,37 @@ export default function RegisterPage() {
           {/* Register Form */}
           <div className="bg-card rounded-2xl shadow-lg border p-8">
             <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Account Type Selection */}
+              <div className="space-y-3">
+                <label className="text-sm font-medium">{t.accountType[language]}</label>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, accountType: "buyer" })}
+                    className={`p-4 rounded-xl border-2 transition-all text-center ${formData.accountType === "buyer"
+                        ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20"
+                        : "border-muted hover:border-orange-200"
+                      }`}
+                  >
+                    <ShoppingBag className={`h-8 w-8 mx-auto mb-2 ${formData.accountType === "buyer" ? "text-orange-500" : "text-muted-foreground"}`} />
+                    <p className="font-bold">{t.buyer[language]}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{t.buyerDesc[language]}</p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, accountType: "seller" })}
+                    className={`p-4 rounded-xl border-2 transition-all text-center ${formData.accountType === "seller"
+                        ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20"
+                        : "border-muted hover:border-orange-200"
+                      }`}
+                  >
+                    <Store className={`h-8 w-8 mx-auto mb-2 ${formData.accountType === "seller" ? "text-orange-500" : "text-muted-foreground"}`} />
+                    <p className="font-bold">{t.seller[language]}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{t.sellerDesc[language]}</p>
+                  </button>
+                </div>
+              </div>
+
               {/* Name */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
