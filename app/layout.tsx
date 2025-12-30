@@ -101,6 +101,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} ${cairo.variable} font-sans antialiased min-h-screen flex flex-col`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
