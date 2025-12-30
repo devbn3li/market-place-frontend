@@ -68,6 +68,16 @@ const sidebarLinks = [
   },
 ];
 
+// Searchable items for admin
+const searchableItems = [
+  { href: "/admin", labelAr: "لوحة التحكم", labelEn: "Dashboard", keywordsAr: "رئيسية احصائيات", keywordsEn: "home stats overview" },
+  { href: "/admin/users", labelAr: "المستخدمين", labelEn: "Users", keywordsAr: "عملاء مستخدم حساب", keywordsEn: "customers accounts members" },
+  { href: "/admin/sellers", labelAr: "البائعين", labelEn: "Sellers", keywordsAr: "متجر تاجر بائع", keywordsEn: "vendors merchants stores" },
+  { href: "/admin/products", labelAr: "المنتجات", labelEn: "Products", keywordsAr: "سلع منتج مخزون", keywordsEn: "items inventory goods" },
+  { href: "/admin/orders", labelAr: "الطلبات", labelEn: "Orders", keywordsAr: "طلب شراء مبيعات", keywordsEn: "purchases sales transactions" },
+  { href: "/admin/settings", labelAr: "الإعدادات", labelEn: "Settings", keywordsAr: "تكوين خيارات", keywordsEn: "configuration options preferences" },
+];
+
 export default function AdminLayout({
   children,
 }: {
@@ -81,8 +91,29 @@ export default function AdminLayout({
   const [mounted, setMounted] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const isRTL = language === "ar";
+
+  // Filter search results
+  const searchResults = searchQuery.trim()
+    ? searchableItems.filter((item) => {
+      const query = searchQuery.toLowerCase();
+      return (
+        item.labelAr.includes(searchQuery) ||
+        item.labelEn.toLowerCase().includes(query) ||
+        item.keywordsAr.includes(searchQuery) ||
+        item.keywordsEn.toLowerCase().includes(query)
+      );
+    })
+    : [];
+
+  const handleSearchSelect = (href: string) => {
+    router.push(href);
+    setSearchQuery("");
+    setSearchOpen(false);
+  };
 
   // Mock notifications data
   const notifications = [
@@ -396,12 +427,58 @@ export default function AdminLayout({
           </div>
 
           <div className="flex items-center gap-4">
+            {/* Search Box */}
             <div className="relative">
-              <Search className={`absolute ${isRTL ? "right-3" : "left-3"} top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400`} />
+              <Search className={`absolute ${isRTL ? "right-3" : "left-3"} top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10`} />
               <Input
                 placeholder={t.search[language]}
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setSearchOpen(true);
+                }}
+                onFocus={() => setSearchOpen(true)}
                 className={`${isRTL ? "pr-10" : "pl-10"} w-64 bg-gray-50 dark:bg-black/80 border-gray-200 dark:border-white/20`}
               />
+
+              {/* Search Results Dropdown */}
+              {searchOpen && searchQuery.trim() && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setSearchOpen(false)}
+                  />
+                  <div className={`absolute top-full ${isRTL ? 'left-0' : 'right-0'} mt-2 w-72 bg-white dark:bg-black rounded-xl shadow-xl border dark:border-white/15 z-50 overflow-hidden`}>
+                    {searchResults.length > 0 ? (
+                      <div className="py-2">
+                        {searchResults.map((item) => (
+                          <button
+                            key={item.href}
+                            onClick={() => handleSearchSelect(item.href)}
+                            className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-white/10 transition-colors text-start"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                              <Search className="w-4 h-4 text-orange-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-800 dark:text-white">
+                                {language === 'ar' ? item.labelAr : item.labelEn}
+                              </p>
+                              <p className="text-xs text-gray-500 dark:text-white/50">
+                                {item.href}
+                              </p>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-6 text-center text-gray-500 dark:text-white/50">
+                        {language === 'ar' ? 'لا توجد نتائج' : 'No results found'}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Notifications Button - Desktop */}

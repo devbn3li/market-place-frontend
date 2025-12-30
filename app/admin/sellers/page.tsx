@@ -20,7 +20,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { toast } from "sonner";
 
@@ -119,6 +118,17 @@ export default function AdminSellersPage() {
   const [selectedSeller, setSelectedSeller] = useState<SellerWithUser | null>(
     null
   );
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const openSellerDetails = (seller: SellerWithUser) => {
+    setSelectedSeller(seller);
+    setSheetOpen(true);
+  };
+
+  const closeSheet = () => {
+    setSheetOpen(false);
+    setSelectedSeller(null);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -161,7 +171,7 @@ export default function AdminSellersPage() {
     if (result.success) {
       toast.success(t.requestApproved);
       loadSellers();
-      setSelectedSeller(null);
+      closeSheet();
     } else {
       toast.error(result.message);
     }
@@ -173,7 +183,7 @@ export default function AdminSellersPage() {
       if (result.success) {
         toast.success(t.requestRejected);
         loadSellers();
-        setSelectedSeller(null);
+        closeSheet();
       } else {
         toast.error(result.message);
       }
@@ -376,156 +386,15 @@ export default function AdminSellersPage() {
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-gray-100 dark:border-white/15 flex gap-2">
-                  <Sheet>
-                    <SheetTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 gap-2"
-                        onClick={() => setSelectedSeller(seller)}
-                      >
-                        <Eye className="w-4 h-4" />
-                        {t.viewDetails}
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent side={language === 'ar' ? "left" : "right"} className="w-full sm:max-w-lg">
-                      <SheetHeader>
-                        <SheetTitle>{t.sellerRequestDetails}</SheetTitle>
-                      </SheetHeader>
-                      {selectedSeller && (
-                        <div className="mt-6 space-y-6 overflow-y-auto max-h-[calc(100vh-150px)]">
-                          {/* Store Info */}
-                          <div className="flex items-center gap-4">
-                            <div className="w-16 h-16 bg-linear-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-white text-2xl font-bold">
-                              {selectedSeller.sellerInfo.storeName.charAt(0)}
-                            </div>
-                            <div>
-                              <h3 className="text-lg font-semibold dark:text-white">
-                                {selectedSeller.sellerInfo.storeNameAr}
-                              </h3>
-                              <p className="text-gray-500 dark:text-white/60">
-                                {selectedSeller.sellerInfo.storeName}
-                              </p>
-                              {getStatusBadge(selectedSeller.sellerInfo.status)}
-                            </div>
-                          </div>
-
-                          {/* Owner Info */}
-                          <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
-                            <h4 className="font-medium text-gray-700 dark:text-gray-200">
-                              {t.ownerInfo}
-                            </h4>
-                            <div className="grid grid-cols-2 gap-3">
-                              <div>
-                                <p className="text-xs text-gray-400">{t.name}</p>
-                                <p className="text-gray-800 dark:text-white">
-                                  {selectedSeller.firstName}{" "}
-                                  {selectedSeller.lastName}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-xs text-gray-400">
-                                  {t.email}
-                                </p>
-                                <p className="text-gray-800 dark:text-white">
-                                  {selectedSeller.email}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-xs text-gray-400">{t.phone}</p>
-                                <p className="text-gray-800 dark:text-white">
-                                  {selectedSeller.phone || t.notSpecified}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-xs text-gray-400">
-                                  {t.businessType}
-                                </p>
-                                <p className="text-gray-800 dark:text-white">
-                                  {getBusinessTypeName(
-                                    selectedSeller.sellerInfo.businessType
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Store Description */}
-                          <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
-                            <h4 className="font-medium text-gray-700 dark:text-gray-200">
-                              {t.storeDescription}
-                            </h4>
-                            <p className="text-gray-600 dark:text-white/80 text-sm">
-                              {selectedSeller.sellerInfo.storeDescriptionAr}
-                            </p>
-                            <p className="text-gray-500 dark:text-white/60 text-sm">
-                              {selectedSeller.sellerInfo.storeDescription}
-                            </p>
-                          </div>
-
-                          {/* Timeline */}
-                          <div className="p-4 bg-gray-50 dark:bg-black/80 rounded-xl space-y-3">
-                            <h4 className="font-medium text-gray-700 dark:text-gray-200">
-                              {t.timeline}
-                            </h4>
-                            <div className="space-y-2">
-                              <div className="flex items-center gap-3">
-                                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <div>
-                                  <p className="text-sm text-gray-800 dark:text-white">
-                                    {t.submissionDate}
-                                  </p>
-                                  <p className="text-xs text-gray-400">
-                                    {new Date(
-                                      selectedSeller.sellerInfo.appliedAt || ""
-                                    ).toLocaleDateString(language === 'ar' ? "ar-SA" : "en-US")}
-                                  </p>
-                                </div>
-                              </div>
-                              {selectedSeller.sellerInfo.approvedAt && (
-                                <div className="flex items-center gap-3">
-                                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                  <div>
-                                    <p className="text-sm text-gray-800 dark:text-white">
-                                      {t.approvalDate}
-                                    </p>
-                                    <p className="text-xs text-gray-400">
-                                      {new Date(
-                                        selectedSeller.sellerInfo.approvedAt
-                                      ).toLocaleDateString(language === 'ar' ? "ar-SA" : "en-US")}
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Actions */}
-                          {selectedSeller.sellerInfo.status === "pending" && (
-                            <div className="flex gap-3 pt-4">
-                              <Button
-                                className="flex-1 gap-2 bg-green-600 hover:bg-green-700"
-                                onClick={() =>
-                                  handleApprove(selectedSeller.id)
-                                }
-                              >
-                                <CheckCircle className="w-4 h-4" />
-                                {t.approveRequest}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                className="flex-1 gap-2"
-                                onClick={() => handleReject(selectedSeller.id)}
-                              >
-                                <XCircle className="w-4 h-4" />
-                                {t.rejectRequest}
-                              </Button>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </SheetContent>
-                  </Sheet>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 gap-2"
+                    onClick={() => openSellerDetails(seller)}
+                  >
+                    <Eye className="w-4 h-4" />
+                    {t.viewDetails}
+                  </Button>
 
                   {seller.sellerInfo.status === "pending" && (
                     <>
@@ -551,6 +420,144 @@ export default function AdminSellersPage() {
           ))
         )}
       </div>
+
+      {/* Seller Details Sheet */}
+      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+        <SheetContent side={language === 'ar' ? "left" : "right"} className="w-full sm:max-w-lg p-0 flex flex-col">
+          <SheetHeader className="p-6 pb-4 border-b dark:border-white/15">
+            <SheetTitle className="text-start text-lg">{t.sellerRequestDetails}</SheetTitle>
+          </SheetHeader>
+          {selectedSeller && (
+            <div className="flex-1 overflow-y-auto p-6 space-y-5">
+              {/* Store Info */}
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 bg-linear-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shrink-0">
+                  {selectedSeller.sellerInfo.storeName.charAt(0)}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base font-semibold text-gray-900 dark:text-white truncate">
+                    {selectedSeller.sellerInfo.storeNameAr}
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-white/60 truncate">
+                    {selectedSeller.sellerInfo.storeName}
+                  </p>
+                  <div className="mt-2">
+                    {getStatusBadge(selectedSeller.sellerInfo.status)}
+                  </div>
+                </div>
+              </div>
+
+              {/* Owner Info */}
+              <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-xl">
+                <h4 className="font-medium text-gray-900 dark:text-white text-sm mb-3">
+                  {t.ownerInfo}
+                </h4>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-white/50 mb-0.5">{t.name}</p>
+                    <p className="text-sm text-gray-800 dark:text-white font-medium">
+                      {selectedSeller.firstName} {selectedSeller.lastName}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-white/50 mb-0.5">{t.email}</p>
+                    <p className="text-sm text-gray-800 dark:text-white font-medium truncate">
+                      {selectedSeller.email}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-white/50 mb-0.5">{t.phone}</p>
+                    <p className="text-sm text-gray-800 dark:text-white font-medium">
+                      {selectedSeller.phone || t.notSpecified}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-white/50 mb-0.5">{t.businessType}</p>
+                    <p className="text-sm text-gray-800 dark:text-white font-medium">
+                      {getBusinessTypeName(selectedSeller.sellerInfo.businessType)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Store Description */}
+              <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-xl">
+                <h4 className="font-medium text-gray-900 dark:text-white text-sm mb-2">
+                  {t.storeDescription}
+                </h4>
+                <p className="text-sm text-gray-700 dark:text-white/80 leading-relaxed mb-2">
+                  {selectedSeller.sellerInfo.storeDescriptionAr}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-white/60 leading-relaxed">
+                  {selectedSeller.sellerInfo.storeDescription}
+                </p>
+              </div>
+
+              {/* Timeline */}
+              <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-xl">
+                <h4 className="font-medium text-gray-900 dark:text-white text-sm mb-3">
+                  {t.timeline}
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2.5 h-2.5 bg-blue-500 rounded-full shrink-0"></div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-800 dark:text-white">
+                        {t.submissionDate}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-white/50">
+                        {new Date(selectedSeller.sellerInfo.appliedAt || "").toLocaleDateString(
+                          language === 'ar' ? "ar-SA" : "en-US",
+                          { year: 'numeric', month: 'long', day: 'numeric' }
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                  {selectedSeller.sellerInfo.approvedAt && (
+                    <div className="flex items-center gap-3">
+                      <div className="w-2.5 h-2.5 bg-green-500 rounded-full shrink-0"></div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-800 dark:text-white">
+                          {t.approvalDate}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-white/50">
+                          {new Date(selectedSeller.sellerInfo.approvedAt).toLocaleDateString(
+                            language === 'ar' ? "ar-SA" : "en-US",
+                            { year: 'numeric', month: 'long', day: 'numeric' }
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Fixed Actions Footer */}
+          {selectedSeller?.sellerInfo.status === "pending" && (
+            <div className="p-6 pt-4 border-t dark:border-white/15 bg-white dark:bg-black">
+              <div className="flex gap-3">
+                <Button
+                  className="flex-1 gap-2 bg-green-600 hover:bg-green-700"
+                  onClick={() => handleApprove(selectedSeller.id)}
+                >
+                  <CheckCircle className="w-4 h-4" />
+                  {t.approveRequest}
+                </Button>
+                <Button
+                  variant="destructive"
+                  className="flex-1 gap-2"
+                  onClick={() => handleReject(selectedSeller.id)}
+                >
+                  <XCircle className="w-4 h-4" />
+                  {t.rejectRequest}
+                </Button>
+              </div>
+            </div>
+          )}
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
