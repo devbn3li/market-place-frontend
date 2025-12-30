@@ -194,7 +194,7 @@ export default function CategoriesPage() {
   return (
     <div className="min-h-screen bg-muted/30" dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 text-white py-12">
+      <div className="bg-linear-to-r from-orange-500 via-yellow-500 to-orange-600 text-white py-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-2">
             {language === "ar" ? "تصفح الفئات" : "Browse Categories"}
@@ -242,7 +242,7 @@ export default function CategoriesPage() {
 
       {/* Featured Categories Banner */}
       <div className="container mx-auto px-4 pb-12">
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white">
+        <div className="bg-linear-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h2 className="text-2xl font-bold mb-2">

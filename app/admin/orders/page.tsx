@@ -224,7 +224,7 @@ type FilterStatus = "all" | "pending" | "processing" | "shipped" | "delivered" |
 
 export default function AdminOrdersPage() {
   const [mounted, setMounted] = useState(false);
-  const [orders, setOrders] = useState<Order[]>(mockOrders);
+  const [orders] = useState<Order[]>(mockOrders);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState<FilterStatus>("all");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);

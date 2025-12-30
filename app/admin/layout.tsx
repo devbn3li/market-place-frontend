@@ -143,7 +143,7 @@ export default function AdminLayout({
       {/* Logo */}
       <div className="p-6 border-b dark:border-gray-700">
         <Link href="/admin" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-xl">A</span>
           </div>
           <div>
@@ -244,7 +244,7 @@ export default function AdminLayout({
         </Sheet>
 
         <Link href="/admin" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-linear-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold">A</span>
           </div>
           <span className="font-bold text-gray-800 dark:text-white">{t.controlPanel[language]}</span>

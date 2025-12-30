@@ -145,7 +145,7 @@ export default function ReturnsPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 text-white py-16">
+      <div className="bg-linear-to-r from-orange-500 via-yellow-500 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4 mb-4">
             <div className="p-3 bg-white/20 rounded-xl">
@@ -320,7 +320,7 @@ export default function ReturnsPage() {
 
         {/* Start Return CTA */}
         <section className="mb-16">
-          <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-8 text-white text-center">
+          <div className="bg-linear-to-r from-orange-500 to-amber-500 rounded-2xl p-8 text-white text-center">
             <RotateCcw className="h-12 w-12 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-3">
               {language === "ar" ? "جاهز لبدء الإرجاع؟" : "Ready to Start a Return?"}

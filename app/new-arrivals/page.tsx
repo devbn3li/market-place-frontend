@@ -110,7 +110,7 @@ export default function NewArrivalsPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-green-600 via-teal-500 to-cyan-500 text-white py-16">
+      <div className="bg-linear-to-r from-green-600 via-teal-500 to-cyan-500 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
             <Sparkles className="h-10 w-10" />
@@ -228,7 +228,7 @@ export default function NewArrivalsPage() {
                   />
                   {/* Badge */}
                   {product.badge && (
-                    <span className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                    <span className="absolute top-2 left-2 bg-linear-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
                       <Sparkles className="h-3 w-3" />
                       {product.badge[language]}
                     </span>
@@ -299,7 +299,7 @@ export default function NewArrivalsPage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                   {product.badge && (
-                    <span className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                    <span className="absolute top-2 left-2 bg-linear-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
                       <Sparkles className="h-3 w-3" />
                       {product.badge[language]}
                     </span>
@@ -379,7 +379,7 @@ export default function NewArrivalsPage() {
       </div>
 
       {/* Newsletter CTA */}
-      <div className="bg-gradient-to-r from-green-600 to-teal-500 text-white py-12 mt-12">
+      <div className="bg-linear-to-r from-green-600 to-teal-500 text-white py-12 mt-12">
         <div className="container mx-auto px-4 text-center">
           <BadgeCheck className="h-12 w-12 mx-auto mb-4" />
           <h2 className="text-2xl font-bold mb-2">

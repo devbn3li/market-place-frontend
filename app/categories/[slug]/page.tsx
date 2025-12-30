@@ -362,7 +362,7 @@ export default function CategoryPage() {
     >
       {/* Hero Section */}
       <div
-        className={`bg-gradient-to-r ${category.color} text-white py-12`}
+        className={`bg-linear-to-r ${category.color} text-white py-12`}
       >
         <div className="container mx-auto px-4">
           <Link

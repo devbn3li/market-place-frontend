@@ -101,7 +101,7 @@ export default function LoginPage() {
           {/* Header */}
           <div className="text-center">
             <Link href="/" className="inline-block mb-6">
-              <span className="text-4xl font-bold bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 bg-clip-text text-transparent">
+              <span className="text-4xl font-bold bg-linear-to-r from-orange-500 via-yellow-500 to-orange-600 bg-clip-text text-transparent">
                 {language === "ar" ? "امانون" : "Amanoon"}
               </span>
             </Link>

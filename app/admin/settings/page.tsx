@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useAuthStore, useLanguageStore } from "@/stores";
+import { useLanguageStore } from "@/stores";
 import {
   Save,
   Globe,
   CreditCard,
   Bell,
-  Shield,
   Palette,
   Store,
   Mail,

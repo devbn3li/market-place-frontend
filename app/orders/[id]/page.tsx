@@ -299,12 +299,12 @@ export default function OrderDetailsPage() {
                       <div key={step.key} className="flex flex-col items-center relative z-10">
                         <div
                           className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all ${isCompleted
-                              ? "bg-green-500 border-green-500 text-white"
-                              : isCurrent
-                                ? isCancelled
-                                  ? "bg-red-500 border-red-500 text-white"
-                                  : "bg-orange-500 border-orange-500 text-white"
-                                : "bg-muted border-muted-foreground/30 text-muted-foreground"
+                            ? "bg-green-500 border-green-500 text-white"
+                            : isCurrent
+                              ? isCancelled
+                                ? "bg-red-500 border-red-500 text-white"
+                                : "bg-orange-500 border-orange-500 text-white"
+                              : "bg-muted border-muted-foreground/30 text-muted-foreground"
                             }`}
                         >
                           <StepIcon className="h-5 w-5" />
@@ -320,7 +320,7 @@ export default function OrderDetailsPage() {
                   })}
                 </div>
                 {/* Progress Line */}
-                <div className="absolute top-6 left-0 right-0 h-0.5 bg-muted-foreground/20 -z-0" style={{ width: "100%", transform: "translateX(0)" }}>
+                <div className="absolute top-6 left-0 right-0 h-0.5 bg-muted-foreground/20 z-0" style={{ width: "100%", transform: "translateX(0)" }}>
                   <div
                     className={`h-full transition-all ${order.status === "cancelled" ? "bg-red-500" : "bg-green-500"}`}
                     style={{

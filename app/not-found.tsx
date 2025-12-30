@@ -10,7 +10,7 @@ export default function NotFound() {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center px-4"
+      className="min-h-screen bg-linear-to-b from-background to-muted/30 flex items-center justify-center px-4"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <div className="text-center max-w-lg">
@@ -20,7 +20,7 @@ export default function NotFound() {
             404
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-3 rounded-2xl shadow-lg transform -rotate-6 animate-pulse">
+            <div className="bg-linear-to-r from-orange-500 to-amber-500 text-white px-6 py-3 rounded-2xl shadow-lg transform -rotate-6 animate-pulse">
               <span className="text-2xl font-bold">
                 {language === "ar" ? "عذراً!" : "Oops!"}
               </span>

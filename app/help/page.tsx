@@ -499,7 +499,7 @@ export default function HelpPage() {
 
         {/* Self Service Banner */}
         <section>
-          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 md:p-12 text-white text-center">
+          <div className="bg-linear-to-r from-orange-500 to-red-500 rounded-2xl p-8 md:p-12 text-white text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
               {language === "ar"
                 ? "إدارة طلباتك بسهولة"

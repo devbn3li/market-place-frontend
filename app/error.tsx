@@ -22,7 +22,7 @@ export default function Error({
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center px-4"
+      className="min-h-screen bg-linear-to-b from-background to-muted/30 flex items-center justify-center px-4"
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       <div className="flex flex-col items-center justify-center text-center max-w-lg">

@@ -211,7 +211,7 @@ export default function BecomeSellerPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Benefits */}
           <div className="lg:col-span-1">
-            <div className="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl p-6 text-white sticky top-8">
+            <div className="bg-linear-to-br from-orange-500 to-yellow-500 rounded-xl p-6 text-white sticky top-8">
               <h2 className="text-xl font-bold mb-6">{t.whySell[language]}</h2>
               <div className="space-y-6">
                 {benefits.map((benefit, index) => {
@@ -285,7 +285,7 @@ export default function BecomeSellerPage() {
                     value={formData.storeDescription}
                     onChange={(e) => setFormData({ ...formData, storeDescription: e.target.value })}
                     placeholder={t.storeDescPlaceholder[language]}
-                    className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="w-full min-h-25 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     required
                   />
                 </div>
@@ -299,7 +299,7 @@ export default function BecomeSellerPage() {
                     value={formData.storeDescriptionAr}
                     onChange={(e) => setFormData({ ...formData, storeDescriptionAr: e.target.value })}
                     placeholder={t.storeDescPlaceholder[language]}
-                    className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="w-full min-h-25 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     dir="rtl"
                     required
                   />

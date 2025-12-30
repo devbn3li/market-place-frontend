@@ -486,7 +486,7 @@ export default function SettingsPage() {
 
             {/* Become a Seller Section */}
             {user?.accountType !== "seller" && (
-              <div className="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl p-6 text-white">
+              <div className="bg-linear-to-br from-orange-500 to-yellow-500 rounded-xl p-6 text-white">
                 {!user?.sellerInfo || user.sellerInfo.status === "none" ? (
                   <>
                     <Store className="h-10 w-10 mb-4" />
@@ -524,7 +524,7 @@ export default function SettingsPage() {
             )}
 
             {user?.accountType === "seller" && (
-              <div className="bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl p-6 text-white">
+              <div className="bg-linear-to-br from-green-500 to-emerald-500 rounded-xl p-6 text-white">
                 <CheckCircle className="h-10 w-10 mb-4" />
                 <h3 className="font-bold text-lg mb-2">{t.applicationApproved[language]}</h3>
                 <Link href="/seller-center">

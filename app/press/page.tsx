@@ -158,7 +158,7 @@ export default function PressPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-20">
+      <div className="bg-linear-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-20">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
             <Newspaper className="h-10 w-10" />
@@ -344,7 +344,7 @@ export default function PressPage() {
 
         {/* Executive Quote */}
         <section className="mb-16">
-          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 md:p-12 text-white">
+          <div className="bg-linear-to-r from-orange-500 to-red-500 rounded-2xl p-8 md:p-12 text-white">
             <Quote className="h-12 w-12 opacity-50 mb-4" />
             <blockquote className="text-xl md:text-2xl font-medium mb-6 max-w-3xl">
               {language === "ar"

@@ -202,7 +202,7 @@ export default function BlogPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white py-16">
+      <div className="bg-linear-to-r from-purple-600 via-pink-500 to-orange-500 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="h-10 w-10" />
@@ -255,7 +255,7 @@ export default function BlogPage() {
                   alt={post.title[language]}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <span className="inline-block bg-orange-500 text-xs font-bold px-3 py-1 rounded-full mb-3">
                     {post.category[language]}

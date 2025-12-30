@@ -637,7 +637,7 @@ export default function CareersPage() {
       )}
 
       {/* CTA Banner */}
-      <div className="bg-gradient-to-r from-orange-500 to-pink-500 text-white py-12">
+      <div className="bg-linear-to-r from-orange-500 to-pink-500 text-white py-12">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-2">
             {language === "ar"

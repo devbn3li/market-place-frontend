@@ -5,7 +5,6 @@ import { useLanguageStore } from "@/stores";
 import {
   Search,
   Package,
-  Filter,
   Eye,
   Edit,
   Trash2,
@@ -13,7 +12,6 @@ import {
   Image as ImageIcon,
   Tag,
   Store,
-  MoreVertical,
   CheckCircle,
   XCircle,
 } from "lucide-react";
@@ -156,7 +154,7 @@ const translations = {
 
 export default function AdminProductsPage() {
   const [mounted, setMounted] = useState(false);
-  const [products, setProducts] = useState<Product[]>(mockProducts);
+  const [products] = useState<Product[]>(mockProducts);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState<FilterStatus>("all");
   const { language } = useLanguageStore();
@@ -425,16 +423,16 @@ export default function AdminProductsPage() {
                           size="icon"
                           className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30">
                           <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </td>
+                        </Button>
+                      </div>
+                    </td>
                   </tr>
-            ))
+                ))
               )}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </div >
   );
 }

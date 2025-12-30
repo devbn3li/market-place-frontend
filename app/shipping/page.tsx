@@ -168,7 +168,7 @@ export default function ShippingPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 text-white py-16">
+      <div className="bg-linear-to-r from-orange-500 via-yellow-500 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4 mb-4">
             <div className="p-3 bg-white/20 rounded-xl">
@@ -314,7 +314,7 @@ export default function ShippingPage() {
 
         {/* Shipping Calculator Promo */}
         <section className="mb-16">
-          <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-8 text-white">
+          <div className="bg-linear-to-r from-orange-500 to-amber-500 rounded-2xl p-8 text-white">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 <div className="p-4 bg-white/20 rounded-xl">

@@ -389,7 +389,7 @@ export default function AdminDashboard() {
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
             {t.salesStats[language]}
           </h2>
-          <div className="h-64 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
+          <div className="h-64 bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
             <div className="text-center text-gray-400">
               <TrendingUp className="w-12 h-12 mx-auto mb-2" />
               <p>{t.salesChart[language]}</p>
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
             {t.userDistribution[language]}
           </h2>
-          <div className="h-64 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
+          <div className="h-64 bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
             <div className="text-center text-gray-400">
               <Users className="w-12 h-12 mx-auto mb-2" />
               <p>{t.usersChart[language]}</p>

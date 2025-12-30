@@ -50,7 +50,7 @@ export default function WishlistPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}
-      <div className="bg-gradient-to-r from-pink-500 via-red-500 to-pink-600 text-white py-12">
+      <div className="bg-linear-to-r from-pink-500 via-red-500 to-pink-600 text-white py-12">
         <div className="container mx-auto px-4">
           <Link
             href="/"

@@ -9,13 +9,9 @@ import {
   XCircle,
   Clock,
   Eye,
-  FileText,
   Mail,
-  Phone,
   Calendar,
-  MapPin,
   Building,
-  Filter,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -133,6 +129,7 @@ export default function AdminSellersPage() {
     if (mounted) {
       loadSellers();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted]);
 
   const loadSellers = () => {
@@ -345,7 +342,7 @@ export default function AdminSellersPage() {
               <div className="p-5">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-linear-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center text-white font-bold">
                       {seller.sellerInfo.storeName.charAt(0)}
                     </div>
                     <div>
@@ -399,7 +396,7 @@ export default function AdminSellersPage() {
                         <div className="mt-6 space-y-6 overflow-y-auto max-h-[calc(100vh-150px)]">
                           {/* Store Info */}
                           <div className="flex items-center gap-4">
-                            <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-white text-2xl font-bold">
+                            <div className="w-16 h-16 bg-linear-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-white text-2xl font-bold">
                               {selectedSeller.sellerInfo.storeName.charAt(0)}
                             </div>
                             <div>

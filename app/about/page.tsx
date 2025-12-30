@@ -150,7 +150,7 @@ export default function AboutPage() {
                   <span className="text-muted-foreground mx-2">+</span>
                   <span className="font-bold text-[#FEEE00] dark:text-yellow-400">noon</span>
                   <span className="text-muted-foreground mx-2">=</span>
-                  <span className="font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent text-xl">
+                  <span className="font-bold bg-linear-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent text-xl">
                     {language === "ar" ? "أمانون" : "Amanoon"}
                   </span>
                 </p>
@@ -286,7 +286,7 @@ export default function AboutPage() {
       </div>
 
       {/* Footer Banner */}
-      <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-12">
+      <div className="bg-linear-to-r from-orange-500 to-yellow-500 text-white py-12">
         <div className="container mx-auto px-4 text-center">
           <Heart className="h-8 w-8 mx-auto mb-4" />
           <p className="text-lg">

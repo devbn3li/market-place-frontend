@@ -208,7 +208,7 @@ export default function PaymentMethodsPage() {
                         <div
                           className={`w-14 h-10 rounded-md flex items-center justify-center ${card.type === "visa"
                               ? "bg-blue-600"
-                              : "bg-gradient-to-r from-red-500 to-yellow-500"
+                              : "bg-linear-to-r from-red-500 to-yellow-500"
                             }`}
                         >
                           <span className="text-white text-xs font-bold">

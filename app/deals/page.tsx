@@ -115,7 +115,7 @@ export default function DealsPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 text-white py-12">
+      <div className="bg-linear-to-r from-red-600 via-orange-500 to-yellow-500 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3 mb-2">
             <Zap className="h-8 w-8" />
@@ -133,7 +133,7 @@ export default function DealsPage() {
 
       {/* Flash Deals Section */}
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-6 mb-8">
+        <div className="bg-linear-to-r from-red-500 to-orange-500 rounded-2xl p-6 mb-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-3 text-white">
               <Flame className="h-8 w-8 animate-pulse" />
@@ -258,7 +258,7 @@ export default function DealsPage() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div
-                  className={`absolute inset-0 bg-gradient-to-t ${cat.color} opacity-70`}
+                  className={`absolute inset-0 bg-linear-to-t ${cat.color} opacity-70`}
                 />
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
                   <h3 className="text-xl font-bold mb-1">
@@ -336,7 +336,7 @@ export default function DealsPage() {
         </div>
 
         {/* Promo Banner */}
-        <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-2xl p-8 text-white text-center">
+        <div className="bg-linear-to-r from-purple-600 via-pink-500 to-red-500 rounded-2xl p-8 text-white text-center">
           <TrendingUp className="h-12 w-12 mx-auto mb-4" />
           <h2 className="text-3xl font-bold mb-2">
             {language === "ar"

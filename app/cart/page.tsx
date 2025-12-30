@@ -76,7 +76,7 @@ export default function CartPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-500 to-amber-500 text-white py-12">
+      <div className="bg-linear-to-r from-orange-500 to-amber-500 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3">
             <ShoppingCart className="h-8 w-8" />

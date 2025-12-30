@@ -118,9 +118,9 @@ export default function BestSellersPage() {
   };
 
   const getRankBg = (rank: number) => {
-    if (rank === 1) return "bg-gradient-to-r from-yellow-400 to-amber-500";
-    if (rank === 2) return "bg-gradient-to-r from-gray-300 to-gray-400";
-    if (rank === 3) return "bg-gradient-to-r from-amber-500 to-amber-600";
+    if (rank === 1) return "bg-linear-to-r from-yellow-400 to-amber-500";
+    if (rank === 2) return "bg-linear-to-r from-gray-300 to-gray-400";
+    if (rank === 3) return "bg-linear-to-r from-amber-500 to-amber-600";
     return "bg-orange-500";
   };
 
@@ -130,7 +130,7 @@ export default function BestSellersPage() {
       dir={language === "ar" ? "rtl" : "ltr"}
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-600 via-red-500 to-pink-500 text-white py-16">
+      <div className="bg-linear-to-r from-orange-600 via-red-500 to-pink-500 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
             <Trophy className="h-10 w-10" />
@@ -449,7 +449,7 @@ export default function BestSellersPage() {
       </div>
 
       {/* Why Best Sellers Section */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-500 text-white py-12 mt-12">
+      <div className="bg-linear-to-r from-orange-600 to-red-500 text-white py-12 mt-12">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center mb-8">
             {language === "ar"

@@ -4,15 +4,10 @@ import { useEffect, useState } from "react";
 import { useAuthStore, User, AccountType, useLanguageStore } from "@/stores";
 import {
   Search,
-  Filter,
-  MoreVertical,
-  UserPlus,
   Mail,
   Phone,
   Calendar,
-  Shield,
   Trash2,
-  Edit,
   Eye,
   Download,
 } from "lucide-react";
@@ -101,6 +96,7 @@ export default function AdminUsersPage() {
     if (mounted) {
       loadUsers();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted]);
 
   const loadUsers = () => {
@@ -263,7 +259,7 @@ export default function AdminUsersPage() {
                   <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-semibold">
+                        <div className="w-10 h-10 bg-linear-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-semibold">
                           {user.firstName.charAt(0)}
                         </div>
                         <div>
@@ -314,7 +310,7 @@ export default function AdminUsersPage() {
                             {selectedUser && (
                               <div className="mt-6 space-y-6">
                                 <div className="flex items-center gap-4">
-                                  <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-2xl font-semibold">
+                                  <div className="w-16 h-16 bg-linear-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-2xl font-semibold">
                                     {selectedUser.firstName.charAt(0)}
                                   </div>
                                   <div>
