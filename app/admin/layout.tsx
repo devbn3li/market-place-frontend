@@ -231,8 +231,9 @@ export default function AdminLayout({
       {/* Logo */}
       <div className="px-6 py-3 border-b dark:border-white/15">
         <Link href="/admin" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-xl">A</span>
+          <div className="w-10 h-10 rounded-lg overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="Amanoon" className="w-full h-full object-cover" />
           </div>
           <div>
             <h1 className="font-bold text-lg text-gray-800 dark:text-white">Amanoon</h1>
@@ -332,8 +333,9 @@ export default function AdminLayout({
         </Sheet>
 
         <Link href="/admin" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-linear-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold">A</span>
+          <div className="w-8 h-8 rounded-lg overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="Amanoon" className="w-full h-full object-cover" />
           </div>
           <span className="font-bold text-gray-800 dark:text-white">{t.controlPanel[language]}</span>
         </Link>
