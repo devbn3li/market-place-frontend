@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Cairo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
 import { Toaster } from "sonner";
 import { StoreProvider } from "@/stores";
+import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -92,7 +91,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://upload.wikimedia.org" />
         <link rel="dns-prefetch" href="https://upload.wikimedia.org" />
-        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#f97316" />
         <meta name="application-name" content="Amanoon Demo" />
         <meta name="apple-mobile-web-app-title" content="Amanoon Demo" />
@@ -111,9 +109,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <StoreProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <LayoutWrapper>{children}</LayoutWrapper>
             <Toaster position="top-center" richColors />
           </StoreProvider>
         </ThemeProvider>

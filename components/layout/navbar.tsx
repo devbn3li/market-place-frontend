@@ -3,7 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown, Heart, Settings } from "lucide-react";
+import { Menu, ShoppingCart, User, Search, Globe, Moon, Sun, LogOut, ChevronDown, Heart, Settings, LayoutDashboard } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -206,6 +206,16 @@ export function Navbar() {
                           <Settings className="h-4 w-4" />
                           <span>{language === "ar" ? "الإعدادات" : "Settings"}</span>
                         </Link>
+                        {user.accountType === "admin" && (
+                          <Link
+                            href="/admin"
+                            onClick={() => setShowUserMenu(false)}
+                            className="flex items-center gap-3 px-4 py-2 hover:bg-muted transition-colors text-orange-600"
+                          >
+                            <LayoutDashboard className="h-4 w-4" />
+                            <span>{language === "ar" ? "لوحة التحكم" : "Admin Dashboard"}</span>
+                          </Link>
+                        )}
                       </div>
                       <div className="border-t py-2">
                         <button

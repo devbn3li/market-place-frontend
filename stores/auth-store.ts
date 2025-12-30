@@ -14,7 +14,7 @@ export interface Address {
   isDefault: boolean;
 }
 
-export type AccountType = "buyer" | "seller";
+export type AccountType = "buyer" | "seller" | "admin";
 export type SellerStatus = "none" | "pending" | "approved" | "rejected";
 
 export interface SellerInfo {
@@ -70,6 +70,21 @@ interface AuthStore {
     sellerData: Omit<SellerInfo, "status" | "appliedAt" | "approvedAt">
   ) => { success: boolean; message: string };
   updateUser: (userData: Partial<User>) => void;
+  // Admin functions
+  getAllUsers: () => User[];
+  approveSellerApplication: (userId: string) => {
+    success: boolean;
+    message: string;
+  };
+  rejectSellerApplication: (userId: string) => {
+    success: boolean;
+    message: string;
+  };
+  deleteUser: (userId: string) => { success: boolean; message: string };
+  updateUserAccountType: (
+    userId: string,
+    accountType: AccountType
+  ) => { success: boolean; message: string };
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -290,6 +305,135 @@ export const useAuthStore = create<AuthStore>()(
         );
 
         set({ user: updatedUser, users: updatedUsers });
+      },
+
+      // Admin functions
+      getAllUsers: () => {
+        const { users } = get();
+        return users.map((u) => ({
+          id: u.id,
+          firstName: u.firstName,
+          lastName: u.lastName,
+          email: u.email,
+          phone: u.phone,
+          createdAt: u.createdAt,
+          addresses: u.addresses || [],
+          accountType: u.accountType || "buyer",
+          sellerInfo: u.sellerInfo,
+        }));
+      },
+
+      approveSellerApplication: (userId) => {
+        const { users, user } = get();
+        const targetUser = users.find((u) => u.id === userId);
+
+        if (!targetUser) {
+          return { success: false, message: "User not found" };
+        }
+
+        if (!targetUser.sellerInfo) {
+          return { success: false, message: "No seller application found" };
+        }
+
+        const updatedSellerInfo: SellerInfo = {
+          ...targetUser.sellerInfo,
+          status: "approved",
+          approvedAt: new Date().toISOString(),
+        };
+
+        const updatedUsers = users.map((u) =>
+          u.id === userId
+            ? {
+                ...u,
+                accountType: "seller" as AccountType,
+                sellerInfo: updatedSellerInfo,
+              }
+            : u
+        );
+
+        // Update current user if it's the same
+        const updatedCurrentUser =
+          user?.id === userId
+            ? {
+                ...user,
+                accountType: "seller" as AccountType,
+                sellerInfo: updatedSellerInfo,
+              }
+            : user;
+
+        set({ users: updatedUsers, user: updatedCurrentUser });
+
+        return { success: true, message: "Seller application approved" };
+      },
+
+      rejectSellerApplication: (userId) => {
+        const { users, user } = get();
+        const targetUser = users.find((u) => u.id === userId);
+
+        if (!targetUser) {
+          return { success: false, message: "User not found" };
+        }
+
+        if (!targetUser.sellerInfo) {
+          return { success: false, message: "No seller application found" };
+        }
+
+        const updatedSellerInfo: SellerInfo = {
+          ...targetUser.sellerInfo,
+          status: "rejected",
+        };
+
+        const updatedUsers = users.map((u) =>
+          u.id === userId ? { ...u, sellerInfo: updatedSellerInfo } : u
+        );
+
+        const updatedCurrentUser =
+          user?.id === userId
+            ? { ...user, sellerInfo: updatedSellerInfo }
+            : user;
+
+        set({ users: updatedUsers, user: updatedCurrentUser });
+
+        return { success: true, message: "Seller application rejected" };
+      },
+
+      deleteUser: (userId) => {
+        const { users, user } = get();
+        const targetUser = users.find((u) => u.id === userId);
+
+        if (!targetUser) {
+          return { success: false, message: "User not found" };
+        }
+
+        // Prevent deleting current admin
+        if (user?.id === userId) {
+          return { success: false, message: "Cannot delete current user" };
+        }
+
+        const updatedUsers = users.filter((u) => u.id !== userId);
+        set({ users: updatedUsers });
+
+        return { success: true, message: "User deleted successfully" };
+      },
+
+      updateUserAccountType: (userId, accountType) => {
+        const { users, user } = get();
+        const targetUser = users.find((u) => u.id === userId);
+
+        if (!targetUser) {
+          return { success: false, message: "User not found" };
+        }
+
+        const updatedUsers = users.map((u) =>
+          u.id === userId ? { ...u, accountType } : u
+        );
+
+        const updatedCurrentUser =
+          user?.id === userId ? { ...user, accountType } : user;
+
+        set({ users: updatedUsers, user: updatedCurrentUser });
+
+        return { success: true, message: "Account type updated successfully" };
       },
     }),
     {
