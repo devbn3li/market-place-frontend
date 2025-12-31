@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLanguageStore, useAuthStore } from "@/stores";
@@ -26,12 +26,21 @@ export default function ProfilePage() {
   const { language } = useLanguageStore();
   const { user, isAuthenticated, isLoading, logout } = useAuthStore();
   const router = useRouter();
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");
     }
   }, [isLoading, isAuthenticated, router]);
+
+  // Load profile photo from localStorage
+  useEffect(() => {
+    const savedPhoto = localStorage.getItem('profilePhoto');
+    if (savedPhoto) {
+      setProfilePhoto(savedPhoto);
+    }
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -135,9 +144,20 @@ export default function ProfilePage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-6">
             {/* Avatar */}
-            <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-4xl font-bold">
-              {user.firstName.charAt(0).toUpperCase()}
-              {user.lastName.charAt(0).toUpperCase()}
+            <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-4xl font-bold overflow-hidden">
+              {profilePhoto ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={profilePhoto}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <>
+                  {user.firstName.charAt(0).toUpperCase()}
+                  {user.lastName.charAt(0).toUpperCase()}
+                </>
+              )}
             </div>
 
             {/* User Info */}

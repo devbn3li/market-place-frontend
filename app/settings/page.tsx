@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useLanguageStore, useAuthStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,11 @@ import {
   Clock,
   CheckCircle,
   XCircle,
+  Camera,
+  X,
+  ZoomIn,
+  ZoomOut,
+  Move,
 } from "lucide-react";
 import { useToastAlert } from "@/hooks/use-toast-alert";
 import Link from "next/link";
@@ -28,6 +33,14 @@ const t = {
   settings: { en: "Settings", ar: "الإعدادات" },
   accountSettings: { en: "Account Settings", ar: "إعدادات الحساب" },
   personalInfo: { en: "Personal Information", ar: "المعلومات الشخصية" },
+  profilePhoto: { en: "Profile Photo", ar: "صورة الملف الشخصي" },
+  changePhoto: { en: "Change Photo", ar: "تغيير الصورة" },
+  cropImage: { en: "Crop Image", ar: "قص الصورة" },
+  dragToMove: { en: "Drag to move, scroll to zoom", ar: "اسحب للتحريك، مرر للتكبير" },
+  apply: { en: "Apply", ar: "تطبيق" },
+  cancel: { en: "Cancel", ar: "إلغاء" },
+  uploadPhoto: { en: "Upload a photo", ar: "ارفع صورة" },
+  photoUpdated: { en: "Profile photo updated", ar: "تم تحديث صورة الملف الشخصي" },
   fullName: { en: "Full Name", ar: "الاسم الكامل" },
   email: { en: "Email Address", ar: "البريد الإلكتروني" },
   phone: { en: "Phone Number", ar: "رقم الهاتف" },
@@ -140,6 +153,133 @@ export default function SettingsPage() {
     personalizedAds: true,
   });
 
+  // Profile photo states
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  const [showCropper, setShowCropper] = useState(false);
+  const [tempImage, setTempImage] = useState<string | null>(null);
+  const [cropPosition, setCropPosition] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Load saved profile photo from localStorage
+  useEffect(() => {
+    const savedPhoto = localStorage.getItem('profilePhoto');
+    if (savedPhoto) {
+      setProfilePhoto(savedPhoto);
+    }
+  }, []);
+
+  const handlePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imgSrc = event.target?.result as string;
+        // Load image to get dimensions
+        const img = new Image();
+        img.onload = () => {
+          setImageDimensions({ width: img.width, height: img.height });
+          setTempImage(imgSrc);
+          setCropPosition({ x: 0, y: 0 });
+          setZoom(1);
+          setShowCropper(true);
+        };
+        img.src = imgSrc;
+      };
+      reader.readAsDataURL(file);
+    }
+    // Reset input value to allow selecting the same file again
+    e.target.value = '';
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragStart({ x: e.clientX - cropPosition.x, y: e.clientY - cropPosition.y });
+  };
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const newX = e.clientX - dragStart.x;
+    const newY = e.clientY - dragStart.y;
+    
+    // Calculate limits based on image aspect ratio
+    // Allow more movement for tall/wide images
+    const containerSize = 300; // Approximate container size
+    const aspectRatio = imageDimensions.width / imageDimensions.height || 1;
+    
+    let limitX, limitY;
+    if (aspectRatio > 1) {
+      // Wide image - allow more horizontal movement
+      limitX = (containerSize * (aspectRatio - 1) / 2 + 50) * zoom;
+      limitY = 50 * zoom;
+    } else {
+      // Tall image - allow more vertical movement
+      limitX = 50 * zoom;
+      limitY = (containerSize * (1/aspectRatio - 1) / 2 + 50) * zoom;
+    }
+    
+    setCropPosition({
+      x: Math.max(-limitX, Math.min(limitX, newX)),
+      y: Math.max(-limitY, Math.min(limitY, newY)),
+    });
+  }, [isDragging, dragStart, zoom, imageDimensions]);
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    setZoom(prev => Math.max(1, Math.min(3, prev + delta)));
+  };
+
+  const handleCropApply = () => {
+    if (!tempImage || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const img = new Image();
+    img.onload = () => {
+      const size = 200; // Output size
+      canvas.width = size;
+      canvas.height = size;
+
+      // Calculate crop area
+      const cropSize = Math.min(img.width, img.height) / zoom;
+      const centerX = img.width / 2 - (cropPosition.x / zoom) * (img.width / 200);
+      const centerY = img.height / 2 - (cropPosition.y / zoom) * (img.height / 200);
+      const sx = centerX - cropSize / 2;
+      const sy = centerY - cropSize / 2;
+
+      ctx.drawImage(img, sx, sy, cropSize, cropSize, 0, 0, size, size);
+
+      const croppedImage = canvas.toDataURL('image/jpeg', 0.9);
+      setProfilePhoto(croppedImage);
+      localStorage.setItem('profilePhoto', croppedImage);
+      setShowCropper(false);
+      setTempImage(null);
+      toastAlert.success(t.photoUpdated[language]);
+    };
+    img.src = tempImage;
+  };
+
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    setTempImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   const handleSavePersonalInfo = (e: React.FormEvent) => {
     e.preventDefault();
     toastAlert.success(
@@ -188,6 +328,60 @@ export default function SettingsPage() {
               </div>
 
               <form onSubmit={handleSavePersonalInfo} className="space-y-4">
+                {/* Profile Photo */}
+                <div>
+                  <label className="block text-sm font-medium mb-3">
+                    {t.profilePhoto[language]}
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <div className="relative group">
+                      <div className="w-20 h-20 rounded-full bg-orange-100 dark:bg-orange-900/20 flex items-center justify-center overflow-hidden border-2 border-orange-200 dark:border-orange-800">
+                        {profilePhoto ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
+                            src={profilePhoto}
+                            alt="Profile"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <span className="text-2xl font-bold text-orange-500">
+                            {user?.firstName?.charAt(0).toUpperCase() || 'U'}
+                            {user?.lastName?.charAt(0).toUpperCase() || ''}
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                      >
+                        <Camera className="h-6 w-6 text-white" />
+                      </button>
+                    </div>
+                    <div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <Camera className="h-4 w-4 mr-2" />
+                        {t.changePhoto[language]}
+                      </Button>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        JPG, PNG - {language === "ar" ? "الحد الأقصى 5MB" : "Max 5MB"}
+                      </p>
+                    </div>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={handlePhotoSelect}
+                      className="hidden"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium mb-2">
                     {t.fullName[language]}
@@ -538,6 +732,136 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
+
+      {/* Image Cropper Modal */}
+      {showCropper && tempImage && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+          <div className="bg-card rounded-2xl w-full max-w-md overflow-hidden">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b">
+              <h3 className="font-bold text-lg">{t.cropImage[language]}</h3>
+              <button
+                onClick={handleCropCancel}
+                className="p-2 hover:bg-muted rounded-full transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Crop Area */}
+            <div
+              ref={containerRef}
+              className="relative bg-black aspect-square overflow-hidden cursor-move"
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onWheel={handleWheel}
+              onTouchStart={(e) => {
+                const touch = e.touches[0];
+                setIsDragging(true);
+                setDragStart({ x: touch.clientX - cropPosition.x, y: touch.clientY - cropPosition.y });
+              }}
+              onTouchMove={(e) => {
+                if (!isDragging) return;
+                const touch = e.touches[0];
+                const newX = touch.clientX - dragStart.x;
+                const newY = touch.clientY - dragStart.y;
+                
+                const containerSize = 300;
+                const aspectRatio = imageDimensions.width / imageDimensions.height || 1;
+                
+                let limitX, limitY;
+                if (aspectRatio > 1) {
+                  limitX = (containerSize * (aspectRatio - 1) / 2 + 50) * zoom;
+                  limitY = 50 * zoom;
+                } else {
+                  limitX = 50 * zoom;
+                  limitY = (containerSize * (1/aspectRatio - 1) / 2 + 50) * zoom;
+                }
+                
+                setCropPosition({
+                  x: Math.max(-limitX, Math.min(limitX, newX)),
+                  y: Math.max(-limitY, Math.min(limitY, newY)),
+                });
+              }}
+              onTouchEnd={() => setIsDragging(false)}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                ref={imageRef}
+                src={tempImage}
+                alt="Crop preview"
+                className="absolute top-1/2 left-1/2 max-w-none pointer-events-none select-none"
+                style={{
+                  transform: `translate(-50%, -50%) translate(${cropPosition.x}px, ${cropPosition.y}px) scale(${zoom})`,
+                  width: imageDimensions.width > imageDimensions.height ? 'auto' : '100%',
+                  height: imageDimensions.width > imageDimensions.height ? '100%' : 'auto',
+                  minWidth: '100%',
+                  minHeight: '100%',
+                  objectFit: 'contain',
+                }}
+                draggable={false}
+              />
+
+              {/* Crop overlay */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 border-4 border-white/30 rounded-full m-4" />
+                <svg className="absolute inset-0 w-full h-full">
+                  <defs>
+                    <mask id="cropMask">
+                      <rect width="100%" height="100%" fill="white" />
+                      <circle cx="50%" cy="50%" r="calc(50% - 16px)" fill="black" />
+                    </mask>
+                  </defs>
+                  <rect width="100%" height="100%" fill="rgba(0,0,0,0.5)" mask="url(#cropMask)" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Zoom Controls */}
+            <div className="p-4 border-t space-y-3">
+              <div className="flex items-center gap-3">
+                <ZoomOut className="h-4 w-4 text-muted-foreground" />
+                <input
+                  type="range"
+                  min="1"
+                  max="3"
+                  step="0.1"
+                  value={zoom}
+                  onChange={(e) => setZoom(parseFloat(e.target.value))}
+                  className="flex-1 accent-orange-500"
+                />
+                <ZoomIn className="h-4 w-4 text-muted-foreground" />
+              </div>
+              <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
+                <Move className="h-3 w-3" />
+                {t.dragToMove[language]}
+              </p>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex gap-3 p-4 border-t">
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={handleCropCancel}
+              >
+                {t.cancel[language]}
+              </Button>
+              <Button
+                className="flex-1 bg-orange-500 hover:bg-orange-600"
+                onClick={handleCropApply}
+              >
+                {t.apply[language]}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden canvas for cropping */}
+      <canvas ref={canvasRef} className="hidden" />
     </div>
   );
 }
